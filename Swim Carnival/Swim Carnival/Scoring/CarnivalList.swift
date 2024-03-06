@@ -11,8 +11,13 @@ struct CarnivalList: View {
     var body: some View {
         VStack {
             List() {
-                
+                NavigationLink {
+                    EventsList()
+                } label: {
+                    CarnivalLabelButton()
+                }
             }
+            
         }
     }
 }

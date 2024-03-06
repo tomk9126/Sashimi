@@ -14,7 +14,7 @@ struct ContentView: View {
         NavigationSplitView {
                 CarnivalList()
             } detail: {
-                EventsList()
+                NoCarnivalSelected()
             }
     }
 }

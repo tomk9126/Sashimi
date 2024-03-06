@@ -20,13 +20,35 @@ struct EventsList: View {
         Event(eventName: "Freestyle", eventGender: "Boys", eventAgeGroup: "Under 15"),
     ]
     
+    @State private var showingSheet = false
+    
     @State private var selection: Set<Event.ID> = []
     var body: some View {
-        Table(events, selection: $selection) {
-                    TableColumn("Event Name", value: \.eventName)
-                    TableColumn("Gender", value: \.eventGender)
-                    TableColumn("Age Group", value: \.eventAgeGroup)
-                }
+        NavigationStack {
+            Table(events, selection: $selection) {
+                        TableColumn("Event Name", value: \.eventName)
+                        TableColumn("Gender", value: \.eventGender)
+                        TableColumn("Age Group", value: \.eventAgeGroup)
+                    }
+        }
+        .navigationTitle(Text("Carnival Name"))
+        .toolbar {
+            ToolbarItemGroup {
+                Button("Show Sheet", systemImage: "plus") {
+                            showingSheet.toggle()
+                        }
+                        .sheet(isPresented: $showingSheet) {
+                            NewEvent()
+                                .padding(.leading)
+                        }
+                        .labelStyle(.iconOnly)
+                
+                
+                    
+                
+            }
+        }
+        
         
     }
 }

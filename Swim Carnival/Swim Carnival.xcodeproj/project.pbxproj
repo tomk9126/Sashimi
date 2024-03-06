@@ -16,6 +16,9 @@
 		F34310BA2B953A040062A6D4 /* Swim_CarnivalUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F34310B92B953A040062A6D4 /* Swim_CarnivalUITestsLaunchTests.swift */; };
 		F3A38D442B953E4500683638 /* EventsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A38D432B953E4500683638 /* EventsList.swift */; };
 		F3A38D462B953E9400683638 /* CarnivalList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A38D452B953E9400683638 /* CarnivalList.swift */; };
+		F3A38D492B95DB5800683638 /* CarnivalLabelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A38D482B95DB5800683638 /* CarnivalLabelButton.swift */; };
+		F3A38D4B2B95DD0F00683638 /* NoCarnivalSelected.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A38D4A2B95DD0F00683638 /* NoCarnivalSelected.swift */; };
+		F3A38D4F2B95E14900683638 /* NewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A38D4E2B95E14900683638 /* NewEvent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		F34310B92B953A040062A6D4 /* Swim_CarnivalUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Swim_CarnivalUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		F3A38D432B953E4500683638 /* EventsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsList.swift; sourceTree = "<group>"; };
 		F3A38D452B953E9400683638 /* CarnivalList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarnivalList.swift; sourceTree = "<group>"; };
+		F3A38D482B95DB5800683638 /* CarnivalLabelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarnivalLabelButton.swift; sourceTree = "<group>"; };
+		F3A38D4A2B95DD0F00683638 /* NoCarnivalSelected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCarnivalSelected.swift; sourceTree = "<group>"; };
+		F3A38D4E2B95E14900683638 /* NewEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEvent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,7 @@
 			children = (
 				F343109B2B953A010062A6D4 /* Swim_CarnivalApp.swift */,
 				F343109D2B953A010062A6D4 /* ContentView.swift */,
+				F3A38D4A2B95DD0F00683638 /* NoCarnivalSelected.swift */,
 				F3A38D3F2B953B4200683638 /* Scoring */,
 				F3A38D402B953B4A00683638 /* Athletes */,
 				F343109F2B953A040062A6D4 /* Assets.xcassets */,
@@ -140,6 +147,8 @@
 			children = (
 				F3A38D432B953E4500683638 /* EventsList.swift */,
 				F3A38D452B953E9400683638 /* CarnivalList.swift */,
+				F3A38D482B95DB5800683638 /* CarnivalLabelButton.swift */,
+				F3A38D4E2B95E14900683638 /* NewEvent.swift */,
 			);
 			path = Scoring;
 			sourceTree = "<group>";
@@ -281,10 +290,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3A38D4F2B95E14900683638 /* NewEvent.swift in Sources */,
 				F343109E2B953A010062A6D4 /* ContentView.swift in Sources */,
+				F3A38D4B2B95DD0F00683638 /* NoCarnivalSelected.swift in Sources */,
 				F3A38D462B953E9400683638 /* CarnivalList.swift in Sources */,
 				F3A38D442B953E4500683638 /* EventsList.swift in Sources */,
 				F343109C2B953A010062A6D4 /* Swim_CarnivalApp.swift in Sources */,
+				F3A38D492B95DB5800683638 /* CarnivalLabelButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
