@@ -10,7 +10,10 @@ import SwiftUI
 struct NoCarnivalSelected: View {
     var body: some View {
         VStack {
-            Image(systemName: "fish.fill")
+            Image("Swordfish")
+                .resizable()
+                .frame(width: 100, height: 100)
+                .opacity(0.5)
             Text("Select a carnival from the sidebar.")
         }
     }

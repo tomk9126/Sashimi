@@ -13,9 +13,10 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
                 CarnivalList()
-            } detail: {
+        } detail: {
                 NoCarnivalSelected()
-            }
+        }
+        
     }
 }
 

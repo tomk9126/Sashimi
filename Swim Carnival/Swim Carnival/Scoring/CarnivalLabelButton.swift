@@ -10,7 +10,10 @@ import SwiftUI
 struct CarnivalLabelButton: View {
     var body: some View {
         HStack {
-            Image(systemName: "fish.fill")
+            Image("Swordfish")
+                .resizable()
+                .frame(width: 40, height: 40)
+                .opacity(0.5)
             VStack (alignment: .leading) {
                 Text("Carnival Name")
                     .font(.headline)

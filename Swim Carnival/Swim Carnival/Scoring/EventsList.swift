@@ -30,10 +30,26 @@ struct EventsList: View {
                         TableColumn("Gender", value: \.eventGender)
                         TableColumn("Age Group", value: \.eventAgeGroup)
                     }
+                    .contextMenu {
+                            Button {
+                                // Score Event
+                            } label: {
+                                Label("Score...", systemImage: "list.clipboard")
+                            }
+                            Button {
+                                // Edit Event Data
+                            } label: {
+                                Label("Edit...", systemImage: "pencil")
+                            }
+                            Button("Delete", role: .destructive) {
+                                // Delete Event
+                            }
+                        }
         }
         .navigationTitle(Text("Carnival Name"))
         .toolbar {
-            ToolbarItemGroup {
+            ToolbarItemGroup(placement: .primaryAction) {
+                Spacer()
                 Button("Show Sheet", systemImage: "plus") {
                             showingSheet.toggle()
                         }

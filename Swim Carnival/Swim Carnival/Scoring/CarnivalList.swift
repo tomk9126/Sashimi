@@ -9,15 +9,29 @@ import SwiftUI
 
 struct CarnivalList: View {
     var body: some View {
-        VStack {
+        
+        NavigationStack {
             List() {
                 NavigationLink {
-                    EventsList()
+                    CarnivalView()
                 } label: {
                     CarnivalLabelButton()
                 }
             }
             
+        }
+        .toolbar {
+            ToolbarItemGroup() {
+                Spacer()
+                Button("New Carnival", systemImage: "plus") {
+                        // Action
+                        }
+                        .labelStyle(.iconOnly)
+                
+        
+                    
+                
+            }
         }
     }
 }
