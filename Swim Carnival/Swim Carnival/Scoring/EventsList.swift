@@ -20,7 +20,8 @@ struct EventsList: View {
         Event(eventName: "Freestyle", eventGender: "Boys", eventAgeGroup: "Under 15"),
     ]
     
-    @State private var showingSheet = false
+    @State private var showingNewEventSheet = false
+    @State private var showingScoreEventSheet = false
     
     @State private var selection: Set<Event.ID> = []
     var body: some View {
@@ -30,9 +31,9 @@ struct EventsList: View {
                         TableColumn("Gender", value: \.eventGender)
                         TableColumn("Age Group", value: \.eventAgeGroup)
                     }
-                    .contextMenu {
+                    .contextMenu(forSelectionType: Event.ID.self) { items in
                             Button {
-                                // Score Event
+                                showingScoreEventSheet.toggle()
                             } label: {
                                 Label("Score...", systemImage: "list.clipboard")
                             }
@@ -44,25 +45,31 @@ struct EventsList: View {
                             Button("Delete", role: .destructive) {
                                 // Delete Event
                             }
-                        }
+                    } primaryAction: { items in
+                        showingScoreEventSheet.toggle()
+                        
+                    }
+
+                    
         }
         .navigationTitle(Text("Carnival Name"))
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
                 Spacer()
                 Button("Show Sheet", systemImage: "plus") {
-                            showingSheet.toggle()
-                        }
-                        .sheet(isPresented: $showingSheet) {
-                            NewEvent()
-                                .padding(.leading)
+                            showingNewEventSheet.toggle()
                         }
                         .labelStyle(.iconOnly)
-                
-                
-                    
-                
+  
             }
+        }
+        .sheet(isPresented: $showingScoreEventSheet) {
+            ScoreEvent()
+                .padding(.leading)
+        }
+        .sheet(isPresented: $showingNewEventSheet) {
+            NewEvent()
+                .padding(.leading)
         }
         
         
