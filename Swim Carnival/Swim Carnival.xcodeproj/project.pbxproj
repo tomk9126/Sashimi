@@ -23,6 +23,7 @@
 		F3A38D4F2B95E14900683638 /* NewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A38D4E2B95E14900683638 /* NewEvent.swift */; };
 		F3D0E40E2B9EB25200C8215B /* NewAthlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0E40D2B9EB25200C8215B /* NewAthlete.swift */; };
 		F3D0E4102B9EB59000C8215B /* ScoreEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0E40F2B9EB59000C8215B /* ScoreEvent.swift */; };
+		F3D0E4142B9F115D00C8215B /* CarnivalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0E4132B9F115D00C8215B /* CarnivalModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		F3A38D4E2B95E14900683638 /* NewEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEvent.swift; sourceTree = "<group>"; };
 		F3D0E40D2B9EB25200C8215B /* NewAthlete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAthlete.swift; sourceTree = "<group>"; };
 		F3D0E40F2B9EB59000C8215B /* ScoreEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEvent.swift; sourceTree = "<group>"; };
+		F3D0E4132B9F115D00C8215B /* CarnivalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarnivalModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,12 +115,12 @@
 		F343109A2B953A010062A6D4 /* Swim Carnival */ = {
 			isa = PBXGroup;
 			children = (
+				F343109F2B953A040062A6D4 /* Assets.xcassets */,
 				F343109B2B953A010062A6D4 /* Swim_CarnivalApp.swift */,
 				F343109D2B953A010062A6D4 /* ContentView.swift */,
-				F3A38D4A2B95DD0F00683638 /* NoCarnivalSelected.swift */,
+				F3D0E4122B9F10E600C8215B /* Carnival */,
 				F3A38D3F2B953B4200683638 /* Scoring */,
 				F3A38D402B953B4A00683638 /* Athletes */,
-				F343109F2B953A040062A6D4 /* Assets.xcassets */,
 				F34310A42B953A040062A6D4 /* Swim_Carnival.entitlements */,
 				F34310A12B953A040062A6D4 /* Preview Content */,
 			);
@@ -154,10 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				F3A38D432B953E4500683638 /* EventsList.swift */,
-				F3A38D452B953E9400683638 /* CarnivalList.swift */,
-				F3A38D482B95DB5800683638 /* CarnivalLabelButton.swift */,
 				F3A38D4E2B95E14900683638 /* NewEvent.swift */,
-				F31FFCE72B9958250055664D /* CarnivalView.swift */,
 				F3D0E40F2B9EB59000C8215B /* ScoreEvent.swift */,
 			);
 			path = Scoring;
@@ -170,6 +169,18 @@
 				F3D0E40D2B9EB25200C8215B /* NewAthlete.swift */,
 			);
 			path = Athletes;
+			sourceTree = "<group>";
+		};
+		F3D0E4122B9F10E600C8215B /* Carnival */ = {
+			isa = PBXGroup;
+			children = (
+				F3D0E4132B9F115D00C8215B /* CarnivalModel.swift */,
+				F3A38D4A2B95DD0F00683638 /* NoCarnivalSelected.swift */,
+				F31FFCE72B9958250055664D /* CarnivalView.swift */,
+				F3A38D452B953E9400683638 /* CarnivalList.swift */,
+				F3A38D482B95DB5800683638 /* CarnivalLabelButton.swift */,
+			);
+			path = Carnival;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,7 +247,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1520;
-				LastUpgradeCheck = 1520;
+				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					F34310972B953A010062A6D4 = {
 						CreatedOnToolsVersion = 15.2;
@@ -302,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3D0E4142B9F115D00C8215B /* CarnivalModel.swift in Sources */,
 				F3D0E40E2B9EB25200C8215B /* NewAthlete.swift in Sources */,
 				F31FFCE82B9958250055664D /* CarnivalView.swift in Sources */,
 				F31FFCEF2B999F970055664D /* AthletesList.swift in Sources */,
@@ -383,6 +395,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -446,6 +459,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -472,10 +486,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Swim Carnival/Swim_Carnival.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Swim Carnival/Preview Content\"";
 				DEVELOPMENT_TEAM = Y3CW63NYEW;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -499,10 +515,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = "Swim Carnival/Swim_Carnival.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Swim Carnival/Preview Content\"";
 				DEVELOPMENT_TEAM = Y3CW63NYEW;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -528,6 +546,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y3CW63NYEW;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
@@ -547,6 +566,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y3CW63NYEW;
 				GENERATE_INFOPLIST_FILE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
@@ -565,6 +585,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y3CW63NYEW;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
@@ -582,6 +603,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = Y3CW63NYEW;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;

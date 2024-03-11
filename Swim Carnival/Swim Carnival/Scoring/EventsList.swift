@@ -8,26 +8,18 @@
 import SwiftUI
 
 struct EventsList: View {
-    struct Event: Identifiable {
-        let eventName: String
-        let eventGender: String
-        let eventAgeGroup: String
-        let id = UUID()
-
-    }
-    
-    @State private var events = [
-        Event(eventName: "Freestyle", eventGender: "Boys", eventAgeGroup: "Under 15"),
-    ]
     
     @State private var showingNewEventSheet = false
     @State private var showingScoreEventSheet = false
     
     @State private var selection: Set<Event.ID> = []
+    @State private var sortOrder = [KeyPathComparator(\Event.eventName)]
+    @State var events = Carnival().events
     var body: some View {
         NavigationStack {
-            Table(events, selection: $selection) {
-                        TableColumn("Event Name", value: \.eventName)
+            Table(events, selection: $selection, sortOrder: $sortOrder) {
+                        TableColumn("DEBUG ID", value: \.idString)
+                TableColumn("Event Name", value: \.eventName)
                         TableColumn("Gender", value: \.eventGender)
                         TableColumn("Age Group", value: \.eventAgeGroup)
                     }
@@ -49,6 +41,9 @@ struct EventsList: View {
                         showingScoreEventSheet.toggle()
                         
                     }
+                    .onChange(of: sortOrder) { newOrder in
+                        events.sort(using: newOrder)
+                            }
 
                     
         }

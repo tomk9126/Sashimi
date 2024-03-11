@@ -8,24 +8,14 @@
 import SwiftUI
 
 struct AthletesList: View {
-    struct Athlete: Identifiable {
-        let athleteFirstName: String
-        let athleteLastName: String
-        let athleteDOB: String
-        let id = UUID()
-
-    }
     
-    @State private var events = [
-        Athlete(athleteFirstName: "John", athleteLastName: "Smith", athleteDOB: " "),
-    ]
     
     @State private var showingSheet = false
     
     @State private var selection: Set<Athlete.ID> = []
     var body: some View {
         NavigationStack {
-            Table(events, selection: $selection) {
+            Table(Carnival().athletes, selection: $selection) {
                         TableColumn("Name", value: \.athleteFirstName)
                         TableColumn("Surname", value: \.athleteLastName)
                         TableColumn("DOB", value: \.athleteDOB)
