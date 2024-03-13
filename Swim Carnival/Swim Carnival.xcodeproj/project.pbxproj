@@ -24,6 +24,7 @@
 		F3D0E40E2B9EB25200C8215B /* NewAthlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0E40D2B9EB25200C8215B /* NewAthlete.swift */; };
 		F3D0E4102B9EB59000C8215B /* ScoreEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0E40F2B9EB59000C8215B /* ScoreEvent.swift */; };
 		F3D0E4142B9F115D00C8215B /* CarnivalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0E4132B9F115D00C8215B /* CarnivalModel.swift */; };
+		F3D0E41A2BA1301600C8215B /* EditEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0E4192BA1301600C8215B /* EditEvent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		F3D0E40D2B9EB25200C8215B /* NewAthlete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAthlete.swift; sourceTree = "<group>"; };
 		F3D0E40F2B9EB59000C8215B /* ScoreEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEvent.swift; sourceTree = "<group>"; };
 		F3D0E4132B9F115D00C8215B /* CarnivalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarnivalModel.swift; sourceTree = "<group>"; };
+		F3D0E4192BA1301600C8215B /* EditEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditEvent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,6 +160,7 @@
 				F3A38D432B953E4500683638 /* EventsList.swift */,
 				F3A38D4E2B95E14900683638 /* NewEvent.swift */,
 				F3D0E40F2B9EB59000C8215B /* ScoreEvent.swift */,
+				F3D0E4192BA1301600C8215B /* EditEvent.swift */,
 			);
 			path = Scoring;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 			files = (
 				F3D0E4142B9F115D00C8215B /* CarnivalModel.swift in Sources */,
 				F3D0E40E2B9EB25200C8215B /* NewAthlete.swift in Sources */,
+				F3D0E41A2BA1301600C8215B /* EditEvent.swift in Sources */,
 				F31FFCE82B9958250055664D /* CarnivalView.swift in Sources */,
 				F31FFCEF2B999F970055664D /* AthletesList.swift in Sources */,
 				F3A38D4F2B95E14900683638 /* NewEvent.swift in Sources */,

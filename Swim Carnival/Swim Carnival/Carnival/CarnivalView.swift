@@ -12,6 +12,8 @@ struct CarnivalView: View {
     private let tabs = ["Scoring", "Athletes"]
     @State private var selectedTab = 0
     
+    
+    
     var body: some View {
         VStack {
             if selectedTab == 0 {

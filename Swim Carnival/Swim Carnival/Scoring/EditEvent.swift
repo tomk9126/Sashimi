@@ -1,13 +1,13 @@
 //
-//  ScoreEvent.swift
+//  EditEvent.swift
 //  Swim Carnival
 //
-//  Created by Tom Keir on 11/3/2024.
+//  Created by Tom Keir on 13/3/2024.
 //
 
 import SwiftUI
 
-struct ScoreEvent: View {
+struct EditEvent: View {
     @Environment(\.dismiss) var dismiss
     var event: Event
 
@@ -16,12 +16,11 @@ struct ScoreEvent: View {
             Text("Scoring \(event.eventName)")
             Text("Gender: \(event.eventGender)")
             Text("Age Group: \(event.eventAgeGroup)")
-            Button("Cancel", role: .cancel) {
-                dismiss()
-            }.keyboardShortcut(.cancelAction)
         }
         .padding()
-        
+        Button("Cancel", role: .cancel) {
+            dismiss()
+        }.keyboardShortcut(.cancelAction)
     }
 }
 

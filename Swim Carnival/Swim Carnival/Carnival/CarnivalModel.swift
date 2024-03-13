@@ -20,7 +20,6 @@ struct Event: Hashable, Identifiable {
     let eventGender: String
     let eventAgeGroup: String
     let id = UUID()
-    let idString = NSUUID().uuidString
 
 }
 

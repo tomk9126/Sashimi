@@ -14,60 +14,68 @@ struct EventsList: View {
     
     @State private var selection: Set<Event.ID> = []
     @State private var sortOrder = [KeyPathComparator(\Event.eventName)]
-    @State var events = Carnival().events
+    @State private var events = Carnival().events
+    
     var body: some View {
         NavigationStack {
-            Table(events, selection: $selection, sortOrder: $sortOrder) {
-                        TableColumn("DEBUG ID", value: \.idString)
-                TableColumn("Event Name", value: \.eventName)
-                        TableColumn("Gender", value: \.eventGender)
-                        TableColumn("Age Group", value: \.eventAgeGroup)
-                    }
-                    .contextMenu(forSelectionType: Event.ID.self) { items in
-                            Button {
-                                showingScoreEventSheet.toggle()
-                            } label: {
-                                Label("Score...", systemImage: "list.clipboard")
-                            }
-                            Button {
-                                // Edit Event Data
-                            } label: {
-                                Label("Edit...", systemImage: "pencil")
-                            }
-                            Button("Delete", role: .destructive) {
-                                // Delete Event
-                            }
-                    } primaryAction: { items in
+            VStack {
+                Table(events, selection: $selection, sortOrder: $sortOrder) {
+                    TableColumn("Event Name", value: \.eventName)
+                    TableColumn("Gender", value: \.eventGender)
+                    TableColumn("Age Group", value: \.eventAgeGroup)
+                }
+                .onChange(of: selection) { newSelection in
+                    print("Selection Changed:", newSelection)
+                }
+                .onChange(of: sortOrder) { newOrder in
+                    events.sort(using: newOrder)
+                }
+                .contextMenu(forSelectionType: Event.ID.self) { RightClickedEvent in
+                    Button {
+                        selection = RightClickedEvent
+                        print("Selection Changed:", RightClickedEvent)
                         showingScoreEventSheet.toggle()
-                        
+                    } label: {
+                        Label("Score...", systemImage: "list.clipboard")
                     }
-                    .onChange(of: sortOrder) { newOrder in
-                        events.sort(using: newOrder)
-                            }
-
-                    
-        }
-        .navigationTitle(Text("Carnival Name"))
-        .toolbar {
-            ToolbarItemGroup(placement: .primaryAction) {
-                Spacer()
-                Button("Show Sheet", systemImage: "plus") {
+                    Button {
+                        // Edit Event Data
+                    } label: {
+                        Label("Edit...", systemImage: "pencil")
+                    }
+                    Button("Delete", role: .destructive) {
+                        // Delete Event
+                    }
+                } primaryAction: { items in
+                    showingScoreEventSheet.toggle()
+                }
+                .navigationTitle("Carnival Name")
+                .toolbar {
+                    ToolbarItemGroup() {
+                        Spacer()
+                        Button(action: {
                             showingNewEventSheet.toggle()
+                        }) {
+                            Image(systemName: "plus")
                         }
-                        .labelStyle(.iconOnly)
-  
+                    }
+                }
             }
         }
         .sheet(isPresented: $showingScoreEventSheet) {
-            ScoreEvent()
-                .padding(.leading)
+            
+            if let selectedEvent = events.first(where: { selection.contains($0.id) }) {
+                ScoreEvent(event: selectedEvent)
+                    .padding(.leading)
+            } else {
+                // Handle case where no event is selected
+                Text("No event selected")
+            }
         }
         .sheet(isPresented: $showingNewEventSheet) {
             NewEvent()
                 .padding(.leading)
         }
-        
-        
     }
 }
 
