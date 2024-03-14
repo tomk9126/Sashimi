@@ -21,6 +21,13 @@
 		F3A38D492B95DB5800683638 /* CarnivalLabelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A38D482B95DB5800683638 /* CarnivalLabelButton.swift */; };
 		F3A38D4B2B95DD0F00683638 /* NoCarnivalSelected.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A38D4A2B95DD0F00683638 /* NoCarnivalSelected.swift */; };
 		F3A38D4F2B95E14900683638 /* NewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A38D4E2B95E14900683638 /* NewEvent.swift */; };
+		F3B173972BA284E80011BC3F /* NewCarnival.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B173962BA284E80011BC3F /* NewCarnival.swift */; };
+		F3B1739A2BA3B23F0011BC3F /* AthleteDataImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B173992BA3B23F0011BC3F /* AthleteDataImport.swift */; };
+		F3B1739C2BA3B2F50011BC3F /* CarnivalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B1739B2BA3B2F50011BC3F /* CarnivalSettings.swift */; };
+		F3B1739E2BA3B8E40011BC3F /* PreferencesPane.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B1739D2BA3B8E40011BC3F /* PreferencesPane.swift */; };
+		F3B173A12BA3B9F50011BC3F /* GeneralPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B173A02BA3B9F50011BC3F /* GeneralPreferences.swift */; };
+		F3B173A32BA3BE060011BC3F /* PopoverTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B173A22BA3BE060011BC3F /* PopoverTest.swift */; };
+		F3B173A52BA3BE610011BC3F /* EditAthlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B173A42BA3BE610011BC3F /* EditAthlete.swift */; };
 		F3D0E40E2B9EB25200C8215B /* NewAthlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0E40D2B9EB25200C8215B /* NewAthlete.swift */; };
 		F3D0E4102B9EB59000C8215B /* ScoreEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0E40F2B9EB59000C8215B /* ScoreEvent.swift */; };
 		F3D0E4142B9F115D00C8215B /* CarnivalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3D0E4132B9F115D00C8215B /* CarnivalModel.swift */; };
@@ -63,6 +70,13 @@
 		F3A38D482B95DB5800683638 /* CarnivalLabelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarnivalLabelButton.swift; sourceTree = "<group>"; };
 		F3A38D4A2B95DD0F00683638 /* NoCarnivalSelected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCarnivalSelected.swift; sourceTree = "<group>"; };
 		F3A38D4E2B95E14900683638 /* NewEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEvent.swift; sourceTree = "<group>"; };
+		F3B173962BA284E80011BC3F /* NewCarnival.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCarnival.swift; sourceTree = "<group>"; };
+		F3B173992BA3B23F0011BC3F /* AthleteDataImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleteDataImport.swift; sourceTree = "<group>"; };
+		F3B1739B2BA3B2F50011BC3F /* CarnivalSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarnivalSettings.swift; sourceTree = "<group>"; };
+		F3B1739D2BA3B8E40011BC3F /* PreferencesPane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesPane.swift; sourceTree = "<group>"; };
+		F3B173A02BA3B9F50011BC3F /* GeneralPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralPreferences.swift; sourceTree = "<group>"; };
+		F3B173A22BA3BE060011BC3F /* PopoverTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverTest.swift; sourceTree = "<group>"; };
+		F3B173A42BA3BE610011BC3F /* EditAthlete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAthlete.swift; sourceTree = "<group>"; };
 		F3D0E40D2B9EB25200C8215B /* NewAthlete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewAthlete.swift; sourceTree = "<group>"; };
 		F3D0E40F2B9EB59000C8215B /* ScoreEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEvent.swift; sourceTree = "<group>"; };
 		F3D0E4132B9F115D00C8215B /* CarnivalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarnivalModel.swift; sourceTree = "<group>"; };
@@ -117,6 +131,7 @@
 		F343109A2B953A010062A6D4 /* Swim Carnival */ = {
 			isa = PBXGroup;
 			children = (
+				F3B1739F2BA3B9B60011BC3F /* Preferences */,
 				F343109F2B953A040062A6D4 /* Assets.xcassets */,
 				F343109B2B953A010062A6D4 /* Swim_CarnivalApp.swift */,
 				F343109D2B953A010062A6D4 /* ContentView.swift */,
@@ -170,8 +185,29 @@
 			children = (
 				F31FFCEE2B999F970055664D /* AthletesList.swift */,
 				F3D0E40D2B9EB25200C8215B /* NewAthlete.swift */,
+				F3B173A22BA3BE060011BC3F /* PopoverTest.swift */,
+				F3B173A42BA3BE610011BC3F /* EditAthlete.swift */,
 			);
 			path = Athletes;
+			sourceTree = "<group>";
+		};
+		F3B173982BA3B1ED0011BC3F /* New Carnival */ = {
+			isa = PBXGroup;
+			children = (
+				F3B173962BA284E80011BC3F /* NewCarnival.swift */,
+				F3B173992BA3B23F0011BC3F /* AthleteDataImport.swift */,
+				F3B1739B2BA3B2F50011BC3F /* CarnivalSettings.swift */,
+			);
+			path = "New Carnival";
+			sourceTree = "<group>";
+		};
+		F3B1739F2BA3B9B60011BC3F /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				F3B1739D2BA3B8E40011BC3F /* PreferencesPane.swift */,
+				F3B173A02BA3B9F50011BC3F /* GeneralPreferences.swift */,
+			);
+			path = Preferences;
 			sourceTree = "<group>";
 		};
 		F3D0E4122B9F10E600C8215B /* Carnival */ = {
@@ -182,6 +218,7 @@
 				F31FFCE72B9958250055664D /* CarnivalView.swift */,
 				F3A38D452B953E9400683638 /* CarnivalList.swift */,
 				F3A38D482B95DB5800683638 /* CarnivalLabelButton.swift */,
+				F3B173982BA3B1ED0011BC3F /* New Carnival */,
 			);
 			path = Carnival;
 			sourceTree = "<group>";
@@ -316,15 +353,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F3B173972BA284E80011BC3F /* NewCarnival.swift in Sources */,
 				F3D0E4142B9F115D00C8215B /* CarnivalModel.swift in Sources */,
+				F3B1739C2BA3B2F50011BC3F /* CarnivalSettings.swift in Sources */,
 				F3D0E40E2B9EB25200C8215B /* NewAthlete.swift in Sources */,
 				F3D0E41A2BA1301600C8215B /* EditEvent.swift in Sources */,
 				F31FFCE82B9958250055664D /* CarnivalView.swift in Sources */,
 				F31FFCEF2B999F970055664D /* AthletesList.swift in Sources */,
 				F3A38D4F2B95E14900683638 /* NewEvent.swift in Sources */,
+				F3B173A32BA3BE060011BC3F /* PopoverTest.swift in Sources */,
 				F343109E2B953A010062A6D4 /* ContentView.swift in Sources */,
+				F3B173A12BA3B9F50011BC3F /* GeneralPreferences.swift in Sources */,
+				F3B1739A2BA3B23F0011BC3F /* AthleteDataImport.swift in Sources */,
 				F3A38D4B2B95DD0F00683638 /* NoCarnivalSelected.swift in Sources */,
+				F3B173A52BA3BE610011BC3F /* EditAthlete.swift in Sources */,
 				F3A38D462B953E9400683638 /* CarnivalList.swift in Sources */,
+				F3B1739E2BA3B8E40011BC3F /* PreferencesPane.swift in Sources */,
 				F3A38D442B953E4500683638 /* EventsList.swift in Sources */,
 				F343109C2B953A010062A6D4 /* Swim_CarnivalApp.swift in Sources */,
 				F3A38D492B95DB5800683638 /* CarnivalLabelButton.swift in Sources */,

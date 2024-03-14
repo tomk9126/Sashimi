@@ -11,32 +11,41 @@ struct AthletesList: View {
     
     
     @State private var showingSheet = false
+    @State private var showingPopover = false
+    @State private var showingDeletionAlert = false
     
     @State private var selection: Set<Athlete.ID> = []
+    
     var body: some View {
         NavigationStack {
             Table(Carnival().athletes, selection: $selection) {
                         TableColumn("Name", value: \.athleteFirstName)
                         TableColumn("Surname", value: \.athleteLastName)
                         TableColumn("DOB", value: \.athleteDOB)
-                    }
-                    .contextMenu {
-                            Button {
-                                // Score Event
-                            } label: {
-                                Label("Score...", systemImage: "list.clipboard")
-                            }
-                            Button {
-                                // Edit Event Data
-                            } label: {
-                                Label("Edit...", systemImage: "pencil")
-                            }
-                            Button("Delete", role: .destructive) {
-                                // Delete Event
-                            }
-                        }
+            }
+            .contextMenu(forSelectionType: Athlete.ID.self) { RightClickedEvent in
+                Button {
+                    selection = RightClickedEvent
+                    print("Selection Changed:", RightClickedEvent)
+                    showingPopover.toggle()
+                } label: {
+                    Label("Score...", systemImage: "list.clipboard")
+                }
+                Button {
+                    selection = RightClickedEvent
+                    print("Selection Changed:", RightClickedEvent)
+                    showingPopover.toggle()
+                } label: {
+                    Label("Edit...", systemImage: "pencil")
+                }
+                Button("Delete", role: .destructive) {
+                    showingDeletionAlert = true
+                }
+            } primaryAction: { items in
+                showingPopover.toggle()
+            }
         }
-        .navigationTitle(Text("Carnival Name"))
+    
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
                 Spacer()
@@ -49,10 +58,10 @@ struct AthletesList: View {
                         }
                         .labelStyle(.iconOnly)
                 
-                
-                    
-                
             }
+        }
+        .popover(isPresented: self.$showingPopover) {
+            EditAthlete()
         }
         
         

@@ -41,6 +41,7 @@ struct CarnivalView: View {
                 
             }
         }
+        .navigationTitle(Text("Carnival Name"))
         // .frame(minWidth: 800, minHeight: 400)
         
     }

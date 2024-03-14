@@ -13,5 +13,11 @@ struct Swim_CarnivalApp: App {
         WindowGroup {
             ContentView()
         }
+                
+        #if os(macOS)
+        Settings {
+            PreferencesPane()
+        }
+        #endif
     }
 }

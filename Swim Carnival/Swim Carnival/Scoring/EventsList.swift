@@ -11,6 +11,8 @@ struct EventsList: View {
     
     @State private var showingNewEventSheet = false
     @State private var showingScoreEventSheet = false
+    @State private var showingEditEventSheet = false
+    @State private var showingDeletionAlert = false
     
     @State private var selection: Set<Event.ID> = []
     @State private var sortOrder = [KeyPathComparator(\Event.eventName)]
@@ -39,17 +41,18 @@ struct EventsList: View {
                         Label("Score...", systemImage: "list.clipboard")
                     }
                     Button {
-                        // Edit Event Data
+                        selection = RightClickedEvent
+                        print("Selection Changed:", RightClickedEvent)
+                        showingEditEventSheet.toggle()
                     } label: {
                         Label("Edit...", systemImage: "pencil")
                     }
                     Button("Delete", role: .destructive) {
-                        // Delete Event
+                        showingDeletionAlert = true
                     }
                 } primaryAction: { items in
                     showingScoreEventSheet.toggle()
                 }
-                .navigationTitle("Carnival Name")
                 .toolbar {
                     ToolbarItemGroup() {
                         Spacer()
@@ -62,6 +65,16 @@ struct EventsList: View {
                 }
             }
         }
+        .alert(
+                "Delete Event?",
+                isPresented: $showingDeletionAlert
+            ) {
+                Button("Delete", role: .destructive) {
+                    // Handle the acknowledgement.
+                }
+            } message: {
+                Text("This action cannot be undone.")
+        }
         .sheet(isPresented: $showingScoreEventSheet) {
             
             if let selectedEvent = events.first(where: { selection.contains($0.id) }) {
@@ -72,9 +85,19 @@ struct EventsList: View {
                 Text("No event selected")
             }
         }
+        .sheet(isPresented: $showingEditEventSheet) {
+            
+            if let selectedEvent = events.first(where: { selection.contains($0.id) }) {
+                EditEvent(event: selectedEvent)
+                    .padding(.leading)
+            } else {
+                // Handle case where no event is selected
+                Text("No event selected")
+            }
+        }
         .sheet(isPresented: $showingNewEventSheet) {
             NewEvent()
-                .padding(.leading)
+                .padding()
         }
     }
 }

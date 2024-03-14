@@ -8,6 +8,10 @@
 import SwiftUI
 
 struct CarnivalList: View {
+    
+    @State private var showingNewCarnivalSheet = false
+    @State private var document: FileDocument?
+    @State private var isImporting: Bool = false
     var body: some View {
         
         NavigationStack {
@@ -24,16 +28,19 @@ struct CarnivalList: View {
             ToolbarItemGroup() {
                 Spacer()
                 Button("New Carnival", systemImage: "plus") {
-                        // Action
-                        }
-                        .labelStyle(.iconOnly)
-                
-        
-                    
-                
+                    showingNewCarnivalSheet.toggle()
+                }
+                .labelStyle(.iconOnly)
+ 
             }
         }
+        .sheet(isPresented: $showingNewCarnivalSheet) {
+            NewCarnival()
+                .padding()
+        }
+        
     }
+    
 }
 
 #Preview {

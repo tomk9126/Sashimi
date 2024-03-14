@@ -59,7 +59,7 @@ struct NewEvent: View {
         
         }
         .frame(width: 300)
-        .padding(.all)
+        
         
         
     }

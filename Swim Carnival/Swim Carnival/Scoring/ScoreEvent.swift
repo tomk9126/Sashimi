@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ScoreEvent: View {
     @Environment(\.dismiss) var dismiss
-    var event: Event
+    @State var event: Event
 
     var body: some View {
         VStack {
@@ -26,5 +26,5 @@ struct ScoreEvent: View {
 }
 
 #Preview {
-    EditEvent(event: Event(eventName: "Event Name", eventGender: "Gender", eventAgeGroup: "Age"))
+    ScoreEvent(event: Event(eventName: "Event Name", eventGender: "Gender", eventAgeGroup: "Age"))
 }
