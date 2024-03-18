@@ -10,13 +10,14 @@ import SwiftUI
 
 struct ContentView: View {
     
+    @ObservedObject var carnivalManager = CarnivalManager.shared
+    
     var body: some View {
         NavigationSplitView {
-                CarnivalList()
+            CarnivalList()
         } detail: {
-                NoCarnivalSelected()
+            NoCarnivalSelected()
         }
-        
     }
 }
 

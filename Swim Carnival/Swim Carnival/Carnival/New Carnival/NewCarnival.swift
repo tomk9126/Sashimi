@@ -15,15 +15,18 @@ struct NewCarnival: View {
     @Environment(\.dismiss) var dismiss
     
     var body: some View {
-        TabView {
+        
+        TabView() {
             Group {
                 CarnivalSettings()
+                    .padding()
             }
             .tabItem {
                 Label("Carnival Settings", systemImage: "gearshape")
             }
             Group {
                 AthleteDataImport()
+                    .padding()
             }
             .tabItem {
                 Label("Athletes", systemImage: "gearshape")
@@ -31,19 +34,23 @@ struct NewCarnival: View {
             
             
         }
-        .frame(width: 500, height: 280)
+        
+
         VStack {
             HStack() {
                 Button("Cancel", role: .cancel) {
                     dismiss()
                 }.keyboardShortcut(.cancelAction)
                 Button("Create") {
+                    CarnivalManager.shared.createCarnival(name: UUID().uuidString)
+                    print(CarnivalManager.shared.carnivals)
                     dismiss()
                 }.keyboardShortcut(.defaultAction)
             }
         }
     }
 }
+
 
 #Preview {
     NewCarnival()

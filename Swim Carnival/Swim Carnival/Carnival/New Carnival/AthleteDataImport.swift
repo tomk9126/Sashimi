@@ -15,12 +15,22 @@ struct AthleteDataImport: View {
     var body: some View {
         VStack {
             Section("Link to Athletes Database") {
-                Button("Import (.csv)", role: .cancel) {
-                    isImporting.toggle()
+                Table(Carnival(name: "Summer Carnival").athletes) {
+                            TableColumn("Name", value: \.athleteFirstName)
+                            TableColumn("Surname", value: \.athleteLastName)
+                            TableColumn("DOB", value: \.athleteDOB)
+                }.tableStyle(.bordered)
+                HStack {
+                    Button("Import (.csv)", role: .cancel) {
+                        isImporting.toggle()
+                    }
+                    Text(selectedDatabase)
+                    Spacer()
                 }
-                Text(selectedDatabase)
+                
             }
         }
+        .frame(width: 500, height: 280)
         
         .fileImporter(
             isPresented: $isImporting,

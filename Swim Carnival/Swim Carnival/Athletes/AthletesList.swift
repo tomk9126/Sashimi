@@ -18,7 +18,7 @@ struct AthletesList: View {
     
     var body: some View {
         NavigationStack {
-            Table(Carnival().athletes, selection: $selection) {
+            Table(Carnival(name: "Summer Carnival").athletes, selection: $selection) {
                         TableColumn("Name", value: \.athleteFirstName)
                         TableColumn("Surname", value: \.athleteLastName)
                         TableColumn("DOB", value: \.athleteDOB)

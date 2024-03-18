@@ -9,10 +9,11 @@ import SwiftUI
 
 struct CarnivalView: View {
     
+    
+    let carnival: Carnival
+    
     private let tabs = ["Scoring", "Athletes"]
     @State private var selectedTab = 0
-    
-    
     
     var body: some View {
         VStack {
@@ -48,5 +49,6 @@ struct CarnivalView: View {
 }
 
 #Preview {
-    CarnivalView()
+    let carnival = Carnival(name: "Sample Carnival")
+            return CarnivalView(carnival: carnival)
 }

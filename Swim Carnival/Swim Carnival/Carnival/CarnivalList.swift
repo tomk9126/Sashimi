@@ -9,28 +9,37 @@ import SwiftUI
 
 struct CarnivalList: View {
     
+    @ObservedObject var carnivalManagerObserved = CarnivalManager.shared
+    @State private var refreshId = UUID()
+    @State private var reloadList = UUID()
+    
     @State private var showingNewCarnivalSheet = false
     @State private var document: FileDocument?
     @State private var isImporting: Bool = false
+    
     var body: some View {
         
         NavigationStack {
-            List() {
-                NavigationLink {
-                    CarnivalView()
-                } label: {
-                    CarnivalLabelButton()
+            List {
+                ForEach(carnivalManagerObserved.carnivals, id: \.self) { carnival in
+                    NavigationLink(destination: CarnivalView(carnival: carnival)) {
+                        CarnivalLabelButton(carnivalName: carnival.name)
+                    }
                 }
-            }
+            }.id(UUID())
+        
             
         }
         .toolbar {
             ToolbarItemGroup() {
                 Spacer()
-                Button("New Carnival", systemImage: "plus") {
-                    showingNewCarnivalSheet.toggle()
+                Menu {
+                    Button("New Carnival", systemImage: "plus") { showingNewCarnivalSheet.toggle() }
+                    Button("Open Carnival", systemImage: "folder") {  }
+                    
+                } label: {
+                    Label("Add Carnival", systemImage: "plus")
                 }
-                .labelStyle(.iconOnly)
  
             }
         }
@@ -44,5 +53,9 @@ struct CarnivalList: View {
 }
 
 #Preview {
-    CarnivalList()
+    
+    CarnivalManager.shared.createCarnival(name: "Summer Carnival")
+    CarnivalManager.shared.createCarnival(name: "Winter Carnival")
+            
+    return CarnivalList()
 }

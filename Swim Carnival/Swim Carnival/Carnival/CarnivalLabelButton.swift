@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CarnivalLabelButton: View {
+    var carnivalName: String
     var body: some View {
         HStack {
             Image("Swordfish")
@@ -15,7 +16,7 @@ struct CarnivalLabelButton: View {
                 .frame(width: 40, height: 40)
                 .opacity(0.5)
             VStack (alignment: .leading) {
-                Text("Carnival Name")
+                Text(carnivalName)
                     .font(.headline)
                 Text("Date")
                    
@@ -25,5 +26,5 @@ struct CarnivalLabelButton: View {
 }
 
 #Preview {
-    CarnivalLabelButton()
+    CarnivalLabelButton(carnivalName: "Carnival Name")
 }
