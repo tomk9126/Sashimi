@@ -29,7 +29,7 @@ struct CarnivalList: View {
                 List {
                     ForEach(carnivalManagerObserved.carnivals, id: \.self) { carnival in
                         NavigationLink(destination: CarnivalView(carnival: carnival)) {
-                            CarnivalLabelButton(carnivalName: carnival.name, carnivalDate: carnival.date)
+                            CarnivalLabelButton(carnival: carnival)
                         }
                     }
                 }.id(UUID())

@@ -16,7 +16,7 @@ struct CarnivalSettings: View {
         NavigationStack {
             Section(header: Text("Carnival Settings:")) {
                 VStack(alignment: .leading) {
-                    TextField(text: $newCarnivalName, prompt: Text("Example: '100m freestyle'")) {
+                    TextField(text: $newCarnivalName, prompt: Text("Example: 'BHC Swimming Carnival'")) {
                         Text("Event Name: ")
                     }
                     DatePicker(
