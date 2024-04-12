@@ -14,6 +14,9 @@ struct ContentView: View {
     
     var body: some View {
         NavigationSplitView {
+            Button("Sample Data") {
+                CarnivalManager.shared.exampleUsage()
+            }
             CarnivalList()
         } detail: {
             NoCarnivalSelected()

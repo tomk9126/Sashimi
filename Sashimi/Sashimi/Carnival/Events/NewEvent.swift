@@ -17,6 +17,8 @@ struct NewEvent: View {
     @State private var eventName = ""
     @State private var ageGroup = 12
     
+    @State private var isCreateButtonDisabled = true // Initially disabled
+    
     @State var carnival: Carnival
     
     var body: some View {
@@ -40,33 +42,51 @@ struct NewEvent: View {
             
             Section(header: Text("Settings:")) {
                 VStack(alignment: .leading) {
-                    TextField(text: $eventName, prompt: Text("Example: '100m freestyle'")) {
-                        Text("Event Name: ")
+                    TextField("Event Name", text: $eventName)
+                    Stepper(value: $ageGroup, in: 1...99) {
+                        Text("Age Group: \(ageGroup)")
                     }
-                    TextField("Age Group: ", value: $ageGroup, formatter: NumberFormatter())
-                    
                 }
             }
-            
             
             HStack() {
                 Button("Cancel", role: .cancel) {
                     dismiss()
                 }.keyboardShortcut(.cancelAction)
+                
                 Button("Create") {
-                    CarnivalManager.shared.createEvent(carnival: carnival, name: "Event", gender: "Gender", age: "Age")
+                    if male {
+                        createEvent(gender: "Male")
+                    }
+                    if female {
+                        createEvent(gender: "Female")
+                    }
+                    if mixed {
+                        createEvent(gender: "Mixed")
+                    }
                     dismiss()
-                }.keyboardShortcut(.defaultAction)
+                }
+                .keyboardShortcut(.defaultAction)
+                .disabled(isCreateButtonDisabled) // Disable based on condition
             }
-            
-        
+        }
+        .onReceive([male, female, mixed, eventName].publisher) { _ in
+            updateCreateButtonState() // Update state when checkbox states or eventName changes
         }
         .frame(width: 300)
-        
-        
-        
+    }
+    
+    private func createEvent(gender: String) {
+        let newEvent = Event(eventName: eventName, eventGender: gender, eventAgeGroup: "\(ageGroup)")
+        carnival.addEvent(newEvent)
+    }
+    
+    private func updateCreateButtonState() {
+        // Enable button only if at least one checkbox is ticked and eventName is not empty
+        isCreateButtonDisabled = !male && !female && !mixed || eventName.isEmpty
     }
 }
+
 
 #Preview {
     NewEvent(carnival: Carnival(name: "Carnival Name", date: Date.now))

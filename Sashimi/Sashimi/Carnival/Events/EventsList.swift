@@ -72,7 +72,7 @@ struct EventsList: View {
                 isPresented: $showingDeletionAlert
             ) {
                 Button("Delete", role: .destructive) {
-                    // Handle the acknowledgement.
+                    //Handle acknowledgement
                 }
             } message: {
                 Text("This action cannot be undone.")
@@ -84,7 +84,7 @@ struct EventsList: View {
                     .padding(.leading)
             } else {
                 // Handle case where no event is selected
-                Text("No event selected")
+                Text("No event selected. This shouldn't happen.")
             }
         }
         .sheet(isPresented: $showingEditEventSheet) {
