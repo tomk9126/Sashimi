@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import SwiftUI
 
-struct Athlete: Identifiable {
+struct Athlete: Hashable, Identifiable {
     let athleteFirstName: String
     let athleteLastName: String
     let athleteDOB: String
@@ -21,20 +22,21 @@ struct Event: Hashable, Identifiable {
     let id = UUID()
 }
 
-class Carnival: Identifiable, Hashable {
+class Carnival: ObservableObject, Identifiable, Hashable {
     
     static func == (lhs: Carnival, rhs: Carnival) -> Bool {
             return lhs.id == rhs.id
-        }
+    }
 
+    //Allows Carnival to conform to Hashable
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
     
     var name: String
     var date: Date
-    var athletes: [Athlete]
-    var events: [Event]
+    @Published var athletes: [Athlete]
+    @Published var events: [Event]
     
     init(name: String, date: Date) {
         self.name = name

@@ -10,7 +10,7 @@ import SwiftUI
 struct CarnivalView: View {
     
     
-    @State var carnival: Carnival
+    @ObservedObject var carnival: Carnival
     
     private let tabs = ["Scoring", "Athletes"]
     @State private var selectedTab = 0

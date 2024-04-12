@@ -17,7 +17,7 @@ struct EventsList: View {
     @State private var selection: Set<Event.ID> = []
     @State private var sortOrder = [KeyPathComparator(\Event.eventName)]
     
-    @State var carnival: Carnival
+    @ObservedObject var carnival: Carnival
     
     var body: some View {
         NavigationStack {
