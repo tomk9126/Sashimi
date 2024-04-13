@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import SwiftUI
+
 struct EventsList: View {
     
     @State private var showingNewEventSheet = false
@@ -28,6 +30,7 @@ struct EventsList: View {
                     TableColumn("Age Group", value: \.eventAgeGroup)
                 }
                 .id(UUID())
+                
                 .onChange(of: selection) { newSelection in
                     print("Selection Changed:", newSelection)
                 }
@@ -35,15 +38,17 @@ struct EventsList: View {
                     carnival.events.sort(using: newOrder)
                 }
                 .contextMenu(forSelectionType: Event.ID.self) { RightClickedEvent in
-                    Button {
+                    
+                    onAppear() {
                         selection = RightClickedEvent
+                    }
+                    Button {
                         print("Selection Changed:", RightClickedEvent)
                         showingScoreEventSheet.toggle()
                     } label: {
                         Label("Score...", systemImage: "list.clipboard")
                     }
                     Button {
-                        selection = RightClickedEvent
                         print("Selection Changed:", RightClickedEvent)
                         showingEditEventSheet.toggle()
                     } label: {
@@ -72,7 +77,10 @@ struct EventsList: View {
                 isPresented: $showingDeletionAlert
             ) {
                 Button("Delete", role: .destructive) {
-                    //Handle acknowledgement
+                    if let eventToDelete = selection.first {
+                        carnival.events.removeAll(where: { $0.id == eventToDelete })
+                        selection = []
+                    }
                 }
             } message: {
                 Text("This action cannot be undone.")
@@ -83,7 +91,6 @@ struct EventsList: View {
                 ScoreEvent(event: selectedEvent)
                     .padding(.leading)
             } else {
-                // Handle case where no event is selected
                 Text("No event selected. This shouldn't happen.")
             }
         }
@@ -103,7 +110,7 @@ struct EventsList: View {
         }
     }
 }
-
 #Preview {
     EventsList(carnival: Carnival(name: "Test", date: Date.now))
 }
+

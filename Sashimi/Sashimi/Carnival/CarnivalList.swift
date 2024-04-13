@@ -33,6 +33,7 @@ struct CarnivalList: View {
                         }
                     }
                 }.id(UUID())
+
             }
         }
         .toolbar {
@@ -59,8 +60,5 @@ struct CarnivalList: View {
 
 #Preview {
     
-    CarnivalManager.shared.createCarnival(name: "Summer Carnival", date: Date.now)
-    CarnivalManager.shared.createCarnival(name: "Winter Carnival", date: Date.now)
-            
     return CarnivalList()
 }
