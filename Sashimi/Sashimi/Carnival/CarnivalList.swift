@@ -40,9 +40,14 @@ struct CarnivalList: View {
             ToolbarItemGroup() {
                 Spacer()
                 Menu {
+                    Button("Sample Data") {
+                        CarnivalManager.shared.exampleUsage()
+                    }
+                    .help("Create sample carnival with events and athletes for demonstration.")
                     Button("New Carnival", systemImage: "plus") { showingNewCarnivalSheet.toggle() }
+                        .help("Create a new carnival")
                     Button("Open Carnival", systemImage: "folder") {  }
-                    
+                        .help("Open an already existing Sashimi carnival")
                 } label: {
                     Label("Add Carnival", systemImage: "plus")
                 }

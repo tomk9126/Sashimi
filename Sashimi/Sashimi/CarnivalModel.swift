@@ -9,26 +9,36 @@ import Foundation
 import SwiftUI
 
 struct Athlete: Hashable, Identifiable {
-    let athleteFirstName: String
-    let athleteLastName: String
-    let athleteDOB: String
-    let id = UUID()
+    var athleteFirstName: String
+    var athleteLastName: String
+    var athleteDOB: String
+    var id = UUID()
+}
+
+enum Gender {
+    case male
+    case female
+    case mixed
 }
 
 struct Event: Hashable, Identifiable {
-    let eventName: String
-    let eventGender: String
-    let eventAgeGroup: String
-    let id = UUID()
+    var eventName: String
+    var eventGender: Gender
+    var eventAgeGroup: Int? //Optional value because an event may be mixed-ages. If there is no value, this is the case.
+    var ranks: [String: Int] = [:]
+    var id = UUID()
 }
 
 class Carnival: ObservableObject, Identifiable, Hashable {
     
+    //Allows Carnival to conform to equatable.
+    //This means operators such as '==' and '!=' can be used on this datatype.
     static func == (lhs: Carnival, rhs: Carnival) -> Bool {
             return lhs.id == rhs.id
     }
 
-    //Allows Carnival to conform to Hashable
+    //Allows Carnival, Events, and Athletes to conform to Hashable.
+    //This gives every Carnival, Event, and Athlete a unique ID.
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
@@ -38,6 +48,7 @@ class Carnival: ObservableObject, Identifiable, Hashable {
     @Published var athletes: [Athlete]
     @Published var events: [Event]
     
+    //Initiate 'Carnival'
     init(name: String, date: Date) {
         self.name = name
         self.date = date
@@ -96,67 +107,52 @@ class CarnivalManager: ObservableObject {
         }
     }
     
-    func createEvent(carnival: Carnival, name: String, gender: String, age: String) -> Event {
+    func createEvent(carnival: Carnival, name: String, gender: Gender, age: Int) -> Event {
         let newEvent = Event(eventName: name, eventGender: gender, eventAgeGroup: age)
         carnival.events.append(newEvent)
         return newEvent
     }
+    
+    func updateEvent(event: Event, newName: String, newGender: Gender, newAge: Int?) {
+            if let index = eventIndexInCarnivals(event: event) {
+                carnivals[index].events.removeAll { $0.id == event.id }
+                let updatedEvent = Event(eventName: newName, eventGender: newGender, eventAgeGroup: newAge)
+                carnivals[index].events.append(updatedEvent)
+            }
+        }
+        
+        private func eventIndexInCarnivals(event: Event) -> Int? {
+            for (index, carnival) in carnivals.enumerated() {
+                if let _ = carnival.events.firstIndex(where: { $0.id == event.id }) {
+                    return index
+                }
+            }
+            return nil
+        }
     
     func getCarnivalByName(_ name: String) -> Carnival? {
         return carnivals.first { $0.name == name }
     }
     
     func exampleUsage() {
-        // Create a new carnival
-        let carnival1 = CarnivalManager.shared.createCarnival(name: "Summer Carnival", date: Date.now)
+        let carnival1 = CarnivalManager.shared.createCarnival(name: "KHC Swimming Carnival", date: Date.now)
 
-        // Add athletes to carnival1
-        let athlete1 = Athlete(athleteFirstName: "John", athleteLastName: "Smith", athleteDOB: "1998-01-15")
-        let athlete2 = Athlete(athleteFirstName: "Alice", athleteLastName: "Johnson", athleteDOB: "2000-07-22")
-        carnival1.addAthlete(athlete1)
-        carnival1.addAthlete(athlete2)
-
-        // Add events to carnival1
-        let event1 = Event(eventName: "100m Freestyle", eventGender: "Boys", eventAgeGroup: "Under 15")
-        let event2 = Event(eventName: "200m Butterfly", eventGender: "Girls", eventAgeGroup: "Under 16")
-        carnival1.addEvent(event1)
-        carnival1.addEvent(event2)
-
-        // Create another carnival
-        let carnival2 = CarnivalManager.shared.createCarnival(name: "Winter Carnival", date: Date.now)
-
-        // Add athletes to carnival2
-        let athlete3 = Athlete(athleteFirstName: "Michael", athleteLastName: "Chang", athleteDOB: "1999-05-10")
-        let athlete4 = Athlete(athleteFirstName: "Emily", athleteLastName: "Davis", athleteDOB: "2002-11-30")
-        carnival2.addAthlete(athlete3)
-        carnival2.addAthlete(athlete4)
-
-        // Add events to carnival2
-        let event3 = Event(eventName: "50m Freestyle", eventGender: "Girls", eventAgeGroup: "Under 13")
-        let event4 = Event(eventName: "200m Individual Medley", eventGender: "Boys", eventAgeGroup: "Under 17")
-        carnival2.addEvent(event3)
-        carnival2.addEvent(event4)
-
-        // Retrieve a carnival by name
-        if let winterCarnival = CarnivalManager.shared.getCarnivalByName("Winter Carnival") {
-            print("Winter Carnival Events:")
-            for event in winterCarnival.events {
-                print("\(event.eventName) - \(event.eventGender) - \(event.eventAgeGroup)")
-            }
+        let exampleEvents = [
+            Event(eventName: "50m Freestyle", eventGender: .female, eventAgeGroup: 13),
+        ]
+        for event in exampleEvents {
+            carnival1.addEvent(event)
         }
-
-        // Delete a carnival
-        if let summerCarnival = CarnivalManager.shared.getCarnivalByName("Summer Carnival") {
-            CarnivalManager.shared.deleteCarnival(summerCarnival)
+        
+        let exampleAthletes = [
+            Athlete(athleteFirstName: "Michael", athleteLastName: "Chang", athleteDOB: "1999-05-10"),
+            Athlete(athleteFirstName: "Emily", athleteLastName: "Davis", athleteDOB: "2002-11-30")
+        ]
+        
+        for athlete in exampleAthletes {
+            carnival1.addAthlete(athlete)
         }
-
-        // Print all carnivals and their events
-        for carnival in CarnivalManager.shared.carnivals {
-            print("\n\(carnival.name) Events:")
-            for event in carnival.events {
-                print("\(event.eventName) - \(event.eventGender) - \(event.eventAgeGroup)")
-            }
-        }
+        
     }
     
 

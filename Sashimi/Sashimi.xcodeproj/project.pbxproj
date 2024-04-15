@@ -52,7 +52,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F33DCC022BC8D7DD009811CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F34310982B953A010062A6D4 /* Sashimi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sashimi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F34310A92B953A040062A6D4 /* SashimiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SashimiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F34310B32B953A040062A6D4 /* SashimiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SashimiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -196,7 +195,6 @@
 		F3900E662BABF57100C37122 /* Sashimi */ = {
 			isa = PBXGroup;
 			children = (
-				F33DCC022BC8D7DD009811CA /* Info.plist */,
 				F3900E572BABF57100C37122 /* CarnivalModel.swift */,
 				F3900E4E2BABF57100C37122 /* Athletes */,
 				F3900E5A2BABF57100C37122 /* Carnival */,
@@ -548,7 +546,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Sashimi/Info.plist;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = Sashimi;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright ©️ 2024 Tom Keir";
@@ -583,7 +581,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Sashimi/Info.plist;
+				INFOPLIST_FILE = "";
 				INFOPLIST_KEY_CFBundleDisplayName = Sashimi;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright ©️ 2024 Tom Keir";

@@ -43,9 +43,15 @@ struct NewEvent: View {
             Section(header: Text("Settings:")) {
                 VStack(alignment: .leading) {
                     TextField("Event Name", text: $eventName)
-                    Stepper(value: $ageGroup, in: 1...99) {
-                        Text("Age Group: \(ageGroup)")
+                    HStack {
+                        TextField("Enter Value", value: $ageGroup, formatter: NumberFormatter())
+                            .multilineTextAlignment(.center)
+                            //.frame(minWidth: 15, maxWidth: 60)
+                        Stepper("Value", value: $ageGroup, in: 0...100)
+                            .labelsHidden()
+                        Spacer()
                     }
+
                 }
             }
             
@@ -56,13 +62,13 @@ struct NewEvent: View {
                 
                 Button("Create") {
                     if male {
-                        createEvent(gender: "Male")
+                        createEvent(gender: .male)
                     }
                     if female {
-                        createEvent(gender: "Female")
+                        createEvent(gender: .female)
                     }
                     if mixed {
-                        createEvent(gender: "Mixed")
+                        createEvent(gender: .mixed)
                     }
                     dismiss()
                 }
@@ -76,8 +82,8 @@ struct NewEvent: View {
         .frame(width: 300)
     }
     
-    private func createEvent(gender: String) {
-        let newEvent = Event(eventName: eventName, eventGender: gender, eventAgeGroup: "\(ageGroup)")
+    private func createEvent(gender: Gender) {
+        let newEvent = Event(eventName: eventName, eventGender: gender, eventAgeGroup: ageGroup)
         carnival.addEvent(newEvent)
     }
     

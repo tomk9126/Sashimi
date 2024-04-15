@@ -26,5 +26,5 @@ struct ScoreEvent: View {
 }
 
 #Preview {
-    ScoreEvent(event: Event(eventName: "Event Name", eventGender: "Gender", eventAgeGroup: "Age"))
+    ScoreEvent(event: Event(eventName: "Event Name", eventGender: .mixed, eventAgeGroup: 21))
 }
