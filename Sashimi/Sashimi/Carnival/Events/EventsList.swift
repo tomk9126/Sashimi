@@ -112,7 +112,7 @@ struct EventsList: View {
             
             if let selectedEvent = carnival.events.first(where: { selection.contains($0.id) }) {
                 ScoreEvent(event: selectedEvent)
-                    .padding(.leading)
+                    .padding()
             } else {
                 Text("No event selected. This shouldn't happen.")
             }
@@ -121,7 +121,7 @@ struct EventsList: View {
             
             if let selectedEvent = carnival.events.first(where: { selection.contains($0.id) }) {
                 EditEvent(event: selectedEvent)
-                    .padding(.leading)
+                    .padding()
             } else {
                 // Handle case where no event is selected
                 Text("No event selected")

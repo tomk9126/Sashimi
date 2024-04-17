@@ -15,7 +15,9 @@ struct NewEvent: View {
     @State private var mixed = false
     
     @State private var eventName = ""
+    @State private var mixedAges = false
     @State private var ageGroup = 12
+    
     
     @State private var isCreateButtonDisabled = true // Initially disabled
     
@@ -23,12 +25,28 @@ struct NewEvent: View {
     
     var body: some View {
         Form {
-            Section(header: Text("Create identical events for:")) {
-                VStack(alignment: .leading) {
+            TextField("Event Name:", text: $eventName)
+            Divider()
+            
+            HStack {
+                Toggle(isOn: $mixedAges) {}
+                    .labelsHidden()
+                .toggleStyle(.checkbox)
+                TextField("Age Group: ", value: $eventName, formatter: NumberFormatter())
+                    .disabled(!mixedAges)
+                Stepper("Value", value: $ageGroup, in: 0...100)
+                    .labelsHidden()
+                    .disabled(!mixedAges)
+                Spacer()
+            }
+            Divider()
+            LabeledContent("Gender: ") {
+                VStack (alignment: .leading){
                     Toggle(isOn: $male) {
                         Text("Male")
                     }
                     .toggleStyle(.checkbox)
+    
                     Toggle(isOn: $female) {
                         Text("Female")
                     }
@@ -38,48 +56,39 @@ struct NewEvent: View {
                     }
                     .toggleStyle(.checkbox)
                 }
-            }
-            
-            Section(header: Text("Settings:")) {
-                VStack(alignment: .leading) {
-                    TextField("Event Name", text: $eventName)
-                    HStack {
-                        TextField("Enter Value", value: $ageGroup, formatter: NumberFormatter())
-                            .multilineTextAlignment(.center)
-                            //.frame(minWidth: 15, maxWidth: 60)
-                        Stepper("Value", value: $ageGroup, in: 0...100)
-                            .labelsHidden()
-                        Spacer()
-                    }
-
-                }
-            }
-            
-            HStack() {
-                Button("Cancel", role: .cancel) {
-                    dismiss()
-                }.keyboardShortcut(.cancelAction)
                 
-                Button("Create") {
-                    if male {
-                        createEvent(gender: .male)
-                    }
-                    if female {
-                        createEvent(gender: .female)
-                    }
-                    if mixed {
-                        createEvent(gender: .mixed)
-                    }
-                    dismiss()
-                }
-                .keyboardShortcut(.defaultAction)
-                .disabled(isCreateButtonDisabled) // Disable based on condition
+                
             }
+            
+            
+            
         }
+        .frame(width: 265)
         .onReceive([male, female, mixed, eventName].publisher) { _ in
             updateCreateButtonState() // Update state when checkbox states or eventName changes
+            
         }
-        .frame(width: 300)
+        HStack() {
+            Button("Cancel", role: .cancel) {
+                dismiss()
+            }.keyboardShortcut(.cancelAction)
+            
+            Button("Create") {
+                if male {
+                    createEvent(gender: .male)
+                }
+                if female {
+                    createEvent(gender: .female)
+                }
+                if mixed {
+                    createEvent(gender: .mixed)
+                }
+                dismiss()
+            }
+            .keyboardShortcut(.defaultAction)
+            .disabled(isCreateButtonDisabled) // Disable based on condition
+        }
+        
     }
     
     private func createEvent(gender: Gender) {
@@ -95,5 +104,8 @@ struct NewEvent: View {
 
 
 #Preview {
+
     NewEvent(carnival: Carnival(name: "Carnival Name", date: Date.now))
+        
+    
 }

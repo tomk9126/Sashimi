@@ -17,18 +17,11 @@ struct EditEvent: View {
     
     var body: some View {
         Form() {
-            Picker(selection: $event.eventGender, label: Text("Gender:")) {
-                Text("Male").tag(Gender.male)
-                Text("Female").tag(Gender.female)
-                Text("Mixed").tag(Gender.mixed)
-            }
-            .pickerStyle(.inline)
-            
-            
+
             TextField(text: $event.eventName, prompt: Text("'100m freestyle'")) {
                 Text("Event Name: ")
             }
-            
+            Divider()
             HStack {
                 Toggle(isOn: $mixedAges) {}
                 .toggleStyle(.checkbox)
@@ -41,11 +34,18 @@ struct EditEvent: View {
                         event.eventAgeGroup = newValue
                     }
                 Spacer()
+                
             }
+            Divider()
+            Picker(selection: $event.eventGender, label: Text("Gender:")) {
+                Text("Male").tag(Gender.male)
+                Text("Female").tag(Gender.female)
+                Text("Mixed").tag(Gender.mixed)
+            }
+            .pickerStyle(.inline)
 
         }
         .frame(width: 265)
-        .padding([.top, .leading, .trailing])
         HStack() {
             Button("Cancel", role: .cancel) {
                 dismiss()
@@ -55,13 +55,13 @@ struct EditEvent: View {
                 dismiss()
             }.keyboardShortcut(.defaultAction)
         }
-        .padding(.all)
-        
         
     }
+    
 }
 
 
 #Preview {
     EditEvent(event: Event(eventName: "Name", eventGender: .male, eventAgeGroup: 21))
+    
 }
