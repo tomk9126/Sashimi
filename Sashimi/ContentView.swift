@@ -17,6 +17,7 @@ struct ContentView: View {
             CarnivalList()
         } detail: {
             NoCarnivalSelected()
+            //This is the default detail view, but is overridden once a carnival is selected in CarnivalList()
         }
         
     }

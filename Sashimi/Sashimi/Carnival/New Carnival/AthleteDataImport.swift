@@ -7,31 +7,71 @@
 
 import SwiftUI
 
+struct GradientButton: View {
+    var glyph: String
+    var body: some View {
+        ZStack {
+            Image(systemName: glyph)
+                .fontWeight(.medium)
+            Color.clear
+                .frame(width: 24, height: 24)
+        }
+    }
+}
+
 struct AthleteDataImport: View {
     
     @State private var isImporting = false
     @State private var selectedDatabase = "file://"
     
+    @State var newAthletes: [Athlete] = [] // Define athletes array
+    @State var selection = Set<Athlete.ID>()
     var body: some View {
         VStack {
-            Section("Link to Athletes Database") {
-                Table(Carnival(name: "Summer Carnival", date: Date.now).athletes) {
-                            TableColumn("Name", value: \.athleteFirstName)
-                            TableColumn("Surname", value: \.athleteLastName)
-                            TableColumn("DOB", value: \.athleteDOB)
-                }.tableStyle(.bordered)
-                HStack {
-                    Button("Import (.csv)", role: .cancel) {
-                        isImporting.toggle()
+            Form {
+                Table($newAthletes, selection: $selection) {
+                            TableColumn("First Name") { $athlete in
+                                TextField("", text: $athlete.athleteFirstName)
+                            }
+                            TableColumn("Last Name") { $athlete in
+                                TextField("", text: $athlete.athleteLastName)
+                            }
+                            TableColumn("DOB") { $athlete in
+                                TextField("", text: $athlete.athleteDOB)
+                            }
+                        }
+                .tableStyle(.bordered)
+                .padding(.bottom, 24)
+                .overlay(alignment: .bottom, content: {
+                    VStack(alignment: .leading, spacing: 0) {
+                        Divider()
+                        HStack(spacing: 0) {
+                            Button(action: {newAthletes.append(Athlete(athleteFirstName: "John", athleteLastName: "Smith", athleteDOB: ""))}) {
+                                GradientButton(glyph: "plus")
+                            }
+                            Divider().frame(height: 16)
+                            Button(action: {}) {
+                                GradientButton(glyph: "minus")
+                            }
+                            //.disabled(selection == nil ? true : false)
+                        }
+                        .buttonStyle(.borderless)
                     }
-                    Text(selectedDatabase)
-                    Spacer()
+                    .background(
+                        Rectangle()
+                            .stroke()
+                            .opacity(0.04)
+                    )
+                })
+            }
+            HStack {
+                Button("Import (.csv)", role: .cancel) {
+                    isImporting.toggle()
                 }
-                
+                Text(selectedDatabase)
+                Spacer()
             }
         }
-        .frame(width: 500, height: 280)
-        
         .fileImporter(
             isPresented: $isImporting,
             allowedContentTypes: [.commaSeparatedText],
@@ -49,6 +89,8 @@ struct AthleteDataImport: View {
     }
 }
 
+
 #Preview {
     AthleteDataImport()
+        .padding()
 }

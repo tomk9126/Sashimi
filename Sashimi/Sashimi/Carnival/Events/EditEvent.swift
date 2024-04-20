@@ -16,45 +16,49 @@ struct EditEvent: View {
     @State private var ageGroupValue: Int = 0 // Default value for the age group
     
     var body: some View {
-        Form() {
+        VStack {
+            Form() {
 
-            TextField(text: $event.eventName, prompt: Text("'100m freestyle'")) {
-                Text("Event Name: ")
-            }
-            Divider()
-            HStack {
-                Toggle(isOn: $mixedAges) {}
-                .toggleStyle(.checkbox)
-                TextField("Age Group: ", value: $event.eventAgeGroup, formatter: NumberFormatter())
-                    .disabled(!mixedAges)
-                Stepper("Value", value: $ageGroupValue, in: 0...100)
-                    .labelsHidden()
-                    .disabled(!mixedAges)
-                    .onChange(of: ageGroupValue) { newValue in
-                        event.eventAgeGroup = newValue
-                    }
-                Spacer()
-                
-            }
-            Divider()
-            Picker(selection: $event.eventGender, label: Text("Gender:")) {
-                Text("Male").tag(Gender.male)
-                Text("Female").tag(Gender.female)
-                Text("Mixed").tag(Gender.mixed)
-            }
-            .pickerStyle(.inline)
+                TextField(text: $event.eventName, prompt: Text("'100m freestyle'")) {
+                    Text("Event Name:")
+                }
+                Divider()
+                HStack {
+                    Toggle(isOn: $mixedAges) {}
+                    .toggleStyle(.checkbox)
+                    TextField("Age Group:", value: $event.eventAgeGroup, formatter: NumberFormatter())
+                        .disabled(!mixedAges)
+                    Stepper("Value", value: $ageGroupValue, in: 0...100)
+                        .labelsHidden()
+                        .disabled(!mixedAges)
+                        .onChange(of: ageGroupValue) { newValue in
+                            event.eventAgeGroup = newValue
+                        }
+                    Spacer()
+                    
+                }
+                Divider()
+                Picker(selection: $event.eventGender, label: Text("Gender:")) {
+                    Text("Male").tag(Gender.male)
+                    Text("Female").tag(Gender.female)
+                    Text("Mixed").tag(Gender.mixed)
+                }
+                .pickerStyle(.inline)
 
+            }
+            .frame(width: 265)
+            HStack() {
+                Button("Cancel", role: .cancel) {
+                    dismiss()
+                }.keyboardShortcut(.cancelAction)
+                Button("Edit Event") {
+                    CarnivalManager.shared.updateEvent(event: event, newName: event.eventName, newGender: event.eventGender, newAge: event.eventAgeGroup)
+                    dismiss()
+                }.keyboardShortcut(.defaultAction)
+            }
+            .formStyle(.grouped)
         }
-        .frame(width: 265)
-        HStack() {
-            Button("Cancel", role: .cancel) {
-                dismiss()
-            }.keyboardShortcut(.cancelAction)
-            Button("Edit Event") {
-                CarnivalManager.shared.updateEvent(event: event, newName: event.eventName, newGender: event.eventGender, newAge: event.eventAgeGroup)
-                dismiss()
-            }.keyboardShortcut(.defaultAction)
-        }
+        .padding(.all)
         
     }
     

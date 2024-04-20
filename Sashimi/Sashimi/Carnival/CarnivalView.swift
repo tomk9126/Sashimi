@@ -9,37 +9,44 @@ import SwiftUI
 
 struct CarnivalView: View {
     
-    
+    @ObservedObject var carnivalManager = CarnivalManager.shared
     @ObservedObject var carnival: Carnival
-    
     private let tabs = ["Scoring", "Athletes"]
     @State private var selectedTab = 0
     
     var body: some View {
         NavigationStack {
-            if selectedTab == 0 {
-                EventsList(carnival: carnival)
+            if carnivalManager.carnivals.isEmpty {
+                NoCarnivalSelected()
+            } else {
+                if selectedTab == 0 {
+                    EventsList(carnival: carnival)
+                }
+                if selectedTab == 1 {
+                    AthletesList()
+                }
             }
-            if selectedTab == 1 {
-                AthletesList()
-            }
+            
    
         }
         // Tab Bar
         .navigationTitle(carnival.name)
         .toolbar {
-            ToolbarItemGroup(placement: .principal) {
-                VStack {
-                    Picker("", selection: $selectedTab) {
-                        ForEach(tabs.indices) { i in
-                            Text(self.tabs[i]).tag(i)
+            if !carnivalManager.carnivals.isEmpty {
+                ToolbarItemGroup(placement: .principal) {
+                    VStack {
+                        Picker("", selection: $selectedTab) {
+                            ForEach(tabs.indices) { i in
+                                Text(self.tabs[i]).tag(i)
+                            }
                         }
+                        .pickerStyle(SegmentedPickerStyle())
+                        .padding(.top, 8)
+                        Spacer()
                     }
-                    .pickerStyle(SegmentedPickerStyle())
-                    .padding(.top, 8)
-                    Spacer()
                 }
             }
+            
         }
         
         // .frame(minWidth: 800, minHeight: 400)
@@ -48,6 +55,6 @@ struct CarnivalView: View {
 }
 
 #Preview {
-    let carnival = Carnival(name: "Sample Carnival", date: Date.now)
-            return CarnivalView(carnival: carnival)
+    CarnivalManager.shared.exampleUsage()
+    return CarnivalView(carnival: CarnivalManager.shared.carnivals[0])
 }

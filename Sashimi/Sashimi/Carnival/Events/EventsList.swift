@@ -121,7 +121,6 @@ struct EventsList: View {
             
             if let selectedEvent = carnival.events.first(where: { selection.contains($0.id) }) {
                 EditEvent(event: selectedEvent)
-                    .padding()
             } else {
                 // Handle case where no event is selected
                 Text("No event selected")
@@ -129,7 +128,6 @@ struct EventsList: View {
         }
         .sheet(isPresented: $showingNewEventSheet) {
             NewEvent(carnival: carnival)
-                .padding()
         }
     }
 }

@@ -10,8 +10,6 @@ import SwiftUI
 struct CarnivalList: View {
     
     @ObservedObject var carnivalManagerObserved = CarnivalManager.shared
-    @State private var refreshId = UUID()
-    @State private var reloadList = UUID()
     
     @State private var showingNewCarnivalSheet = false
     @State private var document: FileDocument?

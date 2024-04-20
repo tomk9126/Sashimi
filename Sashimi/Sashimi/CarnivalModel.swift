@@ -8,6 +8,7 @@
 import Foundation
 import SwiftUI
 
+//Data type Athlete
 struct Athlete: Hashable, Identifiable {
     var athleteFirstName: String
     var athleteLastName: String
@@ -15,17 +16,19 @@ struct Athlete: Hashable, Identifiable {
     var id = UUID()
 }
 
+//Data type Gender
 enum Gender {
     case male
     case female
     case mixed
 }
 
+//Data type Event
 struct Event: Hashable, Identifiable {
     var eventName: String
     var eventGender: Gender
     var eventAgeGroup: Int? //Optional value because an event may be mixed-ages. If there is no value, this is the case.
-    var ranks: [String: Int] = [:]
+    var ranks: [String: Int] = [:] //Scoring data
     var id = UUID()
 }
 
@@ -86,24 +89,20 @@ class CarnivalManager: ObservableObject {
     static let shared = CarnivalManager()
     
     @Published var carnivals: [Carnival]
-    @Published var carnivalNames: [String]
     
     private init() {
         self.carnivals = []
-        self.carnivalNames = []
     }
     
     func createCarnival(name: String, date: Date) -> Carnival {
         let newCarnival = Carnival(name: name, date: date)
         carnivals.append(newCarnival)
-        carnivalNames.append(name)
         return newCarnival
     }
     
     func deleteCarnival(_ carnival: Carnival) {
         if let index = carnivals.firstIndex(where: { $0.name == carnival.name }) {
             carnivals.remove(at: index)
-            carnivalNames.remove(at: index)
         }
     }
     
@@ -130,9 +129,6 @@ class CarnivalManager: ObservableObject {
             return nil
         }
     
-    func getCarnivalByName(_ name: String) -> Carnival? {
-        return carnivals.first { $0.name == name }
-    }
     
     func exampleUsage() {
         let carnival1 = CarnivalManager.shared.createCarnival(name: "KHC Swimming Carnival", date: Date.now)
