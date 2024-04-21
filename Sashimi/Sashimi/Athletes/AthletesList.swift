@@ -14,11 +14,13 @@ struct AthletesList: View {
     @State private var showingPopover = false
     @State private var showingDeletionAlert = false
     
+    @ObservedObject var carnival: Carnival
+    
     @State private var selection: Set<Athlete.ID> = []
     
     var body: some View {
         NavigationStack {
-            Table(Carnival(name: "Summer Carnival", date: Date.now).athletes, selection: $selection) {
+            Table(carnival.athletes, selection: $selection) {
                         TableColumn("Name", value: \.athleteFirstName)
                         TableColumn("Surname", value: \.athleteLastName)
                         TableColumn("DOB", value: \.athleteDOB)
@@ -68,6 +70,7 @@ struct AthletesList: View {
     }
 }
 
-#Preview {
-    AthletesList()
-}
+//#Preview {
+//    CarnivalManager.shared.exampleUsage()
+//    AthletesList(carnival: CarnivalManager.shared.carnivals.first!)
+//}

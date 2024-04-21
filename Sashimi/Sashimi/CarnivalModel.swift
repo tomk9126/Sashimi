@@ -8,19 +8,19 @@
 import Foundation
 import SwiftUI
 
+//Data type Gender
+enum Gender {
+    case male
+    case female
+    case mixed
+}
+
 //Data type Athlete
 struct Athlete: Hashable, Identifiable {
     var athleteFirstName: String
     var athleteLastName: String
     var athleteDOB: String
     var id = UUID()
-}
-
-//Data type Gender
-enum Gender {
-    case male
-    case female
-    case mixed
 }
 
 //Data type Event
@@ -34,14 +34,19 @@ struct Event: Hashable, Identifiable {
 
 class Carnival: ObservableObject, Identifiable, Hashable {
     
-    //Allows Carnival to conform to equatable.
+    //The following Allows Carnival to conform to equatable.
     //This means operators such as '==' and '!=' can be used on this datatype.
     static func == (lhs: Carnival, rhs: Carnival) -> Bool {
             return lhs.id == rhs.id
     }
 
-    //Allows Carnival, Events, and Athletes to conform to Hashable.
+    
+    
+    //The following Allows Carnival, Events, and Athletes to conform to Hashable.
     //This gives every Carnival, Event, and Athlete a unique ID.
+    /* Why use IDs?
+        This allows for multiple data entries to contain the exact same data. For example, duplicate data (Or maybe a very unlucky instance where two Athletes have the same name and DOB!)
+     */
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
@@ -67,6 +72,12 @@ class Carnival: ObservableObject, Identifiable, Hashable {
         events.append(event)
     }
     
+    /* An explanation on removal functions
+     Since all Events, Athletes, and Carnivals are identified by UUIDs, we need to retrive the datatypes from their IDs before they can be manipulated.
+     The removal functions below works as follows:
+        'Remove every entry that has the same ID as our current selection, where $0 is our selection'
+     
+     */
     func removeAthlete(_ athlete: Athlete) {
         athletes.removeAll { $0.id == athlete.id }
     }
@@ -74,18 +85,11 @@ class Carnival: ObservableObject, Identifiable, Hashable {
     func removeEvent(_ event: Event) {
         events.removeAll { $0.id == event.id }
     }
-    
-    func getAthleteById(_ athleteId: UUID) -> Athlete? {
-        return athletes.first { $0.id == athleteId }
-    }
-    
-    func getEventById(_ eventId: UUID) -> Event? {
-        return events.first { $0.id == eventId }
-    }
 }
 
 class CarnivalManager: ObservableObject {
     
+    //allows data manipulation from any area of the app by using CarnivalManager.shared. ...
     static let shared = CarnivalManager()
     
     @Published var carnivals: [Carnival]
@@ -129,8 +133,13 @@ class CarnivalManager: ObservableObject {
             return nil
         }
     
+    func createAthlete(carnival: Carnival, firstName: String, lastName: String, DOB: String) -> Athlete {
+        let newAthlete = Athlete(athleteFirstName: firstName, athleteLastName: lastName, athleteDOB: DOB)
+        carnival.athletes.append(newAthlete)
+        return newAthlete
+    }
     
-    func exampleUsage() {
+    func exampleUsage() { //Provides some sample data for quick testing and debug
         let carnival1 = CarnivalManager.shared.createCarnival(name: "KHC Swimming Carnival", date: Date.now)
 
         let exampleEvents = [

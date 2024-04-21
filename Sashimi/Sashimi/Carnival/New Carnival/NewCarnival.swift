@@ -10,7 +10,7 @@ import SwiftUI
 struct NewCarnival: View {
     @State var newCarnivalName = "Placeholder Name"
     @State var newCarnivalDate = Date.now
-    
+    @State var newAthletes: [Athlete] = []
     private let tabs = ["Athletes", "Settings"]
     @State private var selectedTab = 0
     
@@ -28,11 +28,11 @@ struct NewCarnival: View {
                 Label("Carnival Settings", systemImage: "gearshape")
             }
             Group {
-                AthleteDataImport()
+                AthleteDataImport(newAthletes: $newAthletes)
                     .padding()
             }
             .tabItem {
-                Label("Athletes", systemImage: "gearshape")
+                Label("Athletes", systemImage: "person.fill")
             }
             
             
@@ -46,6 +46,7 @@ struct NewCarnival: View {
                 }.keyboardShortcut(.cancelAction)
                 Button("Create") {
                     CarnivalManager.shared.createCarnival(name: newCarnivalName, date: newCarnivalDate)
+                    CarnivalManager.shared.carnivals.first!.athletes.append(contentsOf: newAthletes)
                     print(CarnivalManager.shared.carnivals)
                     dismiss()
                 }.keyboardShortcut(.defaultAction)

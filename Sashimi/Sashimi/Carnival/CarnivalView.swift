@@ -23,7 +23,7 @@ struct CarnivalView: View {
                     EventsList(carnival: carnival)
                 }
                 if selectedTab == 1 {
-                    AthletesList()
+                    AthletesList(carnival: carnival)
                 }
             }
             

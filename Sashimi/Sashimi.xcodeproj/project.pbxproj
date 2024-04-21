@@ -32,7 +32,6 @@
 		F39AAA902BAC159B0054C0C2 /* SashimiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E652BABF57100C37122 /* SashimiApp.swift */; };
 		F39AAA972BAC18350054C0C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3900E622BABF57100C37122 /* Assets.xcassets */; };
 		F39AAA982BAC18360054C0C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3900E622BABF57100C37122 /* Assets.xcassets */; };
-		F3A159882BD3C711006325A7 /* ListGradientButtonsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3A159872BD3C711006325A7 /* ListGradientButtonsTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +79,6 @@
 		F3900E7C2BABF58000C37122 /* Swim_CarnivalUITestsLaunchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swim_CarnivalUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		F3900E7E2BABF58000C37122 /* Swim_CarnivalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swim_CarnivalTests.swift; sourceTree = "<group>"; };
 		F39AAA962BAC171C0054C0C2 /* Sashimi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sashimi.entitlements; sourceTree = "<group>"; };
-		F3A159872BD3C711006325A7 /* ListGradientButtonsTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListGradientButtonsTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,7 +158,6 @@
 				F3900E522BABF57100C37122 /* CarnivalSettings.swift */,
 				F3900E532BABF57100C37122 /* NewCarnival.swift */,
 				F3900E512BABF57100C37122 /* AthleteDataImport.swift */,
-				F3A159872BD3C711006325A7 /* ListGradientButtonsTest.swift */,
 			);
 			path = "New Carnival";
 			sourceTree = "<group>";
@@ -356,7 +353,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F3900E842BAC116D00C37122 /* PopoverTest.swift in Sources */,
-				F3A159882BD3C711006325A7 /* ListGradientButtonsTest.swift in Sources */,
 				F3900E852BAC116D00C37122 /* AthletesList.swift in Sources */,
 				F39AAA902BAC159B0054C0C2 /* SashimiApp.swift in Sources */,
 				F3900E862BAC116D00C37122 /* EditEvent.swift in Sources */,
