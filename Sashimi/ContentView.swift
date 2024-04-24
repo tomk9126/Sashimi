@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct ContentView: View {
-    
+
     @ObservedObject var carnivalManager = CarnivalManager.shared
     
     var body: some View {

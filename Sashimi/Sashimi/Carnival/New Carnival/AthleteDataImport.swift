@@ -48,9 +48,13 @@ struct AthleteDataImport: View {
     @Binding var newAthletes: [Athlete]
     @State private var selection: Athlete.ID?
     
+    @State private var importErrors: [String] = []
+    
+    @State private var showAlert = false
+
     
     var body: some View {
-        VStack {
+        NavigationStack {
             Form {
                 Table($newAthletes, selection: $selection) {
                     TableColumn("First Name") { $athlete in
@@ -59,8 +63,20 @@ struct AthleteDataImport: View {
                     TableColumn("Last Name") { $athlete in
                         TextField("", text: $athlete.athleteLastName)
                     }
-                    TableColumn("DOB") { $athlete in
-                        TextField("", text: $athlete.athleteDOB)
+                    TableColumn("DOB") { athleteBinding in
+                        let athlete = athleteBinding.wrappedValue // Access the Athlete object from the binding
+
+                        DatePicker("", selection: Binding<Date>(
+                            get: {
+                                athlete.athleteDOB
+                            },
+                            set: { newValue in
+                                if let index = newAthletes.firstIndex(of: athlete) {
+                                    newAthletes[index].athleteDOB = newValue
+                                }
+                            }
+                        ), displayedComponents: .date)
+                        .datePickerStyle(DefaultDatePickerStyle())
                     }
                 }
                 .tableStyle(.bordered)
@@ -70,7 +86,7 @@ struct AthleteDataImport: View {
                         Divider()
                         HStack(spacing: 0) {
                             GradientButton(glyph: "plus") {
-                                let newAthlete = Athlete(athleteFirstName: "First", athleteLastName: "Last", athleteDOB: "DOB")
+                                let newAthlete = Athlete(athleteFirstName: "First", athleteLastName: "Last", athleteDOB: Date.now)
                                 newAthletes.append(newAthlete)
                                 selection = newAthlete.id // Update selection to the new athlete
                             }
@@ -104,47 +120,67 @@ struct AthleteDataImport: View {
                 Spacer()
             }
         }
+        .frame(width: 500, height: 300)
         .fileImporter(
-            isPresented: $isImporting,
-            allowedContentTypes: [.commaSeparatedText],
-            allowsMultipleSelection: true
-        ) { result in
-            switch result {
-            case .success(let files):
-                files.forEach { file in
-                    // Gain access to the directory
-                    let gotAccess = file.startAccessingSecurityScopedResource()
-                    defer {
-                        // Release access
-                        file.stopAccessingSecurityScopedResource()
-                    }
-                    guard gotAccess else { return }
-                    do {
-                        let data = try Data(contentsOf: file)
-                        guard let content = String(data: data, encoding: .utf8) else {
-                            print("Failed to decode CSV data.")
-                            return
-                        }
-                        let rows = content.components(separatedBy: .newlines)
-                        for row in rows {
-                            let columns = row.components(separatedBy: ",")
-                            if columns.count == 3 {
-                                let newAthlete = Athlete(athleteFirstName: columns[0], athleteLastName: columns[1], athleteDOB: columns[2])
-                                newAthletes.append(newAthlete)
+                    isPresented: $isImporting,
+                    allowedContentTypes: [.commaSeparatedText],
+                    allowsMultipleSelection: true
+                ) { result in
+                    switch result {
+                    case .success(let files):
+                        files.forEach { file in
+                            // Gain access to the directory
+                            let gotAccess = file.startAccessingSecurityScopedResource()
+                            defer {
+                                // Release access
+                                file.stopAccessingSecurityScopedResource()
+                            }
+                            guard gotAccess else { return }
+                            do {
+                                let data = try Data(contentsOf: file)
+                                guard let content = String(data: data, encoding: .utf8) else {
+                                    print("Failed to decode CSV data.")
+                                    return
+                                }
+                                let rows = content.components(separatedBy: .newlines)
+                                let dateFormatter = DateFormatter()
+                                dateFormatter.dateFormat = "yyyy-MM-dd" // Adjust the date format according to your CSV date format
+                                for row in rows {
+                                    let columns = row.components(separatedBy: ",")
+                                    if columns.count == 3, let dob = dateFormatter.date(from: columns[2]) {
+                                        let newAthlete = Athlete(athleteFirstName: columns[0], athleteLastName: columns[1], athleteDOB: dob)
+                                        newAthletes.append(newAthlete)
+                                    } else {
+                                        importErrors.append("Invalid data format or date format for athlete: \(columns)")
+                                    }
+                                }
+                            } catch {
+                                importErrors.append("Error reading file: \(error.localizedDescription)")
                             }
                         }
-                    } catch {
-                        print("Error reading file: \(error.localizedDescription)")
+                        if !importErrors.isEmpty {
+                            importErrors.append("View 'Help' on data formatting.")
+                            showAlert = true
+                        }
+                    case .failure(let error):
+                        importErrors.append("File importing failed with error: \(error.localizedDescription)")
+                        
                     }
                 }
-            case .failure(let error):
-                // Handle error
-                print("File importing failed with error: \(error.localizedDescription)")
-            }
-        }
+                .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("Errors"),
+                        message: Text(importErrors.joined(separator: "\n")),
+                        dismissButton: .default(Text("OK")) {
+                            importErrors.removeAll()
+                        }
+                    )
+                    
+                }
+        
     }
 }
 //#Preview {
-    //AthleteDataImport(newAthletes: [Athlete])
-    //    .padding()
+//    AthleteDataImport(newAthletes: .constant([]), frameSize: CGSize(width: 400, height: 100))
+//        .padding()
 //}

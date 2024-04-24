@@ -19,7 +19,7 @@ enum Gender {
 struct Athlete: Hashable, Identifiable {
     var athleteFirstName: String
     var athleteLastName: String
-    var athleteDOB: String
+    var athleteDOB: Date
     var id = UUID()
 }
 
@@ -133,14 +133,15 @@ class CarnivalManager: ObservableObject {
             return nil
         }
     
-    func createAthlete(carnival: Carnival, firstName: String, lastName: String, DOB: String) -> Athlete {
+    func createAthlete(carnival: Carnival, firstName: String, lastName: String, DOB: Date) -> Athlete {
         let newAthlete = Athlete(athleteFirstName: firstName, athleteLastName: lastName, athleteDOB: DOB)
         carnival.athletes.append(newAthlete)
         return newAthlete
     }
     
-    func exampleUsage() { //Provides some sample data for quick testing and debug
-        let carnival1 = CarnivalManager.shared.createCarnival(name: "KHC Swimming Carnival", date: Date.now)
+    func exampleUsage() {
+        // Provides some sample data for quick testing and debug
+        let carnival1 = CarnivalManager.shared.createCarnival(name: "KHC Swimming Carnival", date: Date())
 
         let exampleEvents = [
             Event(eventName: "50m Freestyle", eventGender: .female, eventAgeGroup: 13),
@@ -148,16 +149,18 @@ class CarnivalManager: ObservableObject {
         for event in exampleEvents {
             carnival1.addEvent(event)
         }
-        
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+
         let exampleAthletes = [
-            Athlete(athleteFirstName: "Michael", athleteLastName: "Chang", athleteDOB: "1999-05-10"),
-            Athlete(athleteFirstName: "Emily", athleteLastName: "Davis", athleteDOB: "2002-11-30")
+            Athlete(athleteFirstName: "Michael", athleteLastName: "Chang", athleteDOB: dateFormatter.date(from: "1999-05-10") ?? Date()),
+            Athlete(athleteFirstName: "Emily", athleteLastName: "Davis", athleteDOB: dateFormatter.date(from: "2002-11-30") ?? Date())
         ]
-        
+
         for athlete in exampleAthletes {
             carnival1.addAthlete(athlete)
         }
-        
     }
     
 

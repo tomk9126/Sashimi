@@ -144,8 +144,8 @@
 		F3900E502BABF57100C37122 /* Events */ = {
 			isa = PBXGroup;
 			children = (
-				F3900E5D2BABF57100C37122 /* EditEvent.swift */,
 				F3900E5E2BABF57100C37122 /* EventsList.swift */,
+				F3900E5D2BABF57100C37122 /* EditEvent.swift */,
 				F3900E5F2BABF57100C37122 /* NewEvent.swift */,
 				F3900E612BABF57100C37122 /* Scoring */,
 			);
@@ -155,8 +155,8 @@
 		F3900E542BABF57100C37122 /* New Carnival */ = {
 			isa = PBXGroup;
 			children = (
-				F3900E522BABF57100C37122 /* CarnivalSettings.swift */,
 				F3900E532BABF57100C37122 /* NewCarnival.swift */,
+				F3900E522BABF57100C37122 /* CarnivalSettings.swift */,
 				F3900E512BABF57100C37122 /* AthleteDataImport.swift */,
 			);
 			path = "New Carnival";

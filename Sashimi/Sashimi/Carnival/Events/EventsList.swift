@@ -128,9 +128,12 @@ struct EventsList: View {
         }
         .sheet(isPresented: $showingNewEventSheet) {
             NewEvent(carnival: carnival)
-        }
+        } //onDismiss: {
+        //    $showingNewEventSheet.toggle()
+        //}
     }
 }
+
 #Preview {
     EventsList(carnival: Carnival(name: "Test", date: Date.now))
 }

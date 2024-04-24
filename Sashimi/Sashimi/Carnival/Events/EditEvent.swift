@@ -16,9 +16,11 @@ struct EditEvent: View {
     @State private var ageGroupValue: Int = 0 // Default value for the age group
     
     var body: some View {
-        VStack {
-            Form() {
 
+        VStack {
+            Text("Edit Event '\(event.eventName)'")
+                .font(.headline)
+            Form() {
                 TextField(text: $event.eventName, prompt: Text("'100m freestyle'")) {
                     Text("Event Name:")
                 }

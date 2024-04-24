@@ -21,9 +21,11 @@ struct AthletesList: View {
     var body: some View {
         NavigationStack {
             Table(carnival.athletes, selection: $selection) {
-                        TableColumn("Name", value: \.athleteFirstName)
-                        TableColumn("Surname", value: \.athleteLastName)
-                        TableColumn("DOB", value: \.athleteDOB)
+                TableColumn("Name", value: \.athleteFirstName)
+                TableColumn("Surname", value: \.athleteLastName)
+                TableColumn("DOB") { athlete in
+                    Text(DateFormatter.localizedString(from: athlete.athleteDOB, dateStyle: .short, timeStyle: .none))
+                }
             }
             .contextMenu(forSelectionType: Athlete.ID.self) { RightClickedEvent in
                 Button {

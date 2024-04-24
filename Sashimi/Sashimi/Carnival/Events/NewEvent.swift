@@ -14,6 +14,8 @@ struct NewEvent: View {
     @State private var female = false
     @State private var mixed = false
     
+    @State var reopenSheet = false
+    
     @State private var eventName = ""
     @State private var singleAge = false
     @State private var ageGroupSlider = 12
@@ -24,6 +26,8 @@ struct NewEvent: View {
     
     var body: some View {
         VStack {
+            Text("New Event")
+                .font(.headline)
             Form {
                 TextField("Event Name:", text: $eventName)
                 Divider()
@@ -61,11 +65,21 @@ struct NewEvent: View {
                         .toggleStyle(.checkbox)
                     }
                 }
+                
+                
             }
             .frame(width: 265)
             .onReceive([male, female, mixed, eventName].publisher) { _ in
                 updateCreateButtonState() // Update state when checkbox states or eventName changes
             }
+            Divider()
+            
+            Toggle(isOn: $reopenSheet) {
+                Text("Reopen this dialogue after creation.")
+                Text("Supports faster creation")
+                    .font(.subheadline)
+            }
+            
             
             HStack {
                 Button("Cancel", role: .cancel) {
@@ -107,8 +121,6 @@ struct NewEvent: View {
 
 
 #Preview {
-
     NewEvent(carnival: Carnival(name: "Carnival Name", date: Date.now))
         
-    
 }

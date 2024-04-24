@@ -34,6 +34,6 @@ struct CarnivalSettings: View {
     }
 }
 
-//#Preview {
-//    CarnivalSettings()
-//}
+#Preview {
+    CarnivalSettings(newCarnivalName: .constant(""), newCarnivalDate: .constant(Date()))
+}
