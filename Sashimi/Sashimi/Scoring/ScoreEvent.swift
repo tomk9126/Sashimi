@@ -1,30 +1,53 @@
 //
 //  ScoreEvent.swift
-//  Swim Carnival
+//  Sashimi
 //
-//  Created by Tom Keir on 11/3/2024.
+//  Created by Tom Keir on 25/4/2024.
 //
 
 import SwiftUI
 
 struct ScoreEvent: View {
+    let event: Event
+    @State var carnival: Carnival
+    @State private var selectedAthletes: [Athlete] = []
+    @State var showingView = 0
     @Environment(\.dismiss) var dismiss
-    @State var event: Event
-
     var body: some View {
         VStack {
-            Text("Scoring \(event.eventName)")
-            Text("Gender: \(event.eventGender)")
-            Text("Age Group: \(event.eventAgeGroup)")
-            Button("Cancel", role: .cancel) {
-                dismiss()
-            }.keyboardShortcut(.cancelAction)
+            HStack (spacing: 2) {
+                Text("\(event.eventName), ")
+                Text("\(event.eventGender == .mixed ? "Mixed, " : event.eventGender == .male ? "Male, " : "Female, ")")
+                if let eventAgeGroup = event.eventAgeGroup {
+                    Text("\(eventAgeGroup), ")
+                } else {
+                    Text("All Ages")
+                }
+            }
+
+            Divider()
+            if showingView == 0 {
+                AthleteSelection(event: event, carnival: carnival, selectedAthletes: $selectedAthletes)
+            } else if showingView == 1 {
+                AthleteScoring(selectedAthletes: $selectedAthletes)
+            }
+            
+            Divider()
+            HStack {
+                Button("Cancel", role: .cancel) {
+                    dismiss()
+                }.keyboardShortcut(.cancelAction)
+                    
+                Button(showingView == 0 ? "Next" : "Finalise") {
+                    if showingView == 0 { showingView = 1 } else { dismiss() }
+                }.keyboardShortcut(.defaultAction)
+                    .disabled(selectedAthletes.count == 0)
+            }
         }
-        .padding()
-        
     }
 }
 
 #Preview {
-    ScoreEvent(event: Event(eventName: "Event Name", eventGender: .mixed, eventAgeGroup: 21))
+    ScoreEvent(event: Event(eventName: "100m Freestyle", eventGender: .female), carnival: Carnival(name: "", date: Date.now))
+        .padding()
 }

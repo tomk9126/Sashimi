@@ -20,6 +20,7 @@ struct Athlete: Hashable, Identifiable {
     var athleteFirstName: String
     var athleteLastName: String
     var athleteDOB: Date
+    var athleteGender: Gender
     var id = UUID()
 }
 
@@ -133,8 +134,8 @@ class CarnivalManager: ObservableObject {
             return nil
         }
     
-    func createAthlete(carnival: Carnival, firstName: String, lastName: String, DOB: Date) -> Athlete {
-        let newAthlete = Athlete(athleteFirstName: firstName, athleteLastName: lastName, athleteDOB: DOB)
+    func createAthlete(carnival: Carnival, firstName: String, lastName: String, DOB: Date, gender: Gender) -> Athlete {
+        let newAthlete = Athlete(athleteFirstName: firstName, athleteLastName: lastName, athleteDOB: DOB, athleteGender: gender)
         carnival.athletes.append(newAthlete)
         return newAthlete
     }
@@ -154,8 +155,8 @@ class CarnivalManager: ObservableObject {
         dateFormatter.dateFormat = "yyyy-MM-dd"
 
         let exampleAthletes = [
-            Athlete(athleteFirstName: "Michael", athleteLastName: "Chang", athleteDOB: dateFormatter.date(from: "1999-05-10") ?? Date()),
-            Athlete(athleteFirstName: "Emily", athleteLastName: "Davis", athleteDOB: dateFormatter.date(from: "2002-11-30") ?? Date())
+            Athlete(athleteFirstName: "Michael", athleteLastName: "Chang", athleteDOB: dateFormatter.date(from: "1999-05-10") ?? Date(), athleteGender: .male),
+            Athlete(athleteFirstName: "Emily", athleteLastName: "Davis", athleteDOB: dateFormatter.date(from: "2002-11-30") ?? Date(), athleteGender: .female)
         ]
 
         for athlete in exampleAthletes {

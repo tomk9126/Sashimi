@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct CarnivalView: View {
-    
     @ObservedObject var carnivalManager = CarnivalManager.shared
     @ObservedObject var carnival: Carnival
     private let tabs = ["Scoring", "Athletes"]
     @State private var selectedTab = 0
-    
+
     var body: some View {
         NavigationStack {
             if carnivalManager.carnivals.isEmpty {
@@ -23,13 +22,10 @@ struct CarnivalView: View {
                     EventsList(carnival: carnival)
                 }
                 if selectedTab == 1 {
-                    AthletesList(carnival: carnival)
+                    AthletesList(carnival: carnival, athletes: $carnival.athletes)
                 }
             }
-            
-   
         }
-        // Tab Bar
         .navigationTitle(carnival.name)
         .toolbar {
             if !carnivalManager.carnivals.isEmpty {
@@ -46,13 +42,10 @@ struct CarnivalView: View {
                     }
                 }
             }
-            
         }
-        
-        // .frame(minWidth: 800, minHeight: 400)
-        
     }
 }
+
 
 #Preview {
     CarnivalManager.shared.exampleUsage()

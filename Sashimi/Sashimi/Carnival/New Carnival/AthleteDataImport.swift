@@ -57,11 +57,13 @@ struct AthleteDataImport: View {
         NavigationStack {
             Form {
                 Table($newAthletes, selection: $selection) {
-                    TableColumn("First Name") { $athlete in
-                        TextField("", text: $athlete.athleteFirstName)
+                    TableColumn("First Name") { athlete in
+                        TextField("", text: athlete.athleteFirstName)
+                            .textFieldStyle(.squareBorder)
                     }
-                    TableColumn("Last Name") { $athlete in
-                        TextField("", text: $athlete.athleteLastName)
+                    TableColumn("Last Name") { athlete in
+                        TextField("", text: athlete.athleteLastName)
+                            .textFieldStyle(.squareBorder)
                     }
                     TableColumn("DOB") { athleteBinding in
                         let athlete = athleteBinding.wrappedValue // Access the Athlete object from the binding
@@ -84,24 +86,35 @@ struct AthleteDataImport: View {
                 .overlay(alignment: .bottom, content: {
                     VStack(alignment: .leading, spacing: 0) {
                         Divider()
-                        HStack(spacing: 0) {
-                            GradientButton(glyph: "plus") {
-                                let newAthlete = Athlete(athleteFirstName: "First", athleteLastName: "Last", athleteDOB: Date.now)
-                                newAthletes.append(newAthlete)
-                                selection = newAthlete.id // Update selection to the new athlete
-                            }
-                            .keyboardShortcut(.defaultAction) // Set default action (Enter key)
-                            .padding(.trailing, 8)
-                            
-                            GradientButton(glyph: "minus") {
-                                // Remove selected athletes
-                                if let selectedAthleteId = selection {
-                                    newAthletes.removeAll { $0.id == selectedAthleteId }
-                                    selection = nil // Clear selection after removing athlete
+                        HStack {
+                            HStack(spacing: 0) {
+                                GradientButton(glyph: "plus") {
+                                    let newAthlete = Athlete(athleteFirstName: "First", athleteLastName: "Last", athleteDOB: Date.now, athleteGender: .male)
+                                    newAthletes.append(newAthlete)
+                                    selection = newAthlete.id // Update selection to the new athlete
+                                }
+                                .keyboardShortcut(.defaultAction) // Set default action (Enter key)
+                                .padding(.trailing, 8)
+                                
+                                GradientButton(glyph: "minus") {
+                                    // Remove selected athletes
+                                    if let selectedAthleteId = selection {
+                                        newAthletes.removeAll { $0.id == selectedAthleteId }
+                                        selection = nil // Clear selection after removing athlete
+                                    }
                                 }
                             }
+                            .buttonStyle(.borderless)
+                            Spacer()
+                            Text("\(newAthletes.count) Athletes")
+                            Spacer()
+                            HStack {
+                                Button("1") {}
+                                    .padding(.leading, 8)
+                                Button("2") {}
+                            }
+                            
                         }
-                        .buttonStyle(.borderless)
                     }
                     .background(
                         Rectangle()
@@ -139,16 +152,33 @@ struct AthleteDataImport: View {
                             do {
                                 let data = try Data(contentsOf: file)
                                 guard let content = String(data: data, encoding: .utf8) else {
-                                    print("Failed to decode CSV data.")
+                                    importErrors.append("Failed to decode the CSV file")
                                     return
                                 }
                                 let rows = content.components(separatedBy: .newlines)
                                 let dateFormatter = DateFormatter()
-                                dateFormatter.dateFormat = "yyyy-MM-dd" // Adjust the date format according to your CSV date format
+                                dateFormatter.dateFormat = "yyyy-MM-dd" //CSV date format
+                                
+                                
+                                
                                 for row in rows {
                                     let columns = row.components(separatedBy: ",")
-                                    if columns.count == 3, let dob = dateFormatter.date(from: columns[2]) {
-                                        let newAthlete = Athlete(athleteFirstName: columns[0], athleteLastName: columns[1], athleteDOB: dob)
+                                    if columns.count == 4 {
+                                        
+                                        //decode date of birth
+                                        let dob = dateFormatter.date(from: columns[2])
+                                        
+                                        //decode gender
+                                        var gender: Gender
+                                        if columns[3] == "male" {
+                                            gender = .male
+                                        } else if columns[3] == "female" {
+                                            gender = .female
+                                        } else {
+                                            gender = .mixed
+                                        }
+                                        
+                                        let newAthlete = Athlete(athleteFirstName: columns[0], athleteLastName: columns[1], athleteDOB: dob!, athleteGender: gender)
                                         newAthletes.append(newAthlete)
                                     } else {
                                         importErrors.append("Invalid data format or date format for athlete: \(columns)")

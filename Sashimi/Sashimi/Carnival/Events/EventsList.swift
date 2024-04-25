@@ -35,7 +35,7 @@ struct EventsList: View {
                     }
                 }
                 TableColumn("Age Group") { event in
-                    Text("Under \(event.eventAgeGroup)")
+                    Text("Under \(String(describing: event.eventAgeGroup))")
                 }
                 TableColumn("Scored?") { event in
                     //If Event contains Rank data, display Scored? = 'Yes'
@@ -76,25 +76,33 @@ struct EventsList: View {
             .toolbar {
                 ToolbarItemGroup() {
                     Spacer()
-                    Button(action: {showingScoreEventSheet.toggle()}) {
-                        Image(systemName: "list.bullet.clipboard")
+                    HStack {
+                        Button(action: {showingScoreEventSheet.toggle()}) {
+                            Image(systemName: "list.bullet.clipboard")
+                        }
+                        .disabled(selection.isEmpty)
+                        .help("Score event.")
+                        
+                        Button(action: {showingEditEventSheet.toggle()}) {
+                            Image(systemName: "pencil")
+                        }
+                        .disabled(selection.isEmpty)
+                        .help("Edit event information.")
+                        
+                        Button(action: {showingDeletionAlert.toggle()}) {
+                            Image(systemName: "trash")
+                        }
+                        .disabled(selection.isEmpty)
+                        .help("Delete event.")
+                        
+                        Divider()
+                        
+                        Button(action: {showingNewEventSheet.toggle()}) {
+                            Image(systemName: "plus")
+                        }
+                        .help("Create new event(s).")
                     }
-                    .disabled(selection.isEmpty)
-                    .help("Score event.")
-                    Button(action: {showingEditEventSheet.toggle()}) {
-                        Image(systemName: "pencil")
-                    }
-                    .disabled(selection.isEmpty)
-                    .help("Edit event information.")
-                    Button(action: {showingDeletionAlert.toggle()}) {
-                        Image(systemName: "trash")
-                    }
-                    .disabled(selection.isEmpty)
-                    .help("Delete event.")
-                    Button(action: {showingNewEventSheet.toggle()}) {
-                        Image(systemName: "plus")
-                    }
-                    .help("Create new event(s).")
+                    
                 }
 
             }
@@ -111,7 +119,7 @@ struct EventsList: View {
         .sheet(isPresented: $showingScoreEventSheet) {
             
             if let selectedEvent = carnival.events.first(where: { selection.contains($0.id) }) {
-                ScoreEvent(event: selectedEvent)
+                ScoreEvent(event: selectedEvent, carnival: carnival)
                     .padding()
             } else {
                 Text("No event selected. This shouldn't happen.")

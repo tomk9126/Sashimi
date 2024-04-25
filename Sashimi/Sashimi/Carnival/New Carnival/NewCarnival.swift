@@ -44,9 +44,10 @@ struct NewCarnival: View {
                 Button("Cancel", role: .cancel) {
                     dismiss()
                 }.keyboardShortcut(.cancelAction)
+                    
                 Button("Create") {
                     CarnivalManager.shared.createCarnival(name: newCarnivalName, date: newCarnivalDate)
-                    CarnivalManager.shared.carnivals.first!.athletes.append(contentsOf: newAthletes)
+                    CarnivalManager.shared.carnivals.last!.athletes.append(contentsOf: newAthletes)
                     print(CarnivalManager.shared.carnivals)
                     dismiss()
                 }.keyboardShortcut(.defaultAction)

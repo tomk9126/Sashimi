@@ -26,12 +26,14 @@
 		F3900E8F2BAC116D00C37122 /* EventsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E5E2BABF57100C37122 /* EventsList.swift */; };
 		F3900E902BAC116D00C37122 /* NewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E5F2BABF57100C37122 /* NewEvent.swift */; };
 		F3900E912BAC116D00C37122 /* EditAthlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E4B2BABF57100C37122 /* EditAthlete.swift */; };
-		F3900E922BAC116D00C37122 /* ScoreEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E602BABF57100C37122 /* ScoreEvent.swift */; };
+		F3900E922BAC116D00C37122 /* AthleteSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E602BABF57100C37122 /* AthleteSelection.swift */; };
 		F3900E932BAC116D00C37122 /* NewAthlete.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E4C2BABF57100C37122 /* NewAthlete.swift */; };
 		F39AAA8F2BAC15980054C0C2 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E632BABF57100C37122 /* ContentView.swift */; };
 		F39AAA902BAC159B0054C0C2 /* SashimiApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E652BABF57100C37122 /* SashimiApp.swift */; };
 		F39AAA972BAC18350054C0C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3900E622BABF57100C37122 /* Assets.xcassets */; };
 		F39AAA982BAC18360054C0C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3900E622BABF57100C37122 /* Assets.xcassets */; };
+		F3B476A42BDA39F2008D0600 /* ScoreEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B476A32BDA39F2008D0600 /* ScoreEvent.swift */; };
+		F3B476A62BDA596F008D0600 /* AthleteScoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B476A52BDA596F008D0600 /* AthleteScoring.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,7 +73,7 @@
 		F3900E5D2BABF57100C37122 /* EditEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditEvent.swift; sourceTree = "<group>"; };
 		F3900E5E2BABF57100C37122 /* EventsList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsList.swift; sourceTree = "<group>"; };
 		F3900E5F2BABF57100C37122 /* NewEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewEvent.swift; sourceTree = "<group>"; };
-		F3900E602BABF57100C37122 /* ScoreEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreEvent.swift; sourceTree = "<group>"; };
+		F3900E602BABF57100C37122 /* AthleteSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AthleteSelection.swift; sourceTree = "<group>"; };
 		F3900E622BABF57100C37122 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3900E632BABF57100C37122 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F3900E652BABF57100C37122 /* SashimiApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SashimiApp.swift; sourceTree = "<group>"; };
@@ -79,6 +81,8 @@
 		F3900E7C2BABF58000C37122 /* Swim_CarnivalUITestsLaunchTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swim_CarnivalUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		F3900E7E2BABF58000C37122 /* Swim_CarnivalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swim_CarnivalTests.swift; sourceTree = "<group>"; };
 		F39AAA962BAC171C0054C0C2 /* Sashimi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sashimi.entitlements; sourceTree = "<group>"; };
+		F3B476A32BDA39F2008D0600 /* ScoreEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreEvent.swift; sourceTree = "<group>"; };
+		F3B476A52BDA596F008D0600 /* AthleteScoring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AthleteScoring.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,7 +190,9 @@
 		F3900E612BABF57100C37122 /* Scoring */ = {
 			isa = PBXGroup;
 			children = (
-				F3900E602BABF57100C37122 /* ScoreEvent.swift */,
+				F3B476A32BDA39F2008D0600 /* ScoreEvent.swift */,
+				F3900E602BABF57100C37122 /* AthleteSelection.swift */,
+				F3B476A52BDA596F008D0600 /* AthleteScoring.swift */,
 			);
 			name = Scoring;
 			path = ../../Scoring;
@@ -358,17 +364,19 @@
 				F3900E862BAC116D00C37122 /* EditEvent.swift in Sources */,
 				F3900E872BAC116D00C37122 /* CarnivalView.swift in Sources */,
 				F3900E882BAC116D00C37122 /* CarnivalModel.swift in Sources */,
+				F3B476A42BDA39F2008D0600 /* ScoreEvent.swift in Sources */,
 				F3900E892BAC116D00C37122 /* CarnivalLabelButton.swift in Sources */,
 				F3900E8A2BAC116D00C37122 /* NoCarnivalSelected.swift in Sources */,
 				F39AAA8F2BAC15980054C0C2 /* ContentView.swift in Sources */,
 				F3900E8B2BAC116D00C37122 /* NewCarnival.swift in Sources */,
+				F3B476A62BDA596F008D0600 /* AthleteScoring.swift in Sources */,
 				F3900E8C2BAC116D00C37122 /* CarnivalSettings.swift in Sources */,
 				F3900E8D2BAC116D00C37122 /* AthleteDataImport.swift in Sources */,
 				F3900E8E2BAC116D00C37122 /* CarnivalList.swift in Sources */,
 				F3900E8F2BAC116D00C37122 /* EventsList.swift in Sources */,
 				F3900E902BAC116D00C37122 /* NewEvent.swift in Sources */,
 				F3900E912BAC116D00C37122 /* EditAthlete.swift in Sources */,
-				F3900E922BAC116D00C37122 /* ScoreEvent.swift in Sources */,
+				F3900E922BAC116D00C37122 /* AthleteSelection.swift in Sources */,
 				F3900E932BAC116D00C37122 /* NewAthlete.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
