@@ -33,7 +33,7 @@
 		F39AAA972BAC18350054C0C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3900E622BABF57100C37122 /* Assets.xcassets */; };
 		F39AAA982BAC18360054C0C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3900E622BABF57100C37122 /* Assets.xcassets */; };
 		F3B476A42BDA39F2008D0600 /* ScoreEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B476A32BDA39F2008D0600 /* ScoreEvent.swift */; };
-		F3B476A62BDA596F008D0600 /* AthleteScoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B476A52BDA596F008D0600 /* AthleteScoring.swift */; };
+		F3B476AA2BDE26FA008D0600 /* AthleteScoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3B476A52BDA596F008D0600 /* AthleteScoring.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -242,6 +242,8 @@
 			dependencies = (
 			);
 			name = Sashimi;
+			packageProductDependencies = (
+			);
 			productName = "Swim Carnival";
 			productReference = F34310982B953A010062A6D4 /* Sashimi.app */;
 			productType = "com.apple.product-type.application";
@@ -314,6 +316,8 @@
 				Base,
 			);
 			mainGroup = F343108F2B953A010062A6D4;
+			packageReferences = (
+			);
 			productRefGroup = F34310992B953A010062A6D4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -369,7 +373,7 @@
 				F3900E8A2BAC116D00C37122 /* NoCarnivalSelected.swift in Sources */,
 				F39AAA8F2BAC15980054C0C2 /* ContentView.swift in Sources */,
 				F3900E8B2BAC116D00C37122 /* NewCarnival.swift in Sources */,
-				F3B476A62BDA596F008D0600 /* AthleteScoring.swift in Sources */,
+				F3B476AA2BDE26FA008D0600 /* AthleteScoring.swift in Sources */,
 				F3900E8C2BAC116D00C37122 /* CarnivalSettings.swift in Sources */,
 				F3900E8D2BAC116D00C37122 /* AthleteDataImport.swift in Sources */,
 				F3900E8E2BAC116D00C37122 /* CarnivalList.swift in Sources */,

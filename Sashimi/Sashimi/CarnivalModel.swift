@@ -29,8 +29,15 @@ struct Event: Hashable, Identifiable {
     var eventName: String
     var eventGender: Gender
     var eventAgeGroup: Int? //Optional value because an event may be mixed-ages. If there is no value, this is the case.
+    var scores: [Athlete: Time]?
     var ranks: [String: Int] = [:] //Scoring data
     var id = UUID()
+}
+
+struct Time: Hashable {
+    var minutes: Int
+    var seconds: Int
+    var milliseconds: Int
 }
 
 class Carnival: ObservableObject, Identifiable, Hashable {
