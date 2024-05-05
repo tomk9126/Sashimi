@@ -148,28 +148,73 @@ class CarnivalManager: ObservableObject {
     }
     
     func exampleUsage() {
-        // Provides some sample data for quick testing and debug
         let carnival1 = CarnivalManager.shared.createCarnival(name: "KHC Swimming Carnival", date: Date())
 
-        let exampleEvents = [
-            Event(eventName: "50m Freestyle", eventGender: .female, eventAgeGroup: 13),
+        let exampleEvents1 = [
+            Event(eventName: "50m Freestyle", eventGender: .male),
+            Event(eventName: "50m Freestyle", eventGender: .female),
+            Event(eventName: "50m Freestyle", eventGender: .mixed),
+            Event(eventName: "100m Freestyle", eventGender: .male, eventAgeGroup: 13),
+            Event(eventName: "100m Freestyle", eventGender: .female, eventAgeGroup: 13),
+            Event(eventName: "100m Freestyle", eventGender: .mixed, eventAgeGroup: 13),
         ]
-        for event in exampleEvents {
+        for event in exampleEvents1 {
             carnival1.addEvent(event)
         }
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
 
-        let exampleAthletes = [
+        let exampleAthletes1 = [
             Athlete(athleteFirstName: "Michael", athleteLastName: "Chang", athleteDOB: dateFormatter.date(from: "1999-05-10") ?? Date(), athleteGender: .male),
-            Athlete(athleteFirstName: "Emily", athleteLastName: "Davis", athleteDOB: dateFormatter.date(from: "2002-11-30") ?? Date(), athleteGender: .female)
+            Athlete(athleteFirstName: "Emily", athleteLastName: "Davis", athleteDOB: dateFormatter.date(from: "2002-11-30") ?? Date(), athleteGender: .female),
+            Athlete(athleteFirstName: "John", athleteLastName: "Smith", athleteDOB: dateFormatter.date(from: "2004-08-20") ?? Date(), athleteGender: .male),
+            Athlete(athleteFirstName: "Emma", athleteLastName: "Wilson", athleteDOB: dateFormatter.date(from: "2003-03-12") ?? Date(), athleteGender: .female),
+            Athlete(athleteFirstName: "James", athleteLastName: "Johnson", athleteDOB: dateFormatter.date(from: "2000-09-05") ?? Date(), athleteGender: .male),
+            Athlete(athleteFirstName: "Sophie", athleteLastName: "Brown", athleteDOB: dateFormatter.date(from: "2002-12-15") ?? Date(), athleteGender: .female),
+            Athlete(athleteFirstName: "Matthew", athleteLastName: "Garcia", athleteDOB: dateFormatter.date(from: "2005-02-28") ?? Date(), athleteGender: .male),
+            Athlete(athleteFirstName: "Isabella", athleteLastName: "Martinez", athleteDOB: dateFormatter.date(from: "2003-06-10") ?? Date(), athleteGender: .female),
+            Athlete(athleteFirstName: "Alexander", athleteLastName: "Lee", athleteDOB: dateFormatter.date(from: "2001-04-17") ?? Date(), athleteGender: .male),
+            Athlete(athleteFirstName: "Ava", athleteLastName: "Lopez", athleteDOB: dateFormatter.date(from: "2004-10-22") ?? Date(), athleteGender: .female)
         ]
 
-        for athlete in exampleAthletes {
+        for athlete in exampleAthletes1 {
             carnival1.addAthlete(athlete)
         }
+
+        let carnival2 = CarnivalManager.shared.createCarnival(name: "BHC Swimming Carnival", date: Date())
+
+        let exampleEvents2 = [
+            Event(eventName: "200m Medley", eventGender: .male),
+            Event(eventName: "200m Medley", eventGender: .female),
+            Event(eventName: "200m Medley", eventGender: .mixed),
+            Event(eventName: "50m Butterfly", eventGender: .male),
+            Event(eventName: "50m Butterfly", eventGender: .female),
+            Event(eventName: "50m Butterfly", eventGender: .mixed),
+        ]
+        for event in exampleEvents2 {
+            carnival2.addEvent(event)
+        }
+
+        let exampleAthletes2 = [
+            Athlete(athleteFirstName: "Ryan", athleteLastName: "Smith", athleteDOB: dateFormatter.date(from: "2001-08-15") ?? Date(), athleteGender: .male),
+            Athlete(athleteFirstName: "Sophia", athleteLastName: "Johnson", athleteDOB: dateFormatter.date(from: "2003-03-20") ?? Date(), athleteGender: .female),
+            Athlete(athleteFirstName: "Daniel", athleteLastName: "Brown", athleteDOB: dateFormatter.date(from: "2002-06-25") ?? Date(), athleteGender: .male),
+            Athlete(athleteFirstName: "Olivia", athleteLastName: "Martinez", athleteDOB: dateFormatter.date(from: "2004-01-18") ?? Date(), athleteGender: .female),
+            Athlete(athleteFirstName: "Ethan", athleteLastName: "Gonzalez", athleteDOB: dateFormatter.date(from: "2000-12-10") ?? Date(), athleteGender: .male),
+            Athlete(athleteFirstName: "Emma", athleteLastName: "Rodriguez", athleteDOB: dateFormatter.date(from: "2003-09-28") ?? Date(), athleteGender: .female),
+            Athlete(athleteFirstName: "William", athleteLastName: "Lopez", athleteDOB: dateFormatter.date(from: "2001-07-07") ?? Date(), athleteGender: .male),
+            Athlete(athleteFirstName: "Madison", athleteLastName: "Hernandez", athleteDOB: dateFormatter.date(from: "2002-04-05") ?? Date(), athleteGender: .female),
+            Athlete(athleteFirstName: "Noah", athleteLastName: "Perez", athleteDOB: dateFormatter.date(from: "2004-11-20") ?? Date(), athleteGender: .male),
+            Athlete(athleteFirstName: "Chloe", athleteLastName: "Gomez", athleteDOB: dateFormatter.date(from: "2003-01-15") ?? Date(), athleteGender: .female)
+        ]
+
+        for athlete in exampleAthletes2 {
+            carnival2.addAthlete(athlete)
+        }
     }
+
+
     
 
 }
