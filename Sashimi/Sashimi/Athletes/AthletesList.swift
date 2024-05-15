@@ -21,37 +21,14 @@ struct AthletesList: View {
     
     var body: some View {
         NavigationStack {
-            
-            Table($athletes, selection: $selection) {
-                TableColumn("First Name") { athlete in
-                    TextField("", text: athlete.athleteFirstName)
-                        .textFieldStyle(.squareBorder)
-                }
-                
-                TableColumn("Last Name") { athlete in
-                    TextField("", text: athlete.athleteLastName)
-                        .textFieldStyle(.squareBorder)
-                }
+            Table(athletes, selection: $selection) {
+                TableColumn("First Name", value: \.athleteFirstName)
+                TableColumn("Last Name", value: \.athleteLastName)
                 TableColumn("Gender") { athlete in
-                    Picker("", selection: athlete.athleteGender) {
-                        Text("Male").tag(Gender.male)
-                        Text("Female").tag(Gender.female)
-                    }
+                    Text(athlete.athleteGender == .male ? "Male" : "Female")
                 }
-                TableColumn("DOB") { athleteBinding in
-                    let athlete = athleteBinding.wrappedValue // Access the Athlete object from the binding
-
-                    DatePicker("", selection: Binding<Date>(
-                        get: {
-                            athlete.athleteDOB
-                        },
-                        set: { newValue in
-                            if let index = athletes.firstIndex(of: athlete) {
-                                athletes[index].athleteDOB = newValue
-                            }
-                        }
-                    ), displayedComponents: .date)
-                    .datePickerStyle(DefaultDatePickerStyle())
+                TableColumn("DOB") { athlete in
+                    Text(athlete.athleteDOB, format: .dateTime.day().month().year())
                 }
             }
             .contextMenu(forSelectionType: Athlete.ID.self) { RightClickedEvent in
@@ -117,6 +94,9 @@ struct AthletesList: View {
                 
                 
             }
+        }
+        .sheet(isPresented: $showingNewAthleteSheet) {
+            NewAthlete(carnival: carnival)
         }
         .alert("Delete Athlete?", isPresented: $showingDeletionAlert) {
             Button("Delete", role: .destructive) {

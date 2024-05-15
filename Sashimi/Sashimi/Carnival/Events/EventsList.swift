@@ -35,7 +35,9 @@ struct EventsList: View {
                     }
                 }
                 TableColumn("Age Group") { event in
-                    Text(event.eventAgeGroup == nil ? "All Ages" : "Under \(String(describing: event.eventAgeGroup))")
+                    if let ageGroupText = (event.eventAgeGroup == nil ? "All Ages" : "Under \(String(describing: event.eventAgeGroup!))") {
+                        Text(ageGroupText)
+                    }
                 }
                 TableColumn("Scored?") { event in
                     //If Event contains Rank data, display Scored? = 'Yes'
