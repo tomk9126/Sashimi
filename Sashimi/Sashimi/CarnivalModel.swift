@@ -130,21 +130,38 @@ class CarnivalManager: ObservableObject {
                 let updatedEvent = Event(eventName: newName, eventGender: newGender, eventAgeGroup: newAge)
                 carnivals[index].events.append(updatedEvent)
             }
-        }
+    }
         
-        private func eventIndexInCarnivals(event: Event) -> Int? {
-            for (index, carnival) in carnivals.enumerated() {
-                if let _ = carnival.events.firstIndex(where: { $0.id == event.id }) {
-                    return index
-                }
+    private func eventIndexInCarnivals(event: Event) -> Int? {
+        for (index, carnival) in carnivals.enumerated() {
+            if let _ = carnival.events.firstIndex(where: { $0.id == event.id }) {
+                return index
             }
-            return nil
         }
+        return nil
+    }
     
     func createAthlete(carnival: Carnival, firstName: String, lastName: String, DOB: Date, gender: Gender) -> Athlete {
         let newAthlete = Athlete(athleteFirstName: firstName, athleteLastName: lastName, athleteDOB: DOB, athleteGender: gender)
         carnival.athletes.append(newAthlete)
         return newAthlete
+    }
+    
+    func updateAthlete(athlete: Athlete, newFirstName: String, newLastName: String, newGender: Gender, newDOB: Date) {
+        if let index = athleteIndexInCarnivals(athlete: athlete) {
+            carnivals[index].athletes.removeAll { $0.id == athlete.id }
+            let updatedAthlete = Athlete(athleteFirstName: newFirstName, athleteLastName: newLastName, athleteDOB: newDOB, athleteGender: newGender)
+            carnivals[index].athletes.append(updatedAthlete)
+        }
+    }
+    
+    private func athleteIndexInCarnivals(athlete: Athlete) -> Int? {
+        for (index, carnival) in carnivals.enumerated() {
+            if let _ = carnival.athletes.firstIndex(where: { $0.id == athlete.id }) {
+                return index
+            }
+        }
+        return nil
     }
     
     func exampleUsage() {

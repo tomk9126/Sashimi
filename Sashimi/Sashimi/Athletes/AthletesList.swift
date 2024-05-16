@@ -35,14 +35,7 @@ struct AthletesList: View {
                 Button {
                     selection = RightClickedEvent
                     print("Selection Changed:", RightClickedEvent)
-                    showingPopover.toggle()
-                } label: {
-                    Label("Score...", systemImage: "list.clipboard")
-                }
-                Button {
-                    selection = RightClickedEvent
-                    print("Selection Changed:", RightClickedEvent)
-                    showingPopover.toggle()
+                    showingEditAthleteSheet.toggle()
                 } label: {
                     Label("Edit...", systemImage: "pencil")
                 }
@@ -97,6 +90,15 @@ struct AthletesList: View {
         }
         .sheet(isPresented: $showingNewAthleteSheet) {
             NewAthlete(carnival: carnival)
+        }
+        .sheet(isPresented: $showingEditAthleteSheet) {
+            
+            if let selectedAthlete = carnival.athletes.first(where: { selection.contains($0.id) }) {
+                EditAthlete(athlete: selectedAthlete, carnival: carnival)
+            } else {
+                // Handle case where no event is selected
+                Text("No event selected")
+            }
         }
         .alert("Delete Athlete?", isPresented: $showingDeletionAlert) {
             Button("Delete", role: .destructive) {

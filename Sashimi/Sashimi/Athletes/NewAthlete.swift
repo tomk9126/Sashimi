@@ -71,7 +71,7 @@ struct NewAthlete: View {
                 .keyboardShortcut(.cancelAction)
                 
                 Button("Create") {
-                    createEvent()
+                    createAthlete()
                     dismiss()
                 }
                 .keyboardShortcut(.defaultAction)
@@ -81,7 +81,7 @@ struct NewAthlete: View {
         .padding(.all)
     }
     
-    private func createEvent() {
+    private func createAthlete() {
         let newAthlete = Athlete(athleteFirstName: athleteFirstName, athleteLastName: athleteLastName, athleteDOB: athleteDOB, athleteGender: athleteGender)
         carnival.addAthlete(newAthlete)
     }
