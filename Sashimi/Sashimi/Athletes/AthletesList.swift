@@ -19,9 +19,27 @@ struct AthletesList: View {
     @Binding var athletes: [Athlete]
     @State private var selection: Set<Athlete.ID> = []
     
+    @State private var searchText: String = ""
+    
+    @State var tokens: [Gender] = []
+    
+    func filteredAthletes(
+        athletes: [Athlete],
+        searchText: String
+    ) -> [Athlete] {
+        // if there is no search query, just return all athletes
+        guard !searchText.isEmpty else { return athletes }
+        
+        // filter athletes
+        return athletes.filter { athlete in
+            let athleteGenderString = athlete.athleteGender == .male ? "Male" : "Female"
+            return athlete.athleteFirstName.lowercased().contains(searchText.lowercased()) || athlete.athleteLastName.lowercased().contains(searchText.lowercased()) || athleteGenderString.lowercased() == searchText.lowercased()
+        }
+    }
+    
     var body: some View {
         NavigationStack {
-            Table(athletes, selection: $selection) {
+            Table(filteredAthletes(athletes: athletes, searchText: searchText), selection: $selection) {
                 TableColumn("First Name", value: \.athleteFirstName)
                 TableColumn("Last Name", value: \.athleteLastName)
                 TableColumn("Gender") { athlete in
@@ -31,6 +49,7 @@ struct AthletesList: View {
                     Text(athlete.athleteDOB, format: .dateTime.day().month().year())
                 }
             }
+            .searchable(text: $searchText, prompt: "Find Athlete")
             .contextMenu(forSelectionType: Athlete.ID.self) { RightClickedEvent in
                 Button {
                     selection = RightClickedEvent
@@ -89,7 +108,12 @@ struct AthletesList: View {
             }
         }
         .sheet(isPresented: $showingNewAthleteSheet) {
-            NewAthlete(carnival: carnival)
+            if let selectedAthlete = carnival.athletes.first(where: { selection.contains($0.id) }) {
+                NewAthlete(carnival: carnival)
+            } else {
+                // Handle case where no event is selected
+                Text("No athlete selected")
+            }
         }
         .sheet(isPresented: $showingEditAthleteSheet) {
             
@@ -97,7 +121,7 @@ struct AthletesList: View {
                 EditAthlete(athlete: selectedAthlete, carnival: carnival)
             } else {
                 // Handle case where no event is selected
-                Text("No event selected")
+                Text("No athlete selected")
             }
         }
         .alert("Delete Athlete?", isPresented: $showingDeletionAlert) {
