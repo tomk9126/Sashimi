@@ -20,7 +20,7 @@ struct Swim_CarnivalApp: App {
                     Button("Event") { }.disabled(true)
                     Button("Athlete") { }.disabled(true)
                 }
-                Button("Open Carnival") { }.disabled(true)
+                Button("Open Carnival...") { }.disabled(true)
                 
             }
             CommandMenu("Carnival") {
@@ -32,15 +32,23 @@ struct Swim_CarnivalApp: App {
                 Divider()
                 Button("Import Athletes") { }.disabled(true)
             }
-            CommandMenu("Event") {
+            CommandMenu("Events") {
                 Button("Score Event") { }.disabled(true)
                 Divider()
                 Button("Edit Event") { }.disabled(true)
                 Button("Delete Event") { }.disabled(true)
             }
-            CommandMenu("Athlete") {
-                Button("Edit Athlete") { }.disabled(true)
-                Button("Delete Athlete") { }.disabled(true)
+            CommandMenu("Athletes") {
+                Button("New Athlete") { }.disabled(true)
+                Section("Selected Athlete(s)") {
+                    Button("Edit Athlete") { }.disabled(true)
+                    Button("Delete Selected Athlete(s)") { }.disabled(true)
+                }
+                Section("Athletes List") {
+                    Button("Athlete Search") { }.disabled(true)
+                    Button("Export Athletes...") { }.disabled(true)
+                }
+                
             }
         }
     }

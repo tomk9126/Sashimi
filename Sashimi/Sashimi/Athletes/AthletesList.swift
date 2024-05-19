@@ -12,7 +12,8 @@ struct AthletesList: View {
     
     @State private var showingNewAthleteSheet = false
     @State private var showingEditAthleteSheet = false
-    @State private var showingPopover = false
+    @State private var showingExportSheet = false
+    
     @State private var showingDeletionAlert = false
     
     @ObservedObject var carnival: Carnival
@@ -62,7 +63,7 @@ struct AthletesList: View {
                     showingDeletionAlert = true
                 }
             } primaryAction: { items in
-                showingPopover.toggle()
+                showingEditAthleteSheet.toggle()
             }
             VStack {
                 Divider()
@@ -77,7 +78,7 @@ struct AthletesList: View {
             ToolbarItemGroup(placement: .primaryAction) {
                 Spacer()
                 HStack {
-                    Button(action: { showingEditAthleteSheet.toggle()}) {
+                    Button(action: { showingExportSheet.toggle()}) {
                         Image(systemName: "square.and.arrow.up")
                     }
                     .help("Export all athletes. (.csv)")
@@ -108,12 +109,7 @@ struct AthletesList: View {
             }
         }
         .sheet(isPresented: $showingNewAthleteSheet) {
-            if let selectedAthlete = carnival.athletes.first(where: { selection.contains($0.id) }) {
-                NewAthlete(carnival: carnival)
-            } else {
-                // Handle case where no event is selected
-                Text("No athlete selected")
-            }
+            NewAthlete(carnival: carnival)
         }
         .sheet(isPresented: $showingEditAthleteSheet) {
             
@@ -123,6 +119,9 @@ struct AthletesList: View {
                 // Handle case where no event is selected
                 Text("No athlete selected")
             }
+        }
+        .sheet(isPresented: $showingExportSheet) {
+            ExportCSV()
         }
         .alert("Delete Athlete?", isPresented: $showingDeletionAlert) {
             Button("Delete", role: .destructive) {

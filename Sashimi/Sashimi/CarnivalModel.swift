@@ -236,3 +236,17 @@ class CarnivalManager: ObservableObject {
 
 }
 
+extension Carnival {
+    func generateAthletesCSV() -> String {
+        var csvText = ""
+        for athlete in athletes {
+            let gender = athlete.athleteGender == .male ? "Male" : athlete.athleteGender == .female ? "Female" : "Mixed"
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let dob = dateFormatter.string(from: athlete.athleteDOB)
+            let row = "\(athlete.athleteFirstName),\(athlete.athleteLastName),\(dob),\(gender.lowercased())\n"
+            csvText.append(row)
+        }
+        return csvText
+    }
+}
