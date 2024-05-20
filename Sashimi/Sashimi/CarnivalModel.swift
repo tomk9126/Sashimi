@@ -7,16 +7,17 @@
 
 import Foundation
 import SwiftUI
+import UniformTypeIdentifiers
 
 //Data type Gender
-enum Gender {
+enum Gender: Codable {
     case male
     case female
     case mixed
 }
 
 //Data type Athlete
-struct Athlete: Hashable, Identifiable {
+struct Athlete: Hashable, Identifiable, Codable {
     var athleteFirstName: String
     var athleteLastName: String
     var athleteDOB: Date
@@ -25,7 +26,7 @@ struct Athlete: Hashable, Identifiable {
 }
 
 //Data type Event
-struct Event: Hashable, Identifiable {
+struct Event: Hashable, Identifiable, Codable {
     var eventName: String
     var eventGender: Gender
     var eventAgeGroup: Int? //Optional value because an event may be mixed-ages. If there is no value, this is the case.
@@ -34,27 +35,18 @@ struct Event: Hashable, Identifiable {
     var id = UUID()
 }
 
-struct Time: Hashable {
+struct Time: Hashable, Codable {
     var minutes: Int
     var seconds: Int
     var milliseconds: Int
 }
 
-class Carnival: ObservableObject, Identifiable, Hashable {
+class Carnival: ObservableObject, Identifiable, Codable, Hashable {
     
-    //The following Allows Carnival to conform to equatable.
-    //This means operators such as '==' and '!=' can be used on this datatype.
     static func == (lhs: Carnival, rhs: Carnival) -> Bool {
-            return lhs.id == rhs.id
+        return lhs.id == rhs.id
     }
 
-    
-    
-    //The following Allows Carnival, Events, and Athletes to conform to Hashable.
-    //This gives every Carnival, Event, and Athlete a unique ID.
-    /* Why use IDs?
-        This allows for multiple data entries to contain the exact same data. For example, duplicate data (Or maybe a very unlucky instance where two Athletes have the same name and DOB!)
-     */
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
@@ -63,8 +55,8 @@ class Carnival: ObservableObject, Identifiable, Hashable {
     var date: Date
     @Published var athletes: [Athlete]
     @Published var events: [Event]
+    var id = UUID()
     
-    //Initiate 'Carnival'
     init(name: String, date: Date) {
         self.name = name
         self.date = date
@@ -80,18 +72,39 @@ class Carnival: ObservableObject, Identifiable, Hashable {
         events.append(event)
     }
     
-    /* An explanation on removal functions
-     Since all Events, Athletes, and Carnivals are identified by UUIDs, we need to retrive the datatypes from their IDs before they can be manipulated.
-     The removal functions below works as follows:
-        'Remove every entry that has the same ID as our current selection, where $0 is our selection'
-     
-     */
     func removeAthlete(_ athlete: Athlete) {
         athletes.removeAll { $0.id == athlete.id }
     }
     
     func removeEvent(_ event: Event) {
         events.removeAll { $0.id == event.id }
+    }
+    
+    // MARK: Codable
+    enum CodingKeys: String, CodingKey {
+        case name
+        case date
+        case athletes
+        case events
+        case id
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: .name)
+        date = try container.decode(Date.self, forKey: .date)
+        athletes = try container.decode([Athlete].self, forKey: .athletes)
+        events = try container.decode([Event].self, forKey: .events)
+        id = try container.decode(UUID.self, forKey: .id)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: .name)
+        try container.encode(date, forKey: .date)
+        try container.encode(athletes, forKey: .athletes)
+        try container.encode(events, forKey: .events)
+        try container.encode(id, forKey: .id)
     }
 }
 
@@ -236,6 +249,30 @@ class CarnivalManager: ObservableObject {
 
 }
 
+struct CarnivalFile: FileDocument {
+    static var readableContentTypes: [UTType] { [.json] }
+    
+    var carnival: Carnival
+    
+    init(carnival: Carnival) {
+        self.carnival = carnival
+    }
+    
+    init(configuration: ReadConfiguration) throws {
+        let data = try configuration.file.regularFileContents ?? Data()
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        self.carnival = try decoder.decode(Carnival.self, from: data)
+    }
+    
+    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        let data = try encoder.encode(carnival)
+        return .init(regularFileWithContents: data)
+    }
+}
+
 extension Carnival {
     func generateAthletesCSV() -> String {
         var csvText = ""
@@ -248,5 +285,50 @@ extension Carnival {
             csvText.append(row)
         }
         return csvText
+    }
+}
+
+extension Carnival {
+    func saveToFile() throws {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        let data = try encoder.encode(self)
+        
+        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = documentDirectory.appendingPathComponent("\(self.name).carnival")
+            try data.write(to: fileURL)
+        }
+    }
+    
+    static func loadFromFile(named name: String) throws -> Carnival {
+        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
+            let fileURL = documentDirectory.appendingPathComponent("\(name).carnival")
+            let data = try Data(contentsOf: fileURL)
+            
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            let carnival = try decoder.decode(Carnival.self, from: data)
+            return carnival
+        }
+        throw NSError(domain: "Carnival", code: 1, userInfo: [NSLocalizedDescriptionKey: "Failed to locate file."])
+    }
+}
+
+extension CarnivalManager {
+    func saveCarnival(_ carnival: Carnival) {
+        do {
+            try carnival.saveToFile()
+        } catch {
+            print("Failed to save carnival: \(error)")
+        }
+    }
+    
+    func loadCarnival(named name: String) {
+        do {
+            let carnival = try Carnival.loadFromFile(named: name)
+            carnivals.append(carnival)
+        } catch {
+            print("Failed to load carnival: \(error)")
+        }
     }
 }

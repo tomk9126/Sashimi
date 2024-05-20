@@ -10,6 +10,9 @@ import SwiftUI
 struct CarnivalLabelButton: View {
     
     @State private var showingDeletionAlert = false
+    @State private var document: CarnivalFile?
+    @State private var isExporting = false
+    @State private var closeAfterSaving = false
     
     var carnival: Carnival
     
@@ -17,33 +20,64 @@ struct CarnivalLabelButton: View {
         HStack {
             Image("Swordfish")
                 .resizable()
-                .frame(width: 40, height: 40)
+                .scaledToFit()
+                //.frame(width: 25)
                 .opacity(0.5)
+                
             VStack (alignment: .leading) {
                 Text(carnival.name)
                     .font(.headline)
                 Text(carnival.date, format: .dateTime.day().month().year())
                    
             }
-        }.contextMenu(ContextMenu(menuItems: {
-            Button("Delete Carnival", systemImage: "bin", role: .destructive) {
+            Spacer()
+            Button("Close Carnival", systemImage: "xmark") {
                 showingDeletionAlert.toggle()
+            }.labelStyle(.iconOnly)
+                .help("Close the Carnival.")
+        }
+        .frame(height: 40)
+        .contextMenu(ContextMenu(menuItems: {
+            Button("Close Carnival", systemImage: "bin", role: .destructive) {
+                showingDeletionAlert.toggle()
+            }
+            Button("Save Carnival", systemImage: "file") {
+                document = CarnivalFile(carnival: carnival)
+                isExporting.toggle()
             }
         }))
         .alert(
-                "Delete Carnival?",
+                "Unsaved Changes",
                 isPresented: $showingDeletionAlert
             ) {
-                Button("Delete", role: .destructive) {
-                    CarnivalManager.shared
-                        .deleteCarnival(carnival)
+                Button("Save and Close") {
+                    closeAfterSaving = true
+                    document = CarnivalFile(carnival: carnival)
+                    isExporting.toggle()
+                }
+                Button("Close Carnival", role: .destructive) {
+                    CarnivalManager.shared.deleteCarnival(carnival)
                 }
             } message: {
-                Text("This action cannot be undone.")
+                Text("You will lose these unsaved changes permanently")
+        }
+        .fileExporter(
+            isPresented: $isExporting,
+            document: document,
+            contentType: .json,
+            defaultFilename: carnival.name
+        ) { result in
+            if closeAfterSaving {
+                CarnivalManager.shared.deleteCarnival(carnival)
+            }
+            if case .failure(let error) = result {
+                print("Failed to export carnival: \(error)")
+            }
         }
     }
 }
 
 #Preview {
-    CarnivalLabelButton(carnival: Carnival(name: "Carnival", date: Date.now))
+    CarnivalManager.shared.exampleUsage()
+    return ContentView()
 }

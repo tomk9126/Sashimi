@@ -455,7 +455,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = "/Users/tomkeir/Library/CloudStorage/GoogleDrive-thomas.keir3@education.nsw.gov.au/My Drive/Stage 6/SDD/Year 12/Assessment 3/SDD-Assignment/Sashimi/Sashimi.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "/Users/tomkeir/Library/CloudStorage/GoogleDrive-thomas.keir3@education.nsw.gov.au/My Drive/Stage 6/SDD/Year 12/Assessment 3/SDD-Assignment/Sashimi/Sashimi/Sashimi.entitlements";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -520,7 +520,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = "/Users/tomkeir/Library/CloudStorage/GoogleDrive-thomas.keir3@education.nsw.gov.au/My Drive/Stage 6/SDD/Year 12/Assessment 3/SDD-Assignment/Sashimi/Sashimi.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "/Users/tomkeir/Library/CloudStorage/GoogleDrive-thomas.keir3@education.nsw.gov.au/My Drive/Stage 6/SDD/Year 12/Assessment 3/SDD-Assignment/Sashimi/Sashimi/Sashimi.entitlements";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -660,6 +660,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
@@ -678,6 +679,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
