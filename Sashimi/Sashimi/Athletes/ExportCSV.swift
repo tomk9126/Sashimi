@@ -18,6 +18,7 @@ struct ExportCSV: View {
     
     @State private var selectedCarnivals = Set<Carnival.ID>()
 
+    
     var body: some View {
         VStack {
             Text("Export Athletes from the following carnivals:")
@@ -41,10 +42,17 @@ struct ExportCSV: View {
             }
             .listStyle(.bordered)
             .alternatingRowBackgrounds()
-            Text("This file can be imported into a new carnival.")
+            Text("Athlete CSV files can be imported into new carnivals.")
                 .font(.subheadline)
-            Button("Export Athletes (.csv)") { exportCSV(); dismiss() }
-                .disabled(selectedCarnivals.isEmpty)
+            HStack {
+                Button("Cancel") { dismiss() }
+                    .keyboardShortcut(.cancelAction)
+                Button("Export Athletes (.csv)") { exportCSV(); dismiss() }
+                    .disabled(selectedCarnivals.isEmpty)
+                    .keyboardShortcut(.defaultAction)
+                    
+            }
+            
         }
         .frame(width: 380, height: 190)
         .padding()
@@ -106,8 +114,7 @@ struct CSVFile: FileDocument {
     }
 }
 
-struct ExportCSVView_Previews: PreviewProvider {
-    static var previews: some View {
-        ExportCSV()
-    }
+#Preview {
+    CarnivalManager.shared.exampleUsage()
+    return ExportCSV()
 }

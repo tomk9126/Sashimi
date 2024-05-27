@@ -9,26 +9,38 @@ import SwiftUI
 
 struct CarnivalView: View {
     @ObservedObject var carnivalManager = CarnivalManager.shared
-    @ObservedObject var carnival: Carnival
+    @Binding var carnival: Carnival
     private let tabs = ["Scoring", "Athletes"]
     @State private var selectedTab = 0
 
+    @State var showingPopover = false
+    
     var body: some View {
         NavigationStack {
             if carnivalManager.carnivals.isEmpty {
                 NoCarnivalSelected()
             } else {
                 if selectedTab == 0 {
-                    EventsList(carnival: carnival)
+                    EventsList(carnival: $carnival)
                 }
                 if selectedTab == 1 {
-                    AthletesList(carnival: carnival, athletes: $carnival.athletes)
+                    AthletesList(carnival: $carnival, athletes: $carnival.athletes)
                 }
             }
         }
-        .navigationTitle(carnival.name)
+        
+        .navigationTitle(carnivalManager.carnivals.isEmpty ? "Sashimi" : carnival.name)
         .toolbar {
+            
             if !carnivalManager.carnivals.isEmpty {
+                ToolbarItemGroup(placement: .navigation) {
+                    Button("Settings", systemImage: "gear") {
+                        showingPopover.toggle()
+                    }.popover(isPresented: $showingPopover) {
+                        CarnivalSettings(carnival: $carnival)
+                            .padding()
+                    }
+                }
                 ToolbarItemGroup(placement: .principal) {
                     VStack {
                         Picker("", selection: $selectedTab) {
@@ -43,11 +55,13 @@ struct CarnivalView: View {
                 }
             }
         }
+        
     }
 }
 
 
 #Preview {
     CarnivalManager.shared.exampleUsage()
-    return CarnivalView(carnival: CarnivalManager.shared.carnivals[0])
+    @State var carnival = CarnivalManager.shared.carnivals[0]
+    return CarnivalView(carnival: $carnival)
 }

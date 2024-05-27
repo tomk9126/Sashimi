@@ -8,32 +8,70 @@
 import SwiftUI
 
 struct CarnivalSettings: View {
-    
-    @Binding var newCarnivalName: String
-    @Binding var newCarnivalDate: Date
+    @Binding var carnival: Carnival
     
     var body: some View {
-        NavigationStack {
-            Section(header: Text("Carnival Settings:")) {
-                VStack(alignment: .leading) {
-                    TextField(text: $newCarnivalName, prompt: Text("Example: 'BHC Swimming Carnival'")) {
-                        Text("Event Name: ")
+        VStack {
+            Text("Carnival Settings")
+                .font(.headline)
+            Form {
+                TextField(text: $carnival.name, prompt: Text("Example: 'BHC Swimming Carnival'")) {
+                    Text("Name:")
+                }
+                DatePicker(
+                    "Date:",
+                    selection: $carnival.date,
+                    displayedComponents: [.date]
+                )
+                
+                LabeledContent("Where:") {
+                    VStack(alignment: .leading) {
+                        Button(carnival.fileURL == nil ? "Choose Location" : "Change Location", systemImage: "folder") {
+                            saveLocationPanel()
+                        }
+                        Text(carnival.fileURL?.path ?? "This carnival is not saved. You may continue, but you can lose unsaved data.")
+                            .font(.subheadline)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
-                    DatePicker(
-                            "Date",
-                            selection: $newCarnivalDate,
-                            displayedComponents: [.date]
-                        )
-                    
                 }
             }
-                
         }
-        .frame(width: 250, height: 100)
-        
+        .frame(width: 275)
+    }
+    
+    func saveLocationPanel() {
+        let panel = NSSavePanel()
+        panel.allowedContentTypes = [.carnival]
+        panel.canCreateDirectories = true
+        panel.nameFieldStringValue = "\(carnival.name).carnival"
+
+        panel.begin { response in
+            guard response == .OK, let url = panel.url else {
+                return
+            }
+            do {
+                let fileManager = FileManager.default
+                let newFileURL = url
+                if let currentFileURL = carnival.fileURL {
+                    // Move the existing file to the new location
+                    try fileManager.moveItem(at: currentFileURL, to: newFileURL)
+                } else {
+                    // If there is no existing file, create a new one at the new location
+                    let encoder = JSONEncoder()
+                    encoder.dateEncodingStrategy = .iso8601
+                    let data = try encoder.encode(carnival)
+                    try data.write(to: newFileURL)
+                }
+                // Update the carnival's file URL
+                carnival.fileURL = newFileURL
+            } catch {
+                print("Failed to move carnival file: \(error)")
+            }
+        }
     }
 }
 
 #Preview {
-    CarnivalSettings(newCarnivalName: .constant(""), newCarnivalDate: .constant(Date()))
+    @State var newCarnival = Carnival(name: "", date: Date.now)
+    return CarnivalSettings(carnival: $newCarnival).padding()
 }

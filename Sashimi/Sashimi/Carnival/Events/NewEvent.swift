@@ -14,7 +14,7 @@ struct NewEvent: View {
     @State private var female = false
     @State private var mixed = false
     
-    @State var reopenSheet = false
+    @Binding var reopenEventSheet: Bool
     
     @State private var eventName = ""
     @State private var singleAge = false
@@ -74,7 +74,7 @@ struct NewEvent: View {
             }
             Divider()
             
-            Toggle(isOn: $reopenSheet) {
+            Toggle(isOn: $reopenEventSheet) {
                 Text("Reopen this dialogue after creation.")
                 Text("Supports faster creation")
                     .font(.subheadline)
@@ -83,6 +83,7 @@ struct NewEvent: View {
             
             HStack {
                 Button("Cancel", role: .cancel) {
+                    reopenEventSheet = false
                     dismiss()
                 }
                 .keyboardShortcut(.cancelAction)
@@ -121,6 +122,9 @@ struct NewEvent: View {
 
 
 #Preview {
-    NewEvent(carnival: Carnival(name: "Carnival Name", date: Date.now))
-        
+    @State var showingNewEventSheet = true
+    @State var carnival = Carnival(name: "", date: Date.now)
+    
+    return NewEvent(reopenEventSheet: $showingNewEventSheet, carnival: carnival)
+
 }

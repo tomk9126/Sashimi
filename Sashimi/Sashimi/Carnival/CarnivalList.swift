@@ -8,92 +8,47 @@
 import SwiftUI
 import Foundation
 import UniformTypeIdentifiers
+import AppKit
 
 struct CarnivalList: View {
-
-    @ObservedObject var carnivalManagerObserved = CarnivalManager.shared
+    @EnvironmentObject var carnivalManager: CarnivalManager
 
     @State private var showingNewCarnivalSheet = false
-    @State private var document: CarnivalFile?
     @State private var isImporting: Bool = false
-
-    @State private var selectedCarnival: Carnival?
     @State private var importErrors: [String] = []
-    
-    @State var showImportAlert = false
-    
-    var body: some View {
+    @State private var showImportAlert = false
 
-        NavigationStack {
-            if carnivalManagerObserved.carnivals.isEmpty {
+    var body: some View {
+        NavigationSplitView {
+            if carnivalManager.carnivals.isEmpty {
                 VStack {
                     Text("No Carnivals.")
                 }.padding()
-
+                .toolbar {
+                    ToolbarItemGroup() {
+                        CarnivalToolbar(showingNewCarnivalSheet: $showingNewCarnivalSheet)
+                    }
+                }
             } else {
-                List {
-                    ForEach(carnivalManagerObserved.carnivals, id: \.self) { carnival in
-                        NavigationLink(destination: CarnivalView(carnival: carnival)) {
-                            CarnivalLabelButton(carnival: carnival)
-                        }
+                List($carnivalManager.carnivals, selection: $carnivalManager.selectedCarnival) { $carnival in
+                    NavigationLink(destination: CarnivalView(carnival: $carnival)) {
+                        CarnivalLabelButton(carnival: $carnival)
                     }
-                }.id(UUID())
-            }
-        }
-        .toolbar {
-            ToolbarItemGroup() {
-                Spacer()
-                Menu {
-                    Button("Sample Data") {
-                        CarnivalManager.shared.exampleUsage()
+                }
+                .toolbar {
+                    ToolbarItemGroup() {
+                        CarnivalToolbar(showingNewCarnivalSheet: $showingNewCarnivalSheet)
                     }
-                    .help("Create sample carnival with events and athletes for demonstration.")
-                    Button("New Carnival", systemImage: "plus") { showingNewCarnivalSheet.toggle() }
-                        .help("Create a new carnival")
-                    Button("Open Carnival", systemImage: "folder") { isImporting.toggle() }
-                        .help("Open an already existing carnival")
-                } label: {
-                    Label("Add Carnival", systemImage: "plus")
                 }
             }
+        } detail: {
+            NoCarnivalSelected()
+            // This is the default detail view, but is overridden once a carnival is selected in CarnivalList()
         }
+        .frame(minWidth: 205)
         .sheet(isPresented: $showingNewCarnivalSheet) {
             NewCarnival()
                 .padding()
-        }
-        .fileImporter(
-                    isPresented: $isImporting,
-                    allowedContentTypes: [.json],
-                    allowsMultipleSelection: false
-                ) { result in
-                    do {
-                        importErrors = []
-                        guard let selectedFile = try result.get().first else { return }
-                        let data = try Data(contentsOf: selectedFile)
-                        let decoder = JSONDecoder()
-                        decoder.dateDecodingStrategy = .iso8601
-                        let importedCarnival = try decoder.decode(Carnival.self, from: data)
-
-                        // Check if the carnival with the same id already exists
-                        if !CarnivalManager.shared.carnivals.contains(where: { $0.id == importedCarnival.id }) {
-                            CarnivalManager.shared.carnivals.append(importedCarnival)
-                        } else {
-                            print("Carnival with the same ID already exists.")
-                            importErrors.append("Carnival is already open.")
-                        }
-                    } catch {
-                        print("Failed to import carnival: \(error)")
-                        importErrors.append("\(error)")
-                    }
-                    if !importErrors.isEmpty {
-                        showImportAlert = true
-                    }
-                }
-        
-        .onAppear {
-            if carnivalManagerObserved.carnivals.count > 0 {
-                selectedCarnival = carnivalManagerObserved.carnivals.first
-            }
         }
         .alert(isPresented: $showImportAlert) {
             Alert(
@@ -103,13 +58,64 @@ struct CarnivalList: View {
                     importErrors.removeAll()
                 }
             )
-            
-            
         }
     }
 }
 
-#Preview {
+
+struct CarnivalFile: FileDocument {
+    static var readableContentTypes: [UTType] { [.json] }
     
-    return CarnivalList()
+    var carnival: Carnival
+    
+    init(carnival: Carnival) {
+        self.carnival = carnival
+    }
+    
+    init(configuration: ReadConfiguration) throws {
+        let data = try configuration.file.regularFileContents ?? Data()
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        self.carnival = try decoder.decode(Carnival.self, from: data)
+    }
+    
+    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        let data = try encoder.encode(carnival)
+        return .init(regularFileWithContents: data)
+    }
 }
+
+struct CarnivalToolbar: View {
+    @Binding var showingNewCarnivalSheet: Bool
+    
+    var body: some View {
+        Spacer()
+        Menu {
+            Button("Sample Data") {
+                CarnivalManager.shared.exampleUsage()
+            }
+            .help("Create sample carnival with events and athletes for demonstration.")
+            Button("New Carnival", systemImage: "plus") { showingNewCarnivalSheet.toggle() }
+                .help("Create a new carnival")
+            Button("Open Carnival", systemImage: "folder") {
+                CarnivalManager.shared.loadCarnival { error in
+                    if let error = error {
+                        //self.importErrors.append(error.localizedDescription)
+                        //self.showImportAlert = true
+                    }
+                }
+            }
+                .help("Open an already existing carnival")
+        } label: {
+            Label("Add Carnival", systemImage: "plus")
+        }
+    }
+}
+
+//#Preview {
+//    CarnivalManager.shared.exampleUsage()
+//    @State var currentCarnival: Carnival? = nil
+//    return ContentView(currentCarnival: $currentCarnival)
+//}

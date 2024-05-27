@@ -16,10 +16,11 @@ struct AthletesList: View {
     
     @State private var showingDeletionAlert = false
     
-    @ObservedObject var carnival: Carnival
+    @Binding var carnival: Carnival
     @Binding var athletes: [Athlete]
     @State private var selection: Set<Athlete.ID> = []
     
+    @State var reopenSheet = false
     @State private var searchText: String = ""
     
     @State var tokens: [Gender] = []
@@ -40,6 +41,7 @@ struct AthletesList: View {
     
     var body: some View {
         NavigationStack {
+            //MARK: Table
             Table(filteredAthletes(athletes: athletes, searchText: searchText), selection: $selection) {
                 TableColumn("First Name", value: \.athleteFirstName)
                 TableColumn("Last Name", value: \.athleteLastName)
@@ -65,52 +67,56 @@ struct AthletesList: View {
             } primaryAction: { items in
                 showingEditAthleteSheet.toggle()
             }
-            VStack {
-                Divider()
-                HStack {
-                    Text("\(carnival.athletes.count) Athletes")
-                }
-            }.background()
             
         }
         
+        //MARK: Toolbar
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
+                
                 Spacer()
-                HStack {
-                    Button(action: { showingExportSheet.toggle()}) {
-                        Image(systemName: "square.and.arrow.up")
-                    }
-                    .help("Export all athletes. (.csv)")
-                    
-                    Divider()
-                    
-                    Button(action: { showingEditAthleteSheet.toggle()}) {
-                        Image(systemName: "pencil")
-                    }
-                    .disabled(selection.isEmpty)
-                    .help("Edit athlete information.")
-                    
-                    Button(action: {showingDeletionAlert.toggle()}) {
-                        Image(systemName: "trash")
-                    }
-                    .disabled(selection.isEmpty)
-                    .help("Delete athlete.")
-                    
-                    Divider()
-                    
-                    Button(action: { showingNewAthleteSheet.toggle()}) {
-                        Image(systemName: "plus")
-                    }
-                    .help("Create new athlete")
+                Button("Export Athletes", systemImage: "square.and.arrow.up") {
+                    showingExportSheet.toggle()
                 }
+                .help("Export all athletes. (.csv)")
+                
+                HStack { // Embed in HStack as Divider() will otherwise present Horizontally.
+                    Divider()
+                }
+                .frame(height: 28)
+                
+                
+                Button("Edit Athlete", systemImage: "pencil") {
+                    showingEditAthleteSheet.toggle()
+                }
+                .disabled(selection.isEmpty)
+                .help("Edit athlete information.")
+                
+                Button("Delete Athlete", systemImage: "trash") {
+                    showingDeletionAlert.toggle()
+                }
+                .disabled(selection.isEmpty)
+                .help("Delete athlete.")
+                
+                HStack { // Embed in HStack as Divider() will otherwise present Horizontally.
+                    Divider()
+                }
+                .frame(height: 28)
+                
+                Button("New Athlete", systemImage: "plus") {
+                    showingNewAthleteSheet.toggle()
+                }
+                .help("Create new athlete")
                 
                 
             }
         }
-        .sheet(isPresented: $showingNewAthleteSheet) {
-            NewAthlete(carnival: carnival)
+        //MARK: NewAthlete Sheet
+        .sheet(isPresented: $showingNewAthleteSheet, onDismiss: checkReopenSheet) {
+            NewAthlete(reopenAthleteSheet: $reopenSheet, carnival: carnival)
         }
+        
+        //MARK: EditAthlete Sheet
         .sheet(isPresented: $showingEditAthleteSheet) {
             
             if let selectedAthlete = carnival.athletes.first(where: { selection.contains($0.id) }) {
@@ -120,10 +126,14 @@ struct AthletesList: View {
                 Text("No athlete selected")
             }
         }
+        
+        //MARK: Export Sheet
         .sheet(isPresented: $showingExportSheet) {
             ExportCSV()
         }
-        .alert("Delete Athlete?", isPresented: $showingDeletionAlert) {
+        
+        //MARK: Deletion Alert
+        .alert("Delete Athlete)?", isPresented: $showingDeletionAlert) {
             Button("Delete", role: .destructive) {
                 if let athleteToDelete = selection.first {
                     carnival.athletes.removeAll(where: { $0.id == athleteToDelete })
@@ -134,14 +144,17 @@ struct AthletesList: View {
         
         
     }
+    
+    func checkReopenSheet() {
+        if reopenSheet {
+            showingNewAthleteSheet = true
+        }
+    }
 }
 
-#Preview {
-    VStack {
-        
-        @State var carnival = Carnival(name: "Test", date: Date.now)
-        AthletesList(carnival: carnival, athletes: $carnival.athletes)
-        Button("Generate Example Athlete") { CarnivalManager.shared.createAthlete(carnival: carnival, firstName: "First", lastName: "Last", DOB: Date.now, gender: .female) }
-    }
-    
-}
+//#Preview {
+//    CarnivalManager.shared.exampleUsage()
+//    @State var currentCarnival: Carnival? = nil
+//    return ContentView(currentCarnival: $currentCarnival)
+//
+//

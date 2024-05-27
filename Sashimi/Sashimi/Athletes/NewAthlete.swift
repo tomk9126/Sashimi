@@ -10,7 +10,7 @@ import SwiftUI
 struct NewAthlete: View {
     @Environment(\.dismiss) var dismiss
 
-    @State var reopenSheet = false
+    @Binding var reopenAthleteSheet: Bool
     
     @State private var athleteFirstName = ""
     @State private var athleteLastName = ""
@@ -57,7 +57,7 @@ struct NewAthlete: View {
             }
             Divider()
             
-            Toggle(isOn: $reopenSheet) {
+            Toggle(isOn: $reopenAthleteSheet) {
                 Text("Reopen this dialogue after creation.")
                 Text("Supports faster creation")
                     .font(.subheadline)
@@ -66,6 +66,7 @@ struct NewAthlete: View {
             
             HStack {
                 Button("Cancel", role: .cancel) {
+                    reopenAthleteSheet = false
                     dismiss()
                 }
                 .keyboardShortcut(.cancelAction)
@@ -93,5 +94,6 @@ struct NewAthlete: View {
 }
 
 #Preview {
-    NewAthlete(carnival: Carnival(name: "", date: Date.now))
+    @State var reopenSheet = true
+    return NewAthlete(reopenAthleteSheet: $reopenSheet, carnival: Carnival(name: "", date: Date.now))
 }

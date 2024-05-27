@@ -9,14 +9,20 @@ import Foundation
 import SwiftUI
 import UniformTypeIdentifiers
 
-//Data type Gender
+extension UTType {
+    static var carnival: UTType {
+        UTType(importedAs: "com.tomkeir.carnival")
+    }
+}
+
+// Data type Gender
 enum Gender: Codable {
     case male
     case female
     case mixed
 }
 
-//Data type Athlete
+// Data type Athlete
 struct Athlete: Hashable, Identifiable, Codable {
     var athleteFirstName: String
     var athleteLastName: String
@@ -25,13 +31,13 @@ struct Athlete: Hashable, Identifiable, Codable {
     var id = UUID()
 }
 
-//Data type Event
+// Data type Event
 struct Event: Hashable, Identifiable, Codable {
     var eventName: String
     var eventGender: Gender
-    var eventAgeGroup: Int? //Optional value because an event may be mixed-ages. If there is no value, this is the case.
+    var eventAgeGroup: Int? // Optional value because an event may be mixed-ages. If there is no value, this is the case.
     var scores: [Athlete: Time]?
-    var ranks: [String: Int] = [:] //Scoring data
+    var ranks: [String: Int] = [:] // Scoring data
     var id = UUID()
 }
 
@@ -51,17 +57,22 @@ class Carnival: ObservableObject, Identifiable, Codable, Hashable {
         hasher.combine(id)
     }
     
-    var name: String
-    var date: Date
+    @Published var name: String
+    @Published var date: Date
     @Published var athletes: [Athlete]
     @Published var events: [Event]
+    
+    @Published var fileURL: URL? // Use URL instead of String for file address
+    
+    
     var id = UUID()
     
-    init(name: String, date: Date) {
+    init(name: String, date: Date, fileURL: URL? = nil) {
         self.name = name
         self.date = date
         self.athletes = []
         self.events = []
+        self.fileURL = fileURL
     }
     
     func addAthlete(_ athlete: Athlete) {
@@ -80,13 +91,13 @@ class Carnival: ObservableObject, Identifiable, Codable, Hashable {
         events.removeAll { $0.id == event.id }
     }
     
-    // MARK: Codable
     enum CodingKeys: String, CodingKey {
         case name
         case date
         case athletes
         case events
         case id
+        case fileURL // Change from fileAddress to fileURL
     }
     
     required init(from decoder: Decoder) throws {
@@ -96,6 +107,7 @@ class Carnival: ObservableObject, Identifiable, Codable, Hashable {
         athletes = try container.decode([Athlete].self, forKey: .athletes)
         events = try container.decode([Event].self, forKey: .events)
         id = try container.decode(UUID.self, forKey: .id)
+        fileURL = try container.decodeIfPresent(URL.self, forKey: .fileURL) // Decode URL instead of String
     }
     
     func encode(to encoder: Encoder) throws {
@@ -105,8 +117,11 @@ class Carnival: ObservableObject, Identifiable, Codable, Hashable {
         try container.encode(athletes, forKey: .athletes)
         try container.encode(events, forKey: .events)
         try container.encode(id, forKey: .id)
+        try container.encode(fileURL, forKey: .fileURL) // Encode URL instead of String
     }
 }
+
+
 
 class CarnivalManager: ObservableObject {
     
@@ -114,12 +129,13 @@ class CarnivalManager: ObservableObject {
     static let shared = CarnivalManager()
     
     @Published var carnivals: [Carnival]
+    @Published var selectedCarnival: Carnival?
     
     private init() {
         self.carnivals = []
     }
     
-    func createCarnival(name: String, date: Date) -> Carnival {
+    func createCarnival(name: String, date: Date, fileAddress: String?) -> Carnival {
         let newCarnival = Carnival(name: name, date: date)
         carnivals.append(newCarnival)
         return newCarnival
@@ -178,7 +194,7 @@ class CarnivalManager: ObservableObject {
     }
     
     func exampleUsage() {
-        let carnival1 = CarnivalManager.shared.createCarnival(name: "KHC Swimming Carnival", date: Date())
+        let carnival1 = CarnivalManager.shared.createCarnival(name: "KHC Swimming Carnival", date: Date(), fileAddress: nil)
 
         let exampleEvents1 = [
             Event(eventName: "50m Freestyle", eventGender: .male),
@@ -212,7 +228,7 @@ class CarnivalManager: ObservableObject {
             carnival1.addAthlete(athlete)
         }
 
-        let carnival2 = CarnivalManager.shared.createCarnival(name: "BHC Swimming Carnival", date: Date())
+        let carnival2 = CarnivalManager.shared.createCarnival(name: "BHC Swimming Carnival", date: Date(), fileAddress: nil)
 
         let exampleEvents2 = [
             Event(eventName: "200m Medley", eventGender: .male),
@@ -243,34 +259,81 @@ class CarnivalManager: ObservableObject {
             carnival2.addAthlete(athlete)
         }
     }
-
-
     
+    func loadCarnival(completion: @escaping (Error?) -> Void) {
+        let panel = NSOpenPanel()
+        panel.allowedContentTypes = [UTType(filenameExtension: "carnival")!]
+        panel.canChooseFiles = true
+        panel.canChooseDirectories = false
+        panel.allowsMultipleSelection = false
 
-}
+        panel.begin { response in
+            guard response == .OK, let url = panel.url else {
+                completion(nil)
+                return
+            }
 
-struct CarnivalFile: FileDocument {
-    static var readableContentTypes: [UTType] { [.json] }
-    
-    var carnival: Carnival
-    
-    init(carnival: Carnival) {
-        self.carnival = carnival
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                var importedCarnival = try decoder.decode(Carnival.self, from: data)
+                importedCarnival.fileURL = url
+
+                if self.carnivals.contains(where: { $0.id == importedCarnival.id }) {
+                    completion(NSError(domain: "CarnivalManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "Carnival is already open."]))
+                } else {
+                    self.carnivals.append(importedCarnival)
+                    completion(nil)
+                }
+            } catch {
+                completion(error)
+            }
+        }
     }
+
+
+        func saveCarnival(_ carnival: Carnival) {
+            let panel = NSSavePanel()
+            panel.allowedContentTypes = [.carnival]
+            panel.canCreateDirectories = true
+            panel.nameFieldStringValue = "\(carnival.name).carnival"
+
+            panel.begin { response in
+                guard response == .OK, let url = panel.url else {
+                    return
+                }
+
+                do {
+                    let encoder = JSONEncoder()
+                    encoder.dateEncodingStrategy = .iso8601
+                    let data = try encoder.encode(carnival)
+                    try data.write(to: url)
+                } catch {
+                    print("Failed to save carnival: \(error)")
+                }
+            }
+            
+            
+        }
     
-    init(configuration: ReadConfiguration) throws {
-        let data = try configuration.file.regularFileContents ?? Data()
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-        self.carnival = try decoder.decode(Carnival.self, from: data)
+    func saveChanges(for carnival: Carnival?) {
+        guard let carnival = carnival, let fileURL = carnival.fileURL else {
+            print("No carnival to save or missing file URL.")
+            return
+        }
+
+        do {
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
+            let data = try encoder.encode(carnival)
+            try data.write(to: fileURL)
+            print("Carnival saved successfully.")
+        } catch {
+            print("Failed to save carnival: \(error)")
+        }
     }
-    
-    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
-        let data = try encoder.encode(carnival)
-        return .init(regularFileWithContents: data)
-    }
+
 }
 
 extension Carnival {
@@ -288,47 +351,5 @@ extension Carnival {
     }
 }
 
-extension Carnival {
-    func saveToFile() throws {
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
-        let data = try encoder.encode(self)
-        
-        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let fileURL = documentDirectory.appendingPathComponent("\(self.name).carnival")
-            try data.write(to: fileURL)
-        }
-    }
-    
-    static func loadFromFile(named name: String) throws -> Carnival {
-        if let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            let fileURL = documentDirectory.appendingPathComponent("\(name).carnival")
-            let data = try Data(contentsOf: fileURL)
-            
-            let decoder = JSONDecoder()
-            decoder.dateDecodingStrategy = .iso8601
-            let carnival = try decoder.decode(Carnival.self, from: data)
-            return carnival
-        }
-        throw NSError(domain: "Carnival", code: 1, userInfo: [NSLocalizedDescriptionKey: "Failed to locate file."])
-    }
-}
 
-extension CarnivalManager {
-    func saveCarnival(_ carnival: Carnival) {
-        do {
-            try carnival.saveToFile()
-        } catch {
-            print("Failed to save carnival: \(error)")
-        }
-    }
-    
-    func loadCarnival(named name: String) {
-        do {
-            let carnival = try Carnival.loadFromFile(named: name)
-            carnivals.append(carnival)
-        } catch {
-            print("Failed to load carnival: \(error)")
-        }
-    }
-}
+

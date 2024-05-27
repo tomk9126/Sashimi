@@ -9,20 +9,14 @@ import SwiftUI
 
 
 struct ContentView: View {
+    @EnvironmentObject var carnivalManager: CarnivalManager
 
-    @ObservedObject var carnivalManager = CarnivalManager.shared
-    
     var body: some View {
-        NavigationSplitView {
-            CarnivalList()
-        } detail: {
-            NoCarnivalSelected()
-            //This is the default detail view, but is overridden once a carnival is selected in CarnivalList()
-        }
-        
+        CarnivalList()
     }
 }
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+    //@State var currentCarnival: Carnival? = nil
+    //ContentView(currentCarnival: $currentCarnival)
+//}

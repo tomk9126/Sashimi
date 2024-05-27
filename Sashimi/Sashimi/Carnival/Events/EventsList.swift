@@ -17,7 +17,9 @@ struct EventsList: View {
     @State private var selection: Set<Event.ID> = []
     @State private var sortOrder = [KeyPathComparator(\Event.eventName)]
     
-    @ObservedObject var carnival: Carnival
+    @State var reopenSheet = false
+    
+    @Binding var carnival: Carnival
     
     var body: some View {
         NavigationStack {
@@ -45,10 +47,7 @@ struct EventsList: View {
                         .font(event.ranks != [:] ? .headline : .body)
                 }
             }
-            
-            .onChange(of: selection) { newSelection in
-                print("Selection Changed:", newSelection)
-            }
+
             .onChange(of: sortOrder) { newOrder in
                 carnival.events.sort(using: newOrder)
             }
@@ -79,28 +78,31 @@ struct EventsList: View {
                 ToolbarItemGroup() {
                     Spacer()
                     HStack {
-                        Button(action: {showingScoreEventSheet.toggle()}) {
-                            Image(systemName: "list.bullet.clipboard")
+                        Button("Score Event", systemImage: "list.bullet.clipboard") {
+                            showingScoreEventSheet.toggle()
                         }
                         .disabled(selection.isEmpty)
                         .help("Score event.")
                         
-                        Button(action: {showingEditEventSheet.toggle()}) {
-                            Image(systemName: "pencil")
+                        Button("Edit Event", systemImage: "pencil") {
+                            showingEditEventSheet.toggle()
                         }
                         .disabled(selection.isEmpty)
                         .help("Edit event information.")
                         
-                        Button(action: {showingDeletionAlert.toggle()}) {
-                            Image(systemName: "trash")
+                        Button("Delete Event", systemImage: "trash") {
+                            showingDeletionAlert.toggle()
                         }
                         .disabled(selection.isEmpty)
                         .help("Delete event.")
                         
-                        Divider()
+                        HStack { // Embed in HStack as Divider() will otherwise present Horizontally.
+                            Divider()
+                        }
+                        .frame(height: 28)
                         
-                        Button(action: {showingNewEventSheet.toggle()}) {
-                            Image(systemName: "plus")
+                        Button("New Event", systemImage: "plus") {
+                            showingNewEventSheet.toggle()
                         }
                         .help("Create new event(s).")
                     }
@@ -109,6 +111,7 @@ struct EventsList: View {
 
             }
         }
+        //MARK: Delete Event Alert
         .alert("Delete Event?", isPresented: $showingDeletionAlert) {
             Button("Delete", role: .destructive) {
                 if let eventToDelete = selection.first {
@@ -118,6 +121,7 @@ struct EventsList: View {
             }
         } message: { Text("This action cannot be undone.")}
         
+        //MARK: ScoreEvent Sheet
         .sheet(isPresented: $showingScoreEventSheet) {
             
             if let selectedEvent = carnival.events.first(where: { selection.contains($0.id) }) {
@@ -127,6 +131,8 @@ struct EventsList: View {
                 Text("No event selected. This shouldn't happen.")
             }
         }
+        
+        //MARK: EditEvent Sheet
         .sheet(isPresented: $showingEditEventSheet) {
             
             if let selectedEvent = carnival.events.first(where: { selection.contains($0.id) }) {
@@ -136,15 +142,22 @@ struct EventsList: View {
                 Text("No event selected")
             }
         }
-        .sheet(isPresented: $showingNewEventSheet) {
-            NewEvent(carnival: carnival)
-        } //onDismiss: {
-        //    $showingNewEventSheet.toggle()
-        //}
+        
+        //MARK: NewEvent Sheet
+        .sheet(isPresented: $showingNewEventSheet, onDismiss: checkReopenSheet) {
+            NewEvent(reopenEventSheet: $reopenSheet, carnival: carnival)
+        }
+    }
+    
+    func checkReopenSheet() {
+        if reopenSheet {
+            showingNewEventSheet = true
+        }
     }
 }
 
 #Preview {
-    EventsList(carnival: Carnival(name: "Test", date: Date.now))
+    CarnivalManager.shared.exampleUsage()
+    return ContentView()
 }
 

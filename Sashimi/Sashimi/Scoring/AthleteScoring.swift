@@ -20,10 +20,7 @@ struct AthleteScoring: View {
             TableColumn("MM:SS.ss") { athlete in
                 TimePickerView(eventScores: $eventScores, athlete: athlete)
             }
-            
-            TableColumn("Total Milliseconds") { athlete in
-                Text("\(totalMilliseconds(for: athlete))")
-            }
+
         }
         .tableStyle(.bordered)
         .onAppear {
@@ -64,20 +61,23 @@ struct TimePickerView: View {
     
     var body: some View {
         HStack {
-            TextField("Minute", value: $minutes, formatter: NumberFormatter())
+            TextField("MM", value: $minutes, formatter: NumberFormatter())
                 .textFieldStyle(.plain)
+                .frame(width: 18)
             
             Text(":")
             
-            TextField("Second", value: $seconds, formatter: NumberFormatter())
+            TextField("SS", value: $seconds, formatter: NumberFormatter())
                 .textFieldStyle(.plain)
+                .frame(width: 18)
             
             Text(".")
             
-            TextField("Millisecond", value: $milliseconds, formatter: NumberFormatter())
+            TextField("ss", value: $milliseconds, formatter: NumberFormatter())
                 .textFieldStyle(.plain)
+                .frame(width: 18)
         }
-        .frame(width: 200)
+        //.frame(width: 200)
         .padding(4.0)
         .onChange(of: minutes) { newValue in
             updateEventScores()
@@ -103,5 +103,5 @@ struct TimePickerView: View {
     @State var eventScores: [Athlete : Time] = [athlete1 : Time(minutes: 0, seconds: 0, milliseconds: 0), athlete2: Time(minutes: 0, seconds: 0, milliseconds: 0)]
     return AthleteScoring(selectedAthletes: $selectedAthletes, eventScores: $eventScores)
         .padding()
-        .frame(width: 300)
+        //.frame(width: 300)
 }
