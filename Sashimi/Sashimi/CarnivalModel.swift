@@ -47,6 +47,10 @@ struct Time: Hashable, Codable {
     var milliseconds: Int
 }
 
+struct RecentFile: Codable, Hashable {
+    var url: URL
+    var name: String
+}
 class Carnival: ObservableObject, Identifiable, Codable, Hashable {
     
     static func == (lhs: Carnival, rhs: Carnival) -> Bool {
