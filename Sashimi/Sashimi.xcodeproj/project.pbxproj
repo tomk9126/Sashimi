@@ -14,7 +14,7 @@
 		F33F45402C0DC2720085ED61 /* Ranks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453C2C0DC2720085ED61 /* Ranks.swift */; };
 		F33F45412C0DC2720085ED61 /* AthleteSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453D2C0DC2720085ED61 /* AthleteSelection.swift */; };
 		F3760CA02C0497EC00CEE571 /* FileLabelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3760C9F2C0497EC00CEE571 /* FileLabelButton.swift */; };
-		F3900E832BAC115200C37122 /* Swim_CarnivalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E7E2BABF58000C37122 /* Swim_CarnivalTests.swift */; };
+		F3900E832BAC115200C37122 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E7E2BABF58000C37122 /* Tests.swift */; };
 		F3900E852BAC116D00C37122 /* AthletesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E4A2BABF57100C37122 /* AthletesList.swift */; };
 		F3900E862BAC116D00C37122 /* EditEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E5D2BABF57100C37122 /* EditEvent.swift */; };
 		F3900E872BAC116D00C37122 /* CarnivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E582BABF57100C37122 /* CarnivalView.swift */; };
@@ -73,7 +73,7 @@
 		F3900E622BABF57100C37122 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F3900E632BABF57100C37122 /* ContentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		F3900E652BABF57100C37122 /* SashimiApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SashimiApp.swift; sourceTree = "<group>"; };
-		F3900E7E2BABF58000C37122 /* Swim_CarnivalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Swim_CarnivalTests.swift; sourceTree = "<group>"; };
+		F3900E7E2BABF58000C37122 /* Tests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		F39AAA962BAC171C0054C0C2 /* Sashimi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sashimi.entitlements; sourceTree = "<group>"; };
 		F3ABCEBD2C0604B40077A636 /* CarnivalToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarnivalToolbar.swift; sourceTree = "<group>"; };
 		F3B9CCEF2BFC169E0047B162 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 				F3B9CCEF2BFC169E0047B162 /* Info.plist */,
 				F39AAA962BAC171C0054C0C2 /* Sashimi.entitlements */,
 				F3900E622BABF57100C37122 /* Assets.xcassets */,
-				F3900E7F2BABF58000C37122 /* Tests */,
+				F3900E7E2BABF58000C37122 /* Tests.swift */,
 				F3900E652BABF57100C37122 /* SashimiApp.swift */,
 				F3900E572BABF57100C37122 /* CarnivalModel.swift */,
 				F3900E632BABF57100C37122 /* ContentView.swift */,
@@ -181,14 +181,6 @@
 			);
 			path = Carnival;
 			sourceTree = "<group>";
-		};
-		F3900E7F2BABF58000C37122 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				F3900E7E2BABF58000C37122 /* Swim_CarnivalTests.swift */,
-			);
-			path = Tests;
-			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -325,7 +317,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3900E832BAC115200C37122 /* Swim_CarnivalTests.swift in Sources */,
+				F3900E832BAC115200C37122 /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -480,7 +472,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Sashimi/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Sashimi Beta";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright ©️ 2024 Tom Keir";
@@ -515,7 +507,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Sashimi/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Sashimi Beta";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright ©️ 2024 Tom Keir";
@@ -537,6 +529,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_ENTITLEMENTS = Sashimi.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -558,6 +551,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_ENTITLEMENTS = Sashimi.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

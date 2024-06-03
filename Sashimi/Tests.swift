@@ -48,8 +48,6 @@ class CarnivalTests: XCTestCase {
         XCTAssertEqual(event.eventAgeGroup, 21)
     }
     
-    // Add more tests for other Event functions as needed
-    
     // MARK: - Test Athlete Functions
     
     func testCreateAthlete() {
