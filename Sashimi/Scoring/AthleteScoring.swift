@@ -8,37 +8,27 @@
 import SwiftUI
 
 struct AthleteScoring: View {
-    @Binding var selectedAthletes: [Athlete]
     @Binding var eventScores: [Athlete: Time]
+    @State var athletes: [Athlete]
     
     var body: some View {
-        Table(selectedAthletes) {
-            TableColumn("Athlete Name") { athlete in
-                Text(athlete.athleteFirstName + " " + athlete.athleteLastName)
-            }
-            
-            TableColumn("MM:SS.ss") { athlete in
-                TimePickerView(eventScores: $eventScores, athlete: athlete)
-            }
-
-        }
-        .tableStyle(.bordered)
-        .onAppear {
-            // Initialize eventScores with entries for each athlete
-            for athlete in selectedAthletes {
-                if eventScores[athlete] == nil {
-                    eventScores[athlete] = Time(minutes: 0, seconds: 0, milliseconds: 0)
+        VStack {
+            Text("Race Times")
+                .font(.headline)
+            Table(athletes) {
+                TableColumn("Athlete") { athlete in
+                    Text(athlete.athleteFirstName + " " + athlete.athleteLastName)
                 }
-            }
+                TableColumn("Time") { athlete in
+                    TimePickerView(eventScores: $eventScores, athlete: athlete)
+                }
+            }.tableStyle(.bordered)
+            
+            Text("Enter athlete times for event, then click 'Finalise'")
+                .padding(.vertical, 3.0)
         }
     }
     
-    private func totalMilliseconds(for athlete: Athlete) -> Int {
-        guard let time = eventScores[athlete] else {
-            return 0
-        }
-        return time.minutes * 60 * 1000 + time.seconds * 1000 + time.milliseconds
-    }
 }
 
 struct TimePickerView: View {
@@ -97,11 +87,10 @@ struct TimePickerView: View {
 }
 
 #Preview {
-    let athlete1 = Athlete(athleteFirstName: "John", athleteLastName: "Smith", athleteDOB: Date.now, athleteGender: .male)
-    let athlete2 = Athlete(athleteFirstName: "Tom", athleteLastName: "Keir", athleteDOB: Date.now, athleteGender: .male)
-    @State var selectedAthletes: [Athlete] = [athlete1, athlete2]
-    @State var eventScores: [Athlete : Time] = [athlete1 : Time(minutes: 0, seconds: 0, milliseconds: 0), athlete2: Time(minutes: 0, seconds: 0, milliseconds: 0)]
-    return AthleteScoring(selectedAthletes: $selectedAthletes, eventScores: $eventScores)
+    @State var event = Event(eventName: "100m Freestyle", eventGender: .mixed)
+    @State var athlete1 = Athlete(athleteFirstName: "Mark", athleteLastName: "Smith", athleteDOB: Date.now, athleteGender: .male)
+    @State var athlete2 = Athlete(athleteFirstName: "Sarah", athleteLastName: "Jones", athleteDOB: Date.now, athleteGender: .female)
+    @State var athletes = [athlete1, athlete2]
+    return AthleteScoring(eventScores: $event.results, athletes: athletes)
         .padding()
-        //.frame(width: 300)
 }

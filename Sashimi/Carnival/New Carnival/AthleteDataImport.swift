@@ -52,38 +52,62 @@ struct AthleteDataImport: View {
     @State private var importErrors: [String] = []
     
     @State private var showAlert = false
+    @State private var showingSearch = false
+    @State var searchText = ""
+    @State var tokens: [Gender] = []
+        
+    private var filteredAthletes: [Athlete] {
+            guard !searchText.isEmpty else {
+                return carnival.athletes
+            }
 
+            return carnival.athletes.filter { athlete in
+                let athleteGenderString = athlete.athleteGender == .male ? "Male" : "Female"
+                return athlete.athleteFirstName.lowercased().contains(searchText.lowercased()) ||
+                       athlete.athleteLastName.lowercased().contains(searchText.lowercased()) ||
+                       athleteGenderString.lowercased() == searchText.lowercased()
+            }
+        }
+        
     var body: some View {
         NavigationStack {
-            Form {
-                Table($carnival.athletes, selection: $selection) {
-                    TableColumn("First Name") { $athlete in
+            VStack {
+                HStack {
+                    Spacer()
+                    Button("Import (.csv)", systemImage: "square.and.arrow.up", role: .cancel) {
+                        isImporting.toggle()
+                    }
+                    SearchBar(text: $searchText)
+                }
+                .labelStyle(.iconOnly)
+                .buttonStyle(.plain)
+                Table(filteredAthletes, selection: $selection) {
+                    TableColumn("First Name") { athlete in
                         TextField("", text: Binding(
                             get: { athlete.athleteFirstName },
-                            set: { athlete.athleteFirstName = $0 }
-                        ))
-                        .textFieldStyle(.squareBorder)
-                    }
-                    TableColumn("Last Name") { $athlete in
-                        TextField("", text: Binding(
-                            get: { athlete.athleteLastName },
-                            set: { athlete.athleteLastName = $0 }
-                        ))
-                        .textFieldStyle(.squareBorder)
-                    }
-                    TableColumn("DOB") { $athlete in
-                        DatePicker("", selection: Binding<Date>(
-                            get: {
-                                athlete.athleteDOB
-                            },
                             set: { newValue in
-                                if let index = carnival.athletes.firstIndex(of: athlete) {
-                                    carnival.athletes[index].athleteDOB = newValue
-                                }
+                            if let index = carnival.athletes.firstIndex(where: { $0.id == athlete.id }) {
+                                carnival.athletes[index].athleteFirstName = newValue
                             }
-                        ), displayedComponents: .date)
-                        .datePickerStyle(DefaultDatePickerStyle())
-                    }
+                        }
+                    ))
+                    .textFieldStyle(.roundedBorder)
+                }
+                    
+                    TableColumn("Last Name") { athlete in
+                                        TextField("", text: Binding(
+                                            get: { athlete.athleteLastName },
+                                            set: { newValue in
+                                                if let index = carnival.athletes.firstIndex(where: { $0.id == athlete.id }) {
+                                                    carnival.athletes[index].athleteLastName = newValue
+                                                }
+                                            }
+                                        ))
+                                        .textFieldStyle(.roundedBorder)
+                                    }
+                                    TableColumn("Gender") { athlete in
+                                        Text(athlete.athleteGender == .male ? "Male" : "Female")
+                                    }
                 }
                 .tableStyle(.bordered)
                 .padding(.bottom, 24)
@@ -107,18 +131,25 @@ struct AthleteDataImport: View {
                                         selection = nil // Clear selection after removing athlete
                                     }
                                 }
+                                
+                                Spacer()
                             }
                             .buttonStyle(.borderless)
-                            Spacer()
-                            Text("\(carnival.athletes.count) Athletes")
-                            Spacer()
                             HStack {
-                                Button("1") {}
-                                    .padding(.leading, 8)
-                                Button("2") {}
+                                Spacer()
+                                Text("\(carnival.athletes.count) Athletes")
+                                Spacer()
+                            }
+                            HStack {
+                                Spacer()
+                                HelpButton {
+                                    
+                                }
+                                
                             }
                             
                         }
+                        
                     }
                     .background(
                         Rectangle()
@@ -126,18 +157,9 @@ struct AthleteDataImport: View {
                             .opacity(0.04)
                     )
                 })
-            }
-            HStack {
-                Button("Import from Database (.csv)", role: .cancel) {
-                    isImporting.toggle()
-                }
-                HelpButton {
-                    
-                }
-                Spacer()
+                
             }
         }
-        .frame(width: 500, height: 300)
         .fileImporter(
             isPresented: $isImporting,
             allowedContentTypes: [.commaSeparatedText],
@@ -212,6 +234,30 @@ struct AthleteDataImport: View {
         }
     }
 }
+
+struct SearchBar: View {
+    @Binding var text: String
+ 
+    @State private var isEditing = false
+ 
+    var body: some View {
+        HStack {
+ 
+            if isEditing {
+                TextField("Find Athletes...", text: $text)
+                    .frame(width: 150)
+                Button("Cancel", systemImage: "xmark") {
+                    isEditing.toggle()
+                }.keyboardShortcut(.defaultAction)
+            } else {
+                Button("Search", systemImage: "magnifyingglass") {
+                    isEditing.toggle()
+                }
+            }
+        }
+    }
+}
+
 #Preview {
     @State var carnival = Carnival(name: "", date: Date.now)
     return AthleteDataImport(carnival: $carnival)

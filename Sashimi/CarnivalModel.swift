@@ -36,9 +36,51 @@ struct Event: Hashable, Identifiable, Codable {
     var eventName: String
     var eventGender: Gender
     var eventAgeGroup: Int? // Optional value because an event may be mixed-ages. If there is no value, this is the case.
-    var scores: [Athlete: Time]?
+    var results: [Athlete: Time] = [:]
     var ranks: [String: Int] = [:] // Scoring data
     var id = UUID()
+    
+    func rankAthletes() -> [Athlete] {
+            var sortedAthletes = results.keys.sorted { athlete1, athlete2 in
+                guard let time1 = results[athlete1], let time2 = results[athlete2] else {
+                    return false // If any athlete's time is missing, consider them lower in rank
+                }
+                // Compare times, considering minutes, seconds, and milliseconds
+                if time1.minutes != time2.minutes {
+                    return time1.minutes < time2.minutes
+                } else if time1.seconds != time2.seconds {
+                    return time1.seconds < time2.seconds
+                } else {
+                    return time1.milliseconds < time2.milliseconds
+                }
+            }
+            return sortedAthletes
+        }
+    
+    mutating func calculateEventRanks() {
+            // Calculate total milliseconds for each athlete
+            var athleteTotalMilliseconds: [Athlete: Int] = [:]
+            for (athlete, time) in results {
+                let totalMilliseconds = time.minutes * 60 * 1000 + time.seconds * 1000 + time.milliseconds
+                athleteTotalMilliseconds[athlete] = totalMilliseconds
+            }
+            
+            // Sort athletes based on total milliseconds
+            let sortedAthletes = athleteTotalMilliseconds.sorted { $0.value < $1.value }
+            
+            // Generate rank data
+            var rankedResults: [Athlete: Time] = [:]
+            var ranks: [String: Int] = [:]
+            for (index, (athlete, _)) in sortedAthletes.enumerated() {
+                let rank = index + 1
+                let time = results[athlete]!
+                rankedResults[athlete] = time
+                ranks["\(athlete.athleteFirstName) \(athlete.athleteLastName)"] = rank
+            }
+            
+            self.results = rankedResults
+            self.ranks = ranks
+        }
 }
 
 struct Time: Hashable, Codable {
@@ -95,13 +137,26 @@ class Carnival: ObservableObject, Identifiable, Codable, Hashable {
         events.removeAll { $0.id == event.id }
     }
     
+    func generateAthletesCSV() -> String {
+            var csvText = ""
+            for athlete in athletes {
+                let gender = athlete.athleteGender == .male ? "Male" : athlete.athleteGender == .female ? "Female" : "Mixed"
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd"
+                let dob = dateFormatter.string(from: athlete.athleteDOB)
+                let row = "\(athlete.athleteFirstName),\(athlete.athleteLastName),\(dob),\(gender.lowercased())\n"
+                csvText.append(row)
+            }
+            return csvText
+    }
+    
     enum CodingKeys: String, CodingKey {
         case name
         case date
         case athletes
         case events
         case id
-        case fileURL // Change from fileAddress to fileURL
+        case fileURL
     }
     
     required init(from decoder: Decoder) throws {
@@ -111,7 +166,7 @@ class Carnival: ObservableObject, Identifiable, Codable, Hashable {
         athletes = try container.decode([Athlete].self, forKey: .athletes)
         events = try container.decode([Event].self, forKey: .events)
         id = try container.decode(UUID.self, forKey: .id)
-        fileURL = try container.decodeIfPresent(URL.self, forKey: .fileURL) // Decode URL instead of String
+        fileURL = try container.decodeIfPresent(URL.self, forKey: .fileURL)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -340,20 +395,6 @@ class CarnivalManager: ObservableObject {
 
 }
 
-extension Carnival {
-    func generateAthletesCSV() -> String {
-        var csvText = ""
-        for athlete in athletes {
-            let gender = athlete.athleteGender == .male ? "Male" : athlete.athleteGender == .female ? "Female" : "Mixed"
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            let dob = dateFormatter.string(from: athlete.athleteDOB)
-            let row = "\(athlete.athleteFirstName),\(athlete.athleteLastName),\(dob),\(gender.lowercased())\n"
-            csvText.append(row)
-        }
-        return csvText
-    }
-}
 
 
 

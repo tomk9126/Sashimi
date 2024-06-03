@@ -25,6 +25,7 @@ struct Swim_CarnivalApp: App {
             ContentView()
                 .environmentObject(carnivalManager)
         }
+
         
         
     }

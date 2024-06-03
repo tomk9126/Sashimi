@@ -24,7 +24,6 @@ struct EventsList: View {
     var body: some View {
         NavigationStack {
             Table(carnival.events, selection: $selection, sortOrder: $sortOrder) {
-                //eventName: String. eventGender: String. eventGender: Int. "Scored?" Bool: If event.ranks contains data.
                 TableColumn("Event Name", value: \.eventName)
                 TableColumn("Gender") { event in
                     switch event.eventGender {
@@ -123,10 +122,10 @@ struct EventsList: View {
         
         //MARK: ScoreEvent Sheet
         .sheet(isPresented: $showingScoreEventSheet) {
-            
-            if let selectedEvent = carnival.events.first(where: { selection.contains($0.id) }) {
-                ScoreEvent(event: selectedEvent, carnival: carnival)
+            if let selectedEvent = $carnival.events.first(where: { selection.contains($0.id) }) {
+                ScoreEvent(event: selectedEvent, carnival: $carnival)
                     .padding()
+                    .frame(width: 800, height: 400)
             } else {
                 Text("No event selected. This shouldn't happen.")
             }

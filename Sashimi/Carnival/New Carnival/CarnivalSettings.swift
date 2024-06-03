@@ -36,7 +36,6 @@ struct CarnivalSettings: View {
                 }
             }
         }
-        .frame(width: 275)
     }
     
     func saveLocationPanel() {

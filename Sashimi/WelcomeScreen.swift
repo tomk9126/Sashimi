@@ -22,7 +22,7 @@ struct WelcomeScreen: View {
                         .resizable()
                         .frame(width: 100, height: 100)
                         .scaledToFit()
-                    Text("Sashimi")
+                    Text("Sashimi Beta")
                         .font(.largeTitle)
                         .bold()
                     Text("Version " + appVersion!)
@@ -59,7 +59,11 @@ struct WelcomeScreen: View {
                 .sheet(isPresented: $showingNewCarnivalSheet) {
                     NewCarnival()
                         .padding()
+                        
+                
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity) // Allows sheet size to be altered by child views.
+                
   
         }.frame(width: 360, height: 330)
     }

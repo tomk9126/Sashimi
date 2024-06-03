@@ -71,10 +71,9 @@ struct AthleteSelection: View {
                     }.listStyle(.bordered).alternatingRowBackgrounds()
                 }.onDrop(of: [UTType.text], delegate: AthleteDropDelegate(selectedAthletes: $selectedAthletes))
             }
-            .padding(6)
             
             Text("Drag and drop names from 'Potential Athletes' to 'Selected Athletes'")
-                .padding(.bottom, 3.0)
+                .padding(.vertical, 3.0)
         }
     }
 }
@@ -83,21 +82,27 @@ struct AthleteDropDelegate: DropDelegate {
     @Binding var selectedAthletes: [Athlete]
     
     func performDrop(info: DropInfo) -> Bool {
-            guard let droppedItem = info.itemProviders(for: [UTType.text]).first else { return false }
-            droppedItem.loadObject(ofClass: NSString.self) { provider, error in
-                guard error == nil, let athleteID = provider as? String else { return }
-                if let athlete = CarnivalManager.shared.carnivals.flatMap({ $0.athletes }).first(where: { $0.id.uuidString == athleteID }) {
-                    DispatchQueue.main.async {
-                        if let index = self.selectedAthletes.firstIndex(where: { $0.id == athlete.id }) {
-                            self.selectedAthletes.remove(at: index)
-                        }
+        guard let droppedItem = info.itemProviders(for: [UTType.text]).first else { return false }
+        droppedItem.loadObject(ofClass: NSString.self) { provider, error in
+            guard error == nil, let athleteID = provider as? String else { return }
+            if let athlete = self.athlete(withID: athleteID) {
+                DispatchQueue.main.async {
+                    if let index = self.selectedAthletes.firstIndex(of: athlete) {
+                        self.selectedAthletes.remove(at: index)
                     }
                 }
             }
-            return true
         }
+        return true
+    }
+    
+    
+    private func athlete(withID athleteID: String) -> Athlete? {
+        return CarnivalManager.shared.carnivals
+            .flatMap { $0.athletes }
+            .first { $0.id.uuidString == athleteID }
+    }
 }
-
 
 struct PotentialAthleteDropDelegate: DropDelegate {
     @Binding var selectedAthletes: [Athlete]
@@ -106,18 +111,31 @@ struct PotentialAthleteDropDelegate: DropDelegate {
         guard let droppedItem = info.itemProviders(for: [UTType.text]).first else { return false }
         droppedItem.loadObject(ofClass: NSString.self) { provider, error in
             guard error == nil, let athleteID = provider as? String else { return }
-            if let athlete = CarnivalManager.shared.carnivals.flatMap({ $0.athletes }).first(where: { $0.id.uuidString == athleteID }) {
+            if let athlete = self.athlete(withID: athleteID) {
                 DispatchQueue.main.async {
-                    self.selectedAthletes.append(athlete)
+                    if !self.selectedAthletes.contains(athlete) {
+                        self.selectedAthletes.append(athlete)
+                    }
                 }
             }
         }
         return true
     }
+    
+    
+    
+    private func athlete(withID athleteID: String) -> Athlete? {
+        return CarnivalManager.shared.carnivals
+            .flatMap { $0.athletes }
+            .first { $0.id.uuidString == athleteID }
+    }
 }
 
 
+
 #Preview {
-    ScoreEvent(event: Event(eventName: "Event Name", eventGender: .mixed, eventAgeGroup: 21), carnival: Carnival(name: "", date: Date.now))
+    @State var carnival = Carnival(name: "Carnival", date: Date.now)
+    @State var event = Event(eventName: "Event Name", eventGender: .mixed, eventAgeGroup: 21)
+    return ScoreEvent(event: $event, carnival: $carnival)
         .padding()
 }

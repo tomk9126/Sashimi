@@ -18,6 +18,7 @@ struct CarnivalToolbar: View {
             }
             .help("Create sample carnival with events and athletes for demonstration.")
             Button("New Carnival", systemImage: "plus") { showingNewCarnivalSheet.toggle() }
+                //NewCarnival sheet is found in ContentView
                 .help("Create a new carnival")
             Button("Open Carnival", systemImage: "folder") {
                 CarnivalManager.shared.loadCarnival { error in
