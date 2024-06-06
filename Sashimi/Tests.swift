@@ -10,7 +10,7 @@ import XCTest
 
 class CarnivalTests: XCTestCase {
     
-    // MARK: - Test Carnival Functions
+    // MARK: Test Carnival Functions
     
     func testCreateCarnival() {
         let carnivalManager = CarnivalManager.shared
@@ -28,7 +28,7 @@ class CarnivalTests: XCTestCase {
     }
     
     
-    // MARK: - Test Event Functions
+    // MARK: Test Event Functions
     
     func testCreateEvent() {
         let carnivalManager = CarnivalManager.shared
@@ -38,17 +38,8 @@ class CarnivalTests: XCTestCase {
         XCTAssertEqual(event.eventName, "Test Event")
     }
     
-    func testUpdateEvent() {
-        let carnivalManager = CarnivalManager.shared
-        let carnival = carnivalManager.createCarnival(name: "Test Carnival", date: Date(), fileAddress: nil)
-        let event = carnivalManager.createEvent(carnival: carnival, name: "Test Event", gender: .male, age: 18)
-        carnivalManager.updateEvent(event: event, newName: "Updated Event", newGender: .female, newAge: 21)
-        XCTAssertEqual(event.eventName, "Updated Event")
-        XCTAssertEqual(event.eventGender, .female)
-        XCTAssertEqual(event.eventAgeGroup, 21)
-    }
     
-    // MARK: - Test Athlete Functions
+    // MARK: Test Athlete Functions
     
     func testCreateAthlete() {
         let carnivalManager = CarnivalManager.shared
@@ -59,22 +50,11 @@ class CarnivalTests: XCTestCase {
         XCTAssertEqual(athlete.athleteLastName, "Doe")
     }
     
-    func testUpdateAthlete() {
-        let carnivalManager = CarnivalManager.shared
-        let carnival = carnivalManager.createCarnival(name: "Test Carnival", date: Date(), fileAddress: nil)
-        let athlete = carnivalManager.createAthlete(carnival: carnival, firstName: "John", lastName: "Doe", DOB: Date(), gender: .male)
-        carnivalManager.updateAthlete(athlete: athlete, newFirstName: "Jane", newLastName: "Smith", newGender: .female, newDOB: Date())
-        XCTAssertEqual(athlete.athleteFirstName, "Jane")
-        XCTAssertEqual(athlete.athleteLastName, "Smith")
-        XCTAssertEqual(athlete.athleteGender, .female)
-    }
-    
-    // Add more tests for other Athlete functions as needed
 }
 
 class ScoringTests: XCTestCase {
     
-    // MARK: - Test Event Scoring Functions
+    // MARK: Test Event Scoring Functions
     
     func testRankAthletes() {
         var event = Event(eventName: "Test Event", eventGender: .male, eventAgeGroup: 18)

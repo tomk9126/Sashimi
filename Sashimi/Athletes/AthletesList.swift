@@ -152,9 +152,8 @@ struct AthletesList: View {
     }
 }
 
-//#Preview {
-//    CarnivalManager.shared.exampleUsage()
-//    @State var currentCarnival: Carnival? = nil
-//    return ContentView(currentCarnival: $currentCarnival)
-//
-//
+#Preview {
+    CarnivalManager.shared.exampleUsage()
+    return ContentView()
+        .environmentObject(CarnivalManager.shared)
+}

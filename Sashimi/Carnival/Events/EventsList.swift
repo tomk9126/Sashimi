@@ -158,5 +158,6 @@ struct EventsList: View {
 #Preview {
     CarnivalManager.shared.exampleUsage()
     return ContentView()
+        .environmentObject(CarnivalManager.shared)
 }
 

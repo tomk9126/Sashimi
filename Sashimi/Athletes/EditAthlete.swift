@@ -72,7 +72,7 @@ struct EditAthlete: View {
                     dismiss()
                 }
                 .keyboardShortcut(.defaultAction)
-                .disabled(isCreateButtonDisabled) // Disable based on condition
+                .disabled(isCreateButtonDisabled)
             }
         }
         .padding(.all)
