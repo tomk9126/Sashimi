@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import UniformTypeIdentifiers
 
+// Custom file type .carnival
 extension UTType {
     static var carnival: UTType {
         UTType(importedAs: "com.tomkeir.carnival")
