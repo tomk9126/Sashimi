@@ -12,7 +12,10 @@ struct EventsList: View {
     @State private var showingNewEventSheet = false
     @State private var showingScoreEventSheet = false
     @State private var showingEditEventSheet = false
+    @State private var showingRanksSheet = false
+    
     @State private var showingDeletionAlert = false
+    
     
     @State private var selection: Set<Event.ID> = []
     @State private var sortOrder = [KeyPathComparator(\Event.eventName)]
@@ -57,7 +60,15 @@ struct EventsList: View {
                 }
                 Button {
                     print("Selection Changed:", RightClickedEvent)
+                    showingRanksSheet.toggle()
+                    
+                } label: {
+                    Label("View Ranks...", systemImage: "eye")
+                }
+                Button {
+                    print("Selection Changed:", RightClickedEvent)
                     showingScoreEventSheet.toggle()
+                    
                 } label: {
                     Label("Score...", systemImage: "list.clipboard")
                 }
@@ -71,12 +82,19 @@ struct EventsList: View {
                     showingDeletionAlert = true
                 }
             } primaryAction: { items in
+                
                 showingScoreEventSheet.toggle()
             }
             .toolbar {
                 ToolbarItemGroup() {
                     Spacer()
                     HStack {
+                        Button("View Ranks", systemImage: "eye") {
+                            showingRanksSheet.toggle()
+                        }
+                        .disabled(selection.isEmpty)
+                        .help("View previously generated ranks")
+                        
                         Button("Score Event", systemImage: "list.bullet.clipboard") {
                             showingScoreEventSheet.toggle()
                         }
@@ -120,12 +138,24 @@ struct EventsList: View {
             }
         } message: { Text("This action cannot be undone.")}
         
+        
         //MARK: ScoreEvent Sheet
         .sheet(isPresented: $showingScoreEventSheet) {
             if let selectedEvent = $carnival.events.first(where: { selection.contains($0.id) }) {
                 ScoreEvent(event: selectedEvent, carnival: $carnival)
                     .padding()
                     .frame(width: 800, height: 400)
+                
+            } else {
+                Text("No event selected. This shouldn't happen.")
+            }
+        }
+        
+        //MARK: ShowingRanks Sheet
+        .sheet(isPresented: $showingRanksSheet) {
+            if let selectedEvent = carnival.events.first(where: { selection.contains($0.id) }) {
+                Ranks(event: selectedEvent, carnival: carnival)
+                
             } else {
                 Text("No event selected. This shouldn't happen.")
             }

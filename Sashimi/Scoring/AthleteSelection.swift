@@ -15,7 +15,7 @@ struct AthleteSelection: View {
     
     // Computed property to filter potential athletes based on event requirements
     var potentialAthletes: [Athlete] {
-        return CarnivalManager.shared.carnivals.flatMap { $0.athletes }
+        return carnival.athletes
             .filter { athlete in
                 switch event.eventGender {
                 case .male:
@@ -27,7 +27,8 @@ struct AthleteSelection: View {
                 }
             }
             .filter { athlete in
-                if let eventAgeGroup = event.eventAgeGroup, let age = Calendar.current.dateComponents([.year], from: athlete.athleteDOB, to: carnival.date).year {
+                if let eventAgeGroup = event.eventAgeGroup,
+                   let age = Calendar.current.dateComponents([.year], from: athlete.athleteDOB, to: carnival.date).year {
                     return age <= eventAgeGroup
                 } else {
                     return true // If no age group specified, include all athletes

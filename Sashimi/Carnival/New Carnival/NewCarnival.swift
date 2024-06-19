@@ -27,39 +27,26 @@ struct NewCarnival: View {
                         Label("Carnival Settings", systemImage: "person.fill")
                     }
                     .padding()
-                AthleteDataImport(carnival: $newCarnival)
-                    .tag(1)
-                    .tabItem() {
-                        Label("Athletes", systemImage: "person.fill")
-                    }
-                    .padding()
+                
             }
 
             VStack {
                 HStack() {
                         
-                    if selectedTab == 0 {
-                        Button("Cancel", role: .cancel) {
-                            dismiss()
-                        }.keyboardShortcut(.cancelAction)
-                        Button("Next") { selectedTab = 1 }
-                            .keyboardShortcut(.defaultAction)
-                    } else {
-                        Button("Back", role: .cancel) {
-                            selectedTab = 0
-                        }.keyboardShortcut(.cancelAction)
-                        Button("Create") {
-                            CarnivalManager.shared.carnivals.append(newCarnival)
-                            //CarnivalManager.shared.carnivals.last!.athletes.append(contentsOf: newAthletes)
-                            print(CarnivalManager.shared.carnivals)
-                            dismiss()
-                        }.keyboardShortcut(.defaultAction)
-                    }
+                    Button("Cancel", role: .cancel) {
+                        dismiss()
+                    }.keyboardShortcut(.cancelAction)
+                    Button("Create") {
+                        CarnivalManager.shared.carnivals.append(newCarnival)
+                        //CarnivalManager.shared.carnivals.last!.athletes.append(contentsOf: newAthletes)
+                        print(CarnivalManager.shared.carnivals)
+                        dismiss()
+                    }.keyboardShortcut(.defaultAction)
+                    
                 }
             }
         }
-        .frame(width: selectedTab == 0 ? 310 : 500,
-                height: selectedTab == 0 ? 225 : 375)
+        .frame(width: 310, height: 270)
         
     }
 }

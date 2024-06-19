@@ -30,6 +30,8 @@ struct ScoreEvent: View {
                     Text("All Ages")
                 }
             }
+            Text("If previous rank data exists, it will be overwitten")
+                .font(.subheadline)
             
             if showingView == 0 {
                 AthleteSelection(event: event, carnival: carnival, selectedAthletes: $selectedAthletes)
@@ -61,19 +63,22 @@ struct ScoreEvent: View {
                 Button(showingView == 0 ? "Next" : "Finalise") {
                     if showingView == 0 {
                         showingView = 1
+                        
+                        //New athletes selected (if event previously ranked), so clear previous results
+                        event.ranks = [:]
+                        event.results = [:]
                     } else {
+                        //event.results = [:]
                         event.calculateEventRanks()
-                        isShowingRankAlert = true
                         print(event)
+                        dismiss()
                         
                     }
                 }.keyboardShortcut(.defaultAction)
                 .disabled(selectedAthletes.count == 0)
             }
         }
-        .sheet(isPresented: $isShowingRankAlert) {
-            Ranks(event: event, carnival: carnival)
-        }
+        
     }
     
     

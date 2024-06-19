@@ -25,7 +25,9 @@ struct AthleteScoring: View {
             }.tableStyle(.bordered)
             
             Text("Enter athlete times for event, then click 'Finalise'")
-                .padding(.vertical, 3.0)
+            Text("(Blank times will not be ranked)")
+                .font(.subheadline)
+                .padding(.vertical, 1.0)
         }
     }
     
