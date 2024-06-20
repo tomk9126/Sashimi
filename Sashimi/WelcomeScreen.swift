@@ -15,8 +15,8 @@ struct WelcomeScreen: View {
     @Environment(\.openWindow) private var openWindow
     @Environment(\.dismiss) private var dismissWindow
     
-    @State private var showingNewCarnivalSheet = false
-    
+    //@Binding var showingNewCarnivalSheet: Bool
+    //let carnivalList: CarnivalList
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     
     var body: some View {
@@ -36,20 +36,24 @@ struct WelcomeScreen: View {
                 
                 VStack {
                     Button(action: {
-                        showingNewCarnivalSheet.toggle()
+                        openWindow(id: "main")
+                        dismissWindow()
                     }) {
-                        Label("New Carnival", systemImage: "plus")
+                        Label("Open Sashimi", systemImage: "arrow.right")
                             .frame(maxWidth: .infinity)
-                    }.help("Create a new Sashimi carnival")
+                    }.help("Open the Sashimi Interface")
                     
                     Button(action: {
+                        openWindow(id: "main")
                         CarnivalManager.shared.loadCarnival { error in
                             if let error = error {
                                 // Handle error
                             }
                         }
+                        dismissWindow()
+                        
                     }) {
-                        Label("Open Carnival", systemImage: "folder")
+                        Label("Open Previous Carnival", systemImage: "folder")
                             .frame(maxWidth: .infinity)
                     }.help("Open an already existing Sashimi carnival")
                     
@@ -60,21 +64,13 @@ struct WelcomeScreen: View {
                             .frame(maxWidth: .infinity)
                     }.help("View the Sashimi user guide")
                     
-                    Button("Continue without a carnival") {
-                        openWindow(id: "main")
-                        dismissWindow()
-                    }.buttonStyle(.plain)
-                    .underline()
+                    
                 }.controlSize(.large)
             }.padding()
-            .sheet(isPresented: $showingNewCarnivalSheet) {
-                NewCarnival()
-                    .padding()
-            }
             .frame(maxWidth: .infinity, maxHeight: .infinity) // Allows sheet size to be altered by child views.
         }.frame(width: 360, height: 330)
     }
-    
+
     private func openDocumentation() {
         if let url = Bundle.main.url(forResource: "User Guide", withExtension: "html") {
             NSWorkspace.shared.open(url)

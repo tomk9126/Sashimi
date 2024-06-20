@@ -76,7 +76,7 @@ struct NewEvent: View {
             
             Toggle(isOn: $reopenEventSheet) {
                 Text("Reopen this dialogue after creation.")
-                Text("Supports faster creation")
+                Text("Instantly create another Event")
                     .font(.subheadline)
             }
             

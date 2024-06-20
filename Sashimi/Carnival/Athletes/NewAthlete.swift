@@ -59,7 +59,7 @@ struct NewAthlete: View {
             
             Toggle(isOn: $reopenAthleteSheet) {
                 Text("Reopen this dialogue after creation.")
-                Text("Supports faster creation")
+                Text("Instsntly create another Athlete")
                     .font(.subheadline)
             }
             

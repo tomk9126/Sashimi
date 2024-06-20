@@ -40,6 +40,7 @@ struct CarnivalList: View {
         }
         
     }
+
 }
 
 

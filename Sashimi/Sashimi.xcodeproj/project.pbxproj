@@ -35,7 +35,6 @@
 		F39AAA972BAC18350054C0C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3900E622BABF57100C37122 /* Assets.xcassets */; };
 		F39AAA982BAC18360054C0C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3900E622BABF57100C37122 /* Assets.xcassets */; };
 		F3ABCEBE2C0604B40077A636 /* CarnivalToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ABCEBD2C0604B40077A636 /* CarnivalToolbar.swift */; };
-		F3C983E52C22EBBD008F3F4F /* ImportCSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C983E42C22EBBD008F3F4F /* ImportCSV.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,7 +79,6 @@
 		F39AAA962BAC171C0054C0C2 /* Sashimi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sashimi.entitlements; sourceTree = "<group>"; };
 		F3ABCEBD2C0604B40077A636 /* CarnivalToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarnivalToolbar.swift; sourceTree = "<group>"; };
 		F3B9CCEF2BFC169E0047B162 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F3C983E42C22EBBD008F3F4F /* ImportCSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCSV.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,7 +150,6 @@
 			isa = PBXGroup;
 			children = (
 				F31187822BFA082B004E3647 /* ExportCSV.swift */,
-				F3C983E42C22EBBD008F3F4F /* ImportCSV.swift */,
 				F3900E4A2BABF57100C37122 /* AthletesList.swift */,
 				F3900E4B2BABF57100C37122 /* EditAthlete.swift */,
 				F3900E4C2BABF57100C37122 /* NewAthlete.swift */,
@@ -311,7 +308,6 @@
 				F3ABCEBE2C0604B40077A636 /* CarnivalToolbar.swift in Sources */,
 				F33F45402C0DC2720085ED61 /* Ranks.swift in Sources */,
 				F3900E892BAC116D00C37122 /* CarnivalLabelButton.swift in Sources */,
-				F3C983E52C22EBBD008F3F4F /* ImportCSV.swift in Sources */,
 				F3900E8A2BAC116D00C37122 /* NoCarnivalSelected.swift in Sources */,
 				F33F453E2C0DC2720085ED61 /* ScoreEvent.swift in Sources */,
 				F33F453F2C0DC2720085ED61 /* AthleteTiming.swift in Sources */,
