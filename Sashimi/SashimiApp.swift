@@ -9,7 +9,10 @@ import SwiftUI
 
 @main
 struct Swim_CarnivalApp: App {
-    @StateObject var carnivalManager = CarnivalManager.shared
+    @ObservedObject var carnivalManager = CarnivalManager.shared
+    
+    @Environment(\.openWindow) private var openWindow
+    @Environment(\.dismiss) private var dismissWindow
     
     var body: some Scene {
         Window("Welcome", id: "welcome") {
@@ -29,6 +32,7 @@ struct Swim_CarnivalApp: App {
         
         
     }
+    
     
     private func disableWindowControls(for windowTitle: String) {
         // Delay execution to ensure the window is created

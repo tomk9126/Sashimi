@@ -39,6 +39,7 @@ struct CarnivalView: View {
                     }.popover(isPresented: $showingPopover) {
                         CarnivalSettings(carnival: $carnival)
                             .padding()
+                            .frame(width: 300, height: 200)
                     }
                 }
                 ToolbarItemGroup(placement: .principal) {

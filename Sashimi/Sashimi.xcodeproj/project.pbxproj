@@ -9,8 +9,10 @@
 /* Begin PBXBuildFile section */
 		F31187832BFA082B004E3647 /* ExportCSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31187822BFA082B004E3647 /* ExportCSV.swift */; };
 		F31EF2ED2C040A5F00E65830 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EF2EC2C040A5F00E65830 /* WelcomeScreen.swift */; };
+		F33B42972C22D6EC0008318C /* styles.css in Resources */ = {isa = PBXBuildFile; fileRef = F33B42942C22D6EC0008318C /* styles.css */; };
+		F33B42982C22D6EC0008318C /* User Guide.html in Resources */ = {isa = PBXBuildFile; fileRef = F33B42952C22D6EC0008318C /* User Guide.html */; };
 		F33F453E2C0DC2720085ED61 /* ScoreEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453A2C0DC2720085ED61 /* ScoreEvent.swift */; };
-		F33F453F2C0DC2720085ED61 /* AthleteScoring.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453B2C0DC2720085ED61 /* AthleteScoring.swift */; };
+		F33F453F2C0DC2720085ED61 /* AthleteTiming.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453B2C0DC2720085ED61 /* AthleteTiming.swift */; };
 		F33F45402C0DC2720085ED61 /* Ranks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453C2C0DC2720085ED61 /* Ranks.swift */; };
 		F33F45412C0DC2720085ED61 /* AthleteSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453D2C0DC2720085ED61 /* AthleteSelection.swift */; };
 		F3760CA02C0497EC00CEE571 /* FileLabelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3760C9F2C0497EC00CEE571 /* FileLabelButton.swift */; };
@@ -23,7 +25,6 @@
 		F3900E8A2BAC116D00C37122 /* NoCarnivalSelected.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E592BABF57100C37122 /* NoCarnivalSelected.swift */; };
 		F3900E8B2BAC116D00C37122 /* NewCarnival.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E532BABF57100C37122 /* NewCarnival.swift */; };
 		F3900E8C2BAC116D00C37122 /* CarnivalSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E522BABF57100C37122 /* CarnivalSettings.swift */; };
-		F3900E8D2BAC116D00C37122 /* AthleteDataImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E512BABF57100C37122 /* AthleteDataImport.swift */; };
 		F3900E8E2BAC116D00C37122 /* CarnivalList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E562BABF57100C37122 /* CarnivalList.swift */; };
 		F3900E8F2BAC116D00C37122 /* EventsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E5E2BABF57100C37122 /* EventsList.swift */; };
 		F3900E902BAC116D00C37122 /* NewEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E5F2BABF57100C37122 /* NewEvent.swift */; };
@@ -34,6 +35,7 @@
 		F39AAA972BAC18350054C0C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3900E622BABF57100C37122 /* Assets.xcassets */; };
 		F39AAA982BAC18360054C0C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F3900E622BABF57100C37122 /* Assets.xcassets */; };
 		F3ABCEBE2C0604B40077A636 /* CarnivalToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3ABCEBD2C0604B40077A636 /* CarnivalToolbar.swift */; };
+		F3C983E52C22EBBD008F3F4F /* ImportCSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3C983E42C22EBBD008F3F4F /* ImportCSV.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,8 +51,10 @@
 /* Begin PBXFileReference section */
 		F31187822BFA082B004E3647 /* ExportCSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportCSV.swift; sourceTree = "<group>"; };
 		F31EF2EC2C040A5F00E65830 /* WelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreen.swift; sourceTree = "<group>"; };
+		F33B42942C22D6EC0008318C /* styles.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = styles.css; sourceTree = "<group>"; };
+		F33B42952C22D6EC0008318C /* User Guide.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html.documentation; path = "User Guide.html"; sourceTree = "<group>"; };
 		F33F453A2C0DC2720085ED61 /* ScoreEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScoreEvent.swift; path = Scoring/ScoreEvent.swift; sourceTree = SOURCE_ROOT; };
-		F33F453B2C0DC2720085ED61 /* AthleteScoring.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AthleteScoring.swift; path = Scoring/AthleteScoring.swift; sourceTree = SOURCE_ROOT; };
+		F33F453B2C0DC2720085ED61 /* AthleteTiming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AthleteTiming.swift; path = Scoring/AthleteTiming.swift; sourceTree = SOURCE_ROOT; };
 		F33F453C2C0DC2720085ED61 /* Ranks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Ranks.swift; path = Scoring/Ranks.swift; sourceTree = SOURCE_ROOT; };
 		F33F453D2C0DC2720085ED61 /* AthleteSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AthleteSelection.swift; path = Scoring/AthleteSelection.swift; sourceTree = SOURCE_ROOT; };
 		F34310982B953A010062A6D4 /* Sashimi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sashimi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,7 +63,6 @@
 		F3900E4A2BABF57100C37122 /* AthletesList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AthletesList.swift; sourceTree = "<group>"; };
 		F3900E4B2BABF57100C37122 /* EditAthlete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAthlete.swift; sourceTree = "<group>"; };
 		F3900E4C2BABF57100C37122 /* NewAthlete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAthlete.swift; sourceTree = "<group>"; };
-		F3900E512BABF57100C37122 /* AthleteDataImport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AthleteDataImport.swift; sourceTree = "<group>"; };
 		F3900E522BABF57100C37122 /* CarnivalSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarnivalSettings.swift; sourceTree = "<group>"; };
 		F3900E532BABF57100C37122 /* NewCarnival.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewCarnival.swift; sourceTree = "<group>"; };
 		F3900E552BABF57100C37122 /* CarnivalLabelButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarnivalLabelButton.swift; sourceTree = "<group>"; };
@@ -77,6 +80,7 @@
 		F39AAA962BAC171C0054C0C2 /* Sashimi.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Sashimi.entitlements; sourceTree = "<group>"; };
 		F3ABCEBD2C0604B40077A636 /* CarnivalToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarnivalToolbar.swift; sourceTree = "<group>"; };
 		F3B9CCEF2BFC169E0047B162 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F3C983E42C22EBBD008F3F4F /* ImportCSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportCSV.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,13 +101,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F33B42962C22D6EC0008318C /* Documentation */ = {
+			isa = PBXGroup;
+			children = (
+				F33B42942C22D6EC0008318C /* styles.css */,
+				F33B42952C22D6EC0008318C /* User Guide.html */,
+			);
+			path = Documentation;
+			sourceTree = "<group>";
+		};
 		F33F452C2C0DC2250085ED61 /* Scoring */ = {
 			isa = PBXGroup;
 			children = (
-				F33F453B2C0DC2720085ED61 /* AthleteScoring.swift */,
+				F33F453A2C0DC2720085ED61 /* ScoreEvent.swift */,
+				F33F453B2C0DC2720085ED61 /* AthleteTiming.swift */,
 				F33F453D2C0DC2720085ED61 /* AthleteSelection.swift */,
 				F33F453C2C0DC2720085ED61 /* Ranks.swift */,
-				F33F453A2C0DC2720085ED61 /* ScoreEvent.swift */,
 			);
 			name = Scoring;
 			path = Sashimi/Scoring;
@@ -115,12 +128,12 @@
 				F3B9CCEF2BFC169E0047B162 /* Info.plist */,
 				F39AAA962BAC171C0054C0C2 /* Sashimi.entitlements */,
 				F3900E622BABF57100C37122 /* Assets.xcassets */,
+				F33B42962C22D6EC0008318C /* Documentation */,
 				F3900E7E2BABF58000C37122 /* Tests.swift */,
 				F3900E652BABF57100C37122 /* SashimiApp.swift */,
 				F3900E572BABF57100C37122 /* CarnivalModel.swift */,
 				F3900E632BABF57100C37122 /* ContentView.swift */,
 				F31EF2EC2C040A5F00E65830 /* WelcomeScreen.swift */,
-				F3900E4E2BABF57100C37122 /* Athletes */,
 				F3900E5A2BABF57100C37122 /* Carnival */,
 				F34310992B953A010062A6D4 /* Products */,
 			);
@@ -139,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				F31187822BFA082B004E3647 /* ExportCSV.swift */,
+				F3C983E42C22EBBD008F3F4F /* ImportCSV.swift */,
 				F3900E4A2BABF57100C37122 /* AthletesList.swift */,
 				F3900E4B2BABF57100C37122 /* EditAthlete.swift */,
 				F3900E4C2BABF57100C37122 /* NewAthlete.swift */,
@@ -162,7 +176,6 @@
 			children = (
 				F3900E532BABF57100C37122 /* NewCarnival.swift */,
 				F3900E522BABF57100C37122 /* CarnivalSettings.swift */,
-				F3900E512BABF57100C37122 /* AthleteDataImport.swift */,
 			);
 			path = "New Carnival";
 			sourceTree = "<group>";
@@ -176,8 +189,9 @@
 				F3900E592BABF57100C37122 /* NoCarnivalSelected.swift */,
 				F3900E552BABF57100C37122 /* CarnivalLabelButton.swift */,
 				F3760C9F2C0497EC00CEE571 /* FileLabelButton.swift */,
-				F3900E502BABF57100C37122 /* Events */,
 				F3900E542BABF57100C37122 /* New Carnival */,
+				F3900E4E2BABF57100C37122 /* Athletes */,
+				F3900E502BABF57100C37122 /* Events */,
 			);
 			path = Carnival;
 			sourceTree = "<group>";
@@ -268,6 +282,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				F39AAA972BAC18350054C0C2 /* Assets.xcassets in Resources */,
+				F33B42972C22D6EC0008318C /* styles.css in Resources */,
+				F33B42982C22D6EC0008318C /* User Guide.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,14 +311,14 @@
 				F3ABCEBE2C0604B40077A636 /* CarnivalToolbar.swift in Sources */,
 				F33F45402C0DC2720085ED61 /* Ranks.swift in Sources */,
 				F3900E892BAC116D00C37122 /* CarnivalLabelButton.swift in Sources */,
+				F3C983E52C22EBBD008F3F4F /* ImportCSV.swift in Sources */,
 				F3900E8A2BAC116D00C37122 /* NoCarnivalSelected.swift in Sources */,
 				F33F453E2C0DC2720085ED61 /* ScoreEvent.swift in Sources */,
-				F33F453F2C0DC2720085ED61 /* AthleteScoring.swift in Sources */,
+				F33F453F2C0DC2720085ED61 /* AthleteTiming.swift in Sources */,
 				F39AAA8F2BAC15980054C0C2 /* ContentView.swift in Sources */,
 				F33F45412C0DC2720085ED61 /* AthleteSelection.swift in Sources */,
 				F3900E8B2BAC116D00C37122 /* NewCarnival.swift in Sources */,
 				F3900E8C2BAC116D00C37122 /* CarnivalSettings.swift in Sources */,
-				F3900E8D2BAC116D00C37122 /* AthleteDataImport.swift in Sources */,
 				F3900E8E2BAC116D00C37122 /* CarnivalList.swift in Sources */,
 				F3900E8F2BAC116D00C37122 /* EventsList.swift in Sources */,
 				F3900E902BAC116D00C37122 /* NewEvent.swift in Sources */,

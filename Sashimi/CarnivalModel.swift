@@ -59,29 +59,30 @@ struct Event: Hashable, Identifiable, Codable {
         }
     
     mutating func calculateEventRanks() {
-            // Calculate total milliseconds for each athlete
-            var athleteTotalMilliseconds: [Athlete: Int] = [:]
-            for (athlete, time) in results {
-                let totalMilliseconds = time.minutes * 60 * 1000 + time.seconds * 1000 + time.milliseconds
-                athleteTotalMilliseconds[athlete] = totalMilliseconds
-            }
-            
-            // Sort athletes based on total milliseconds
-            let sortedAthletes = athleteTotalMilliseconds.sorted { $0.value < $1.value }
-            
-            // Generate rank data
-            var rankedResults: [Athlete: Time] = [:]
-            var ranks: [String: Int] = [:]
-            for (index, (athlete, _)) in sortedAthletes.enumerated() {
-                let rank = index + 1
-                let time = results[athlete]!
-                rankedResults[athlete] = time
-                ranks["\(athlete.athleteFirstName) \(athlete.athleteLastName)"] = rank
-            }
-            
-            self.results = rankedResults
-            self.ranks = ranks
+        // Calculate total milliseconds for each athlete
+        var athleteTotalMilliseconds: [Athlete: Int] = [:]
+        for (athlete, time) in results {
+            let totalMilliseconds = time.minutes * 60 * 1000 + time.seconds * 1000 + time.milliseconds
+            athleteTotalMilliseconds[athlete] = totalMilliseconds
         }
+        
+        // Sort athletes based on total milliseconds
+        let sortedAthletes = athleteTotalMilliseconds.sorted { $0.value < $1.value }
+        
+        // Generate rank data
+        var rankedResults: [Athlete: Time] = [:]
+        var ranks: [String: Int] = [:]
+        for (index, (athlete, _)) in sortedAthletes.enumerated() {
+            let rank = index + 1
+            if let time = results[athlete] {
+                rankedResults[athlete] = time
+            }
+            ranks["\(athlete.athleteFirstName) \(athlete.athleteLastName)"] = rank
+        }
+        
+        self.results = rankedResults
+        self.ranks = ranks
+    }
 }
 
 struct Time: Hashable, Codable {
