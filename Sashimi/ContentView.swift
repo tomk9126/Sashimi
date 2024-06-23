@@ -13,7 +13,7 @@ import AppKit
 struct ContentView: View {
     @EnvironmentObject var carnivalManager: CarnivalManager
     
-    @State private var showingNewCarnivalSheet = false
+    @State var showingNewCarnivalSheet = false
     
     @State private var isImporting: Bool = false
     @State private var importErrors: [String] = []

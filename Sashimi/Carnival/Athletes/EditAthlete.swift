@@ -54,13 +54,6 @@ struct EditAthlete: View {
             }
             Divider()
             
-            Toggle(isOn: $reopenSheet) {
-                Text("Reopen this dialogue after creation.")
-                Text("Supports faster creation")
-                    .font(.subheadline)
-            }
-            
-            
             HStack {
                 Button("Cancel", role: .cancel) {
                     dismiss()

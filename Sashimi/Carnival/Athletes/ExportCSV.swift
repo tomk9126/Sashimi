@@ -38,7 +38,7 @@ struct ExportCSV: View {
                         Text(carnival.name)
                     }
                     .toggleStyle(CheckboxToggleStyle())
-                }
+                }.disabled(carnival.athletes.isEmpty)
             }
             .listStyle(.bordered)
             .alternatingRowBackgrounds()

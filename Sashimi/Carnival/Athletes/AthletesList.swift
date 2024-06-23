@@ -181,6 +181,9 @@ struct AthletesList: View {
                 }
             }
             
+            //Clear out false negative errors due to mismatches CSV formatting
+            importErrors = importErrors.filter { $0 != #"Invalid data format for athlete: [""]"# }
+            
             if !importErrors.isEmpty {
                 importErrors.append("View 'Help' on data formatting.")
                 showAlert = true
