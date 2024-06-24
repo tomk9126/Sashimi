@@ -14,13 +14,13 @@ struct CarnivalList: View {
     @EnvironmentObject var carnivalManager: CarnivalManager
     @Binding var showingNewCarnivalSheet: Bool
     
-
     var body: some View {
         if carnivalManager.carnivals.isEmpty {
             VStack {
-                Text("No carnivals")
+                Text("No carnivals. Add or create one using the '+' menu.")
                     .opacity(/*@START_MENU_TOKEN@*/0.8/*@END_MENU_TOKEN@*/)
-            }.padding()
+            }
+			.padding()
             .toolbar {
                 ToolbarItemGroup() {
                     CarnivalToolbar(showingNewCarnivalSheet: $showingNewCarnivalSheet)
@@ -46,8 +46,8 @@ struct CarnivalList: View {
 
 
 
-//#Preview {
-//    CarnivalManager.shared.exampleUsage()
-//    @State var currentCarnival: Carnival? = nil
-//    return ContentView(currentCarnival: $currentCarnival)
-//}
+#Preview {
+    CarnivalManager.shared.exampleUsage()
+    return ContentView()
+		.environmentObject(CarnivalManager.shared)
+}

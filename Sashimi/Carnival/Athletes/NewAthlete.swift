@@ -59,7 +59,7 @@ struct NewAthlete: View {
             
             Toggle(isOn: $reopenAthleteSheet) {
                 Text("Reopen this dialogue after creation.")
-                Text("Instsntly create another Athlete")
+                Text("Instantly create another Athlete")
                     .font(.subheadline)
             }
             
@@ -96,4 +96,6 @@ struct NewAthlete: View {
 #Preview {
     @State var reopenSheet = true
     return NewAthlete(reopenAthleteSheet: $reopenSheet, carnival: Carnival(name: "", date: Date.now))
+		.frame(width: 300, height: 200)
+		.padding()
 }

@@ -14,9 +14,10 @@ struct WelcomeScreen: View {
 
     @Environment(\.openWindow) private var openWindow
     @Environment(\.dismiss) private var dismissWindow
-    
-    //@Binding var showingNewCarnivalSheet: Bool
-    //let carnivalList: CarnivalList
+
+	@State private var didError = false
+	@State private var openError: String?
+	
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     
     var body: some View {
@@ -32,7 +33,8 @@ struct WelcomeScreen: View {
                         .bold()
                     Text("Version " + (appVersion ?? ""))
                         .opacity(0.6)
-                }.padding()
+                }
+				.padding()
                 
                 VStack {
                     Button(action: {
@@ -41,13 +43,15 @@ struct WelcomeScreen: View {
                     }) {
                         Label("Open Sashimi", systemImage: "arrow.right")
                             .frame(maxWidth: .infinity)
-                    }.help("Open the Sashimi Interface")
+                    }
+					.help("Open the Sashimi Interface")
                     
                     Button(action: {
                         openWindow(id: "main")
                         CarnivalManager.shared.loadCarnival { error in
                             if let error = error {
-                                // Handle error
+								openError = error.localizedDescription
+								didError = true
                             }
                         }
                         dismissWindow()
@@ -55,32 +59,39 @@ struct WelcomeScreen: View {
                     }) {
                         Label("Open Previous Carnival", systemImage: "folder")
                             .frame(maxWidth: .infinity)
-                    }.help("Open an already existing Sashimi carnival")
+                    }
+					.help("Open an already existing Sashimi carnival")
+					.alert(isPresented: $didError) {
+						Alert(title: Text("Failed to open Carnival"), message: Text(openError ?? "An unknown error occured"))
+					}
                     
                     Button(action: {
                         openDocumentation()
                     }) {
                         Label("See Documentation", systemImage: "book")
                             .frame(maxWidth: .infinity)
-                    }.help("View the Sashimi user guide")
+                    }
+					.help("View the Sashimi user guide")
                     
                     
-                }.controlSize(.large)
-            }.padding()
+                }
+				.controlSize(.large)
+            }
+			.padding()
             .frame(maxWidth: .infinity, maxHeight: .infinity) // Allows sheet size to be altered by child views.
-        }.frame(width: 360, height: 330)
+        }
+		.frame(width: 360, height: 330)
     }
 
     private func openDocumentation() {
         if let url = Bundle.main.url(forResource: "User Guide", withExtension: "html") {
             NSWorkspace.shared.open(url)
         } else {
-            print("Index.html file not found in Documentation folder")
+            print("Documentation files not found. App may be damaged, consider reinstalling.")
         }
     }
 }
 #Preview {
     WelcomeScreen()
         .environmentObject(CarnivalManager.shared)
-        
 }

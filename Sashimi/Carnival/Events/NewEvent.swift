@@ -126,5 +126,7 @@ struct NewEvent: View {
     @State var carnival = Carnival(name: "", date: Date.now)
     
     return NewEvent(reopenEventSheet: $showingNewEventSheet, carnival: carnival)
+		.frame(width: 300, height: 230)
+		.padding()
 
 }

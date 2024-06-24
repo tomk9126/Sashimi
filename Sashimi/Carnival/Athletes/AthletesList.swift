@@ -10,18 +10,26 @@ import UniformTypeIdentifiers
 import Foundation
 
 struct AthletesList: View {
+	// Showing various popups
     @State private var showingNewAthleteSheet = false
     @State private var showingEditAthleteSheet = false
     @State private var showingExportSheet = false
     @State private var showingImportSheet = false
+	
     @State private var showingDeletionAlert = false
-    @Binding var carnival: Carnival
-    @Binding var athletes: [Athlete]
+    
+	@Binding var carnival: Carnival
     @State private var selection: Set<Athlete.ID> = []
-    @State var reopenSheet = false
-    @State private var searchText: String = ""
+    
+	// If user selects 'reopen sheet after creation...' in NewAthlete
+	@State var reopenSheet = false
+    
+	// Search function data
+	@State private var searchText: String = ""
     @State var tokens: [Gender] = []
-    @State private var importErrors: [String] = []
+    
+	// Import error alert
+	@State private var importErrors: [String] = []
     @State private var showAlert = false
 
     func filteredAthletes(
@@ -37,7 +45,7 @@ struct AthletesList: View {
 
     var body: some View {
         NavigationStack {
-            Table(filteredAthletes(athletes: athletes, searchText: searchText), selection: $selection) {
+			Table(filteredAthletes(athletes: carnival.athletes, searchText: searchText), selection: $selection) {
                 TableColumn("First Name", value: \.athleteFirstName)
                 TableColumn("Last Name", value: \.athleteLastName)
                 TableColumn("Gender") { athlete in
@@ -104,7 +112,7 @@ struct AthletesList: View {
         }
         .sheet(isPresented: $showingEditAthleteSheet) {
             if let selectedAthlete = carnival.athletes.first(where: { selection.contains($0.id) }) {
-                EditAthlete(athlete: selectedAthlete, carnival: carnival)
+				EditAthlete(carnival: carnival, athlete: selectedAthlete)
             } else {
                 Text("No athlete selected")
             }

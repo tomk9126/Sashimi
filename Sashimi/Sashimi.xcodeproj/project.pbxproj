@@ -15,7 +15,6 @@
 		F33F453F2C0DC2720085ED61 /* AthleteTiming.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453B2C0DC2720085ED61 /* AthleteTiming.swift */; };
 		F33F45402C0DC2720085ED61 /* Ranks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453C2C0DC2720085ED61 /* Ranks.swift */; };
 		F33F45412C0DC2720085ED61 /* AthleteSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453D2C0DC2720085ED61 /* AthleteSelection.swift */; };
-		F3760CA02C0497EC00CEE571 /* FileLabelButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3760C9F2C0497EC00CEE571 /* FileLabelButton.swift */; };
 		F3900E832BAC115200C37122 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E7E2BABF58000C37122 /* Tests.swift */; };
 		F3900E852BAC116D00C37122 /* AthletesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E4A2BABF57100C37122 /* AthletesList.swift */; };
 		F3900E862BAC116D00C37122 /* EditEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E5D2BABF57100C37122 /* EditEvent.swift */; };
@@ -58,7 +57,6 @@
 		F33F453D2C0DC2720085ED61 /* AthleteSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AthleteSelection.swift; path = Scoring/AthleteSelection.swift; sourceTree = SOURCE_ROOT; };
 		F34310982B953A010062A6D4 /* Sashimi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sashimi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F34310A92B953A040062A6D4 /* SashimiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SashimiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F3760C9F2C0497EC00CEE571 /* FileLabelButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileLabelButton.swift; sourceTree = "<group>"; };
 		F3900E4A2BABF57100C37122 /* AthletesList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AthletesList.swift; sourceTree = "<group>"; };
 		F3900E4B2BABF57100C37122 /* EditAthlete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAthlete.swift; sourceTree = "<group>"; };
 		F3900E4C2BABF57100C37122 /* NewAthlete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAthlete.swift; sourceTree = "<group>"; };
@@ -185,7 +183,6 @@
 				F3900E582BABF57100C37122 /* CarnivalView.swift */,
 				F3900E592BABF57100C37122 /* NoCarnivalSelected.swift */,
 				F3900E552BABF57100C37122 /* CarnivalLabelButton.swift */,
-				F3760C9F2C0497EC00CEE571 /* FileLabelButton.swift */,
 				F3900E542BABF57100C37122 /* New Carnival */,
 				F3900E4E2BABF57100C37122 /* Athletes */,
 				F3900E502BABF57100C37122 /* Events */,
@@ -320,7 +317,6 @@
 				F3900E902BAC116D00C37122 /* NewEvent.swift in Sources */,
 				F3900E912BAC116D00C37122 /* EditAthlete.swift in Sources */,
 				F31EF2ED2C040A5F00E65830 /* WelcomeScreen.swift in Sources */,
-				F3760CA02C0497EC00CEE571 /* FileLabelButton.swift in Sources */,
 				F3900E932BAC116D00C37122 /* NewAthlete.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

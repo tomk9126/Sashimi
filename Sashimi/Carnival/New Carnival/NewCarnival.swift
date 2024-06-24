@@ -10,15 +10,11 @@ import SwiftUI
 struct NewCarnival: View {
     @State var newCarnival = Carnival(name: "", date: Date.now)
     @State var newAthletes: [Athlete] = []
-    private let tabs = ["Athletes", "Settings"]
     @State private var selectedTab = 0
     
     @Environment(\.dismiss) var dismiss
-
-    
-    
+ 
     var body: some View {
-        
         NavigationStack {
             TabView(selection: $selectedTab) {
                 CarnivalSettings(carnival: $newCarnival)
@@ -27,27 +23,21 @@ struct NewCarnival: View {
                         Label("Carnival Settings", systemImage: "person.fill")
                     }
                     .padding()
-                
             }
 
             VStack {
                 HStack() {
-                        
                     Button("Cancel", role: .cancel) {
                         dismiss()
                     }.keyboardShortcut(.cancelAction)
                     Button("Create") {
                         CarnivalManager.shared.carnivals.append(newCarnival)
-                        //CarnivalManager.shared.carnivals.last!.athletes.append(contentsOf: newAthletes)
-                        print(CarnivalManager.shared.carnivals)
                         dismiss()
                     }.keyboardShortcut(.defaultAction)
-                    
                 }
             }
         }
-        .frame(width: 310, height: 270)
-        
+        .frame(width: 310, height: 270) 
     }
 }
 
@@ -55,5 +45,5 @@ struct NewCarnival: View {
 #Preview {
     NewCarnival()
         .padding()
-        .frame(width: 700, height: 450)
+        .frame(width: 320, height: 280)
 }

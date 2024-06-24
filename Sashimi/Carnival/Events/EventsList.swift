@@ -20,6 +20,7 @@ struct EventsList: View {
     @State private var selection: Set<Event.ID> = []
     @State private var sortOrder = [KeyPathComparator(\Event.eventName)]
     
+	// If user selects 'reopen sheet after event creation ...'
     @State var reopenSheet = false
     
     @Binding var carnival: Carnival
@@ -49,7 +50,6 @@ struct EventsList: View {
                         .font(event.ranks != [:] ? .headline : .body)
                 }
             }
-
             .onChange(of: sortOrder) { newOrder in
                 carnival.events.sort(using: newOrder)
             }
@@ -82,7 +82,6 @@ struct EventsList: View {
                     showingDeletionAlert = true
                 }
             } primaryAction: { items in
-                
                 showingScoreEventSheet.toggle()
             }
             .toolbar {

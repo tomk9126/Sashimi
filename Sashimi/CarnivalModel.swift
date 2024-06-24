@@ -9,21 +9,21 @@ import Foundation
 import SwiftUI
 import UniformTypeIdentifiers
 
-// Custom file type .carnival
+//MARK: Custom file type .carnival
 extension UTType {
     static var carnival: UTType {
         UTType(importedAs: "com.tomkeir.carnival")
     }
 }
 
-// Data type Gender
+//MARK: Data type Gender
 enum Gender: Codable {
     case male
     case female
     case mixed
 }
 
-// Data type Athlete
+//MARK: Data type Athlete
 struct Athlete: Hashable, Identifiable, Codable {
     var athleteFirstName: String
     var athleteLastName: String
@@ -32,7 +32,7 @@ struct Athlete: Hashable, Identifiable, Codable {
     var id = UUID()
 }
 
-// Data type Event
+//MARK: Data type Event
 struct Event: Hashable, Identifiable, Codable {
     var eventName: String
     var eventGender: Gender
@@ -42,7 +42,8 @@ struct Event: Hashable, Identifiable, Codable {
     var id = UUID()
     
     func rankAthletes() -> [Athlete] {
-            var sortedAthletes = results.keys.sorted { athlete1, athlete2 in
+		// Sort athletes by time in ascending order
+		let sortedAthletes = results.keys.sorted { athlete1, athlete2 in
                 guard let time1 = results[athlete1], let time2 = results[athlete2] else {
                     return false // If any athlete's time is missing, consider them lower in rank
                 }
@@ -85,16 +86,14 @@ struct Event: Hashable, Identifiable, Codable {
     }
 }
 
+//MARK: Time
 struct Time: Hashable, Codable {
     var minutes: Int
     var seconds: Int
     var milliseconds: Int
 }
 
-struct RecentFile: Codable, Hashable {
-    var url: URL
-    var name: String
-}
+//MARK: Carnival
 class Carnival: ObservableObject, Identifiable, Codable, Hashable {
     
     static func == (lhs: Carnival, rhs: Carnival) -> Bool {
@@ -110,11 +109,12 @@ class Carnival: ObservableObject, Identifiable, Codable, Hashable {
     @Published var athletes: [Athlete]
     @Published var events: [Event]
     
-    @Published var fileURL: URL? // Use URL instead of String for file address
+    @Published var fileURL: URL?
     
-    
+    // Allows Carnival to conform to identifiable. Using an ID instead of Name allows for duplicate carnivals.
     var id = UUID()
     
+	// Default values
     init(name: String, date: Date, fileURL: URL? = nil) {
         self.name = name
         self.date = date
@@ -152,6 +152,7 @@ class Carnival: ObservableObject, Identifiable, Codable, Hashable {
             return csvText
     }
     
+	// Required to generate CSV file
     enum CodingKeys: String, CodingKey {
         case name
         case date
@@ -161,6 +162,7 @@ class Carnival: ObservableObject, Identifiable, Codable, Hashable {
         case fileURL
     }
     
+	// Decode elements of CSV -> Carnival
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         name = try container.decode(String.self, forKey: .name)
@@ -171,6 +173,7 @@ class Carnival: ObservableObject, Identifiable, Codable, Hashable {
         fileURL = try container.decodeIfPresent(URL.self, forKey: .fileURL)
     }
     
+	// Encode elements of Carnival -> CSV
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(name, forKey: .name)
@@ -183,15 +186,16 @@ class Carnival: ObservableObject, Identifiable, Codable, Hashable {
 }
 
 
-
+//MARK: CarnivalManaer
 class CarnivalManager: ObservableObject {
     
-    //allows data manipulation from any area of the app by using CarnivalManager.shared. ...
+    // Allows data manipulation from any area of the app by using CarnivalManager.shared. ...
     static let shared = CarnivalManager()
     
     @Published var carnivals: [Carnival]
     @Published var selectedCarnival: Carnival?
     
+	// Default value (Will have no carnivals on startup)
     private init() {
         self.carnivals = []
     }
@@ -203,6 +207,7 @@ class CarnivalManager: ObservableObject {
     }
     
     func deleteCarnival(_ carnival: Carnival) {
+		// Find carnival in selection, remove.
         if let index = carnivals.firstIndex(where: { $0.name == carnival.name }) {
             carnivals.remove(at: index)
         }
@@ -215,13 +220,15 @@ class CarnivalManager: ObservableObject {
     }
     
     func updateEvent(event: Event, newName: String, newGender: Gender, newAge: Int?) {
-            if let index = eventIndexInCarnivals(event: event) {
-                carnivals[index].events.removeAll { $0.id == event.id }
-                let updatedEvent = Event(eventName: newName, eventGender: newGender, eventAgeGroup: newAge)
-                carnivals[index].events.append(updatedEvent)
-            }
+		// Delete old version of event, instantiate new one.
+		if let index = eventIndexInCarnivals(event: event) {
+			carnivals[index].events.removeAll { $0.id == event.id }
+			let updatedEvent = Event(eventName: newName, eventGender: newGender, eventAgeGroup: newAge)
+			carnivals[index].events.append(updatedEvent)
+		}
     }
-        
+    
+	// Find position of event in Carnival.[Event]
     private func eventIndexInCarnivals(event: Event) -> Int? {
         for (index, carnival) in carnivals.enumerated() {
             if let _ = carnival.events.firstIndex(where: { $0.id == event.id }) {
@@ -238,6 +245,7 @@ class CarnivalManager: ObservableObject {
     }
     
     func updateAthlete(athlete: Athlete, newFirstName: String, newLastName: String, newGender: Gender, newDOB: Date) {
+		// Delete old athlete, instantiate updated version.
         if let index = athleteIndexInCarnivals(athlete: athlete) {
             carnivals[index].athletes.removeAll { $0.id == athlete.id }
             let updatedAthlete = Athlete(athleteFirstName: newFirstName, athleteLastName: newLastName, athleteDOB: newDOB, athleteGender: newGender)
@@ -245,6 +253,7 @@ class CarnivalManager: ObservableObject {
         }
     }
     
+	// Find position of Athlete in Carnival.[Athlete]
     private func athleteIndexInCarnivals(athlete: Athlete) -> Int? {
         for (index, carnival) in carnivals.enumerated() {
             if let _ = carnival.athletes.firstIndex(where: { $0.id == athlete.id }) {
@@ -253,7 +262,89 @@ class CarnivalManager: ObservableObject {
         }
         return nil
     }
-    
+	
+	// Load carnival from a .carnival file using macOS system Open Panel
+	func loadCarnival(completion: @escaping (Error?) -> Void) {
+		
+		// Create open panel
+		let panel = NSOpenPanel()
+		panel.allowedContentTypes = [UTType(filenameExtension: "carnival")!]
+		panel.canChooseFiles = true
+		panel.canChooseDirectories = false
+		panel.allowsMultipleSelection = false
+		
+		// Get file
+		panel.begin { response in
+			guard response == .OK, let url = panel.url else {
+				completion(nil)
+				return
+			}
+			
+			do {
+				let data = try Data(contentsOf: url)
+				let decoder = JSONDecoder()
+				decoder.dateDecodingStrategy = .iso8601
+				var importedCarnival = try decoder.decode(Carnival.self, from: data)
+				importedCarnival.fileURL = url
+				
+				if self.carnivals.contains(where: { $0.id == importedCarnival.id }) {
+					completion(NSError(domain: "CarnivalManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "Carnival is already open."]))
+				} else {
+					self.carnivals.append(importedCarnival)
+					completion(nil)
+				}
+			} catch {
+				completion(error)
+			}
+		}
+	}
+	
+	// Save carnival into a .csv file
+	func saveCarnival(_ carnival: Carnival) {
+		// Create save panel
+		let panel = NSSavePanel()
+		panel.allowedContentTypes = [.carnival]
+		panel.canCreateDirectories = true
+		panel.nameFieldStringValue = "\(carnival.name).carnival"
+		
+		// Choose file location and save
+		panel.begin { response in
+			guard response == .OK, let url = panel.url else {
+				return
+			}
+			
+			do {
+				let encoder = JSONEncoder()
+				encoder.dateEncodingStrategy = .iso8601
+				let data = try encoder.encode(carnival)
+				try data.write(to: url)
+			} catch {
+				print("Failed to save carnival: \(error)")
+			}
+		}
+		
+		
+	}
+	
+	// Update Carnival file with new changes.
+	func saveChanges(for carnival: Carnival?) {
+		guard let carnival = carnival, let fileURL = carnival.fileURL else {
+			print("No carnival to save or missing file URL.")
+			return
+		}
+		
+		do {
+			let encoder = JSONEncoder()
+			encoder.dateEncodingStrategy = .iso8601
+			let data = try encoder.encode(carnival)
+			try data.write(to: fileURL)
+			print("Carnival saved successfully.")
+		} catch {
+			print("Failed to save carnival: \(error)")
+		}
+	}
+	
+	// This function provides some sample carnival for testing and demonstation, including sets of unscored events and Athletes.
     func exampleUsage() {
         let carnival1 = CarnivalManager.shared.createCarnival(name: "KHC Swimming Carnival", date: Date(), fileAddress: nil)
 
@@ -318,80 +409,6 @@ class CarnivalManager: ObservableObject {
 
         for athlete in exampleAthletes2 {
             carnival2.addAthlete(athlete)
-        }
-    }
-    
-    func loadCarnival(completion: @escaping (Error?) -> Void) {
-        let panel = NSOpenPanel()
-        panel.allowedContentTypes = [UTType(filenameExtension: "carnival")!]
-        panel.canChooseFiles = true
-        panel.canChooseDirectories = false
-        panel.allowsMultipleSelection = false
-
-        panel.begin { response in
-            guard response == .OK, let url = panel.url else {
-                completion(nil)
-                return
-            }
-
-            do {
-                let data = try Data(contentsOf: url)
-                let decoder = JSONDecoder()
-                decoder.dateDecodingStrategy = .iso8601
-                var importedCarnival = try decoder.decode(Carnival.self, from: data)
-                importedCarnival.fileURL = url
-
-                if self.carnivals.contains(where: { $0.id == importedCarnival.id }) {
-                    completion(NSError(domain: "CarnivalManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "Carnival is already open."]))
-                } else {
-                    self.carnivals.append(importedCarnival)
-                    completion(nil)
-                }
-            } catch {
-                completion(error)
-            }
-        }
-    }
-
-
-        func saveCarnival(_ carnival: Carnival) {
-            let panel = NSSavePanel()
-            panel.allowedContentTypes = [.carnival]
-            panel.canCreateDirectories = true
-            panel.nameFieldStringValue = "\(carnival.name).carnival"
-
-            panel.begin { response in
-                guard response == .OK, let url = panel.url else {
-                    return
-                }
-
-                do {
-                    let encoder = JSONEncoder()
-                    encoder.dateEncodingStrategy = .iso8601
-                    let data = try encoder.encode(carnival)
-                    try data.write(to: url)
-                } catch {
-                    print("Failed to save carnival: \(error)")
-                }
-            }
-            
-            
-        }
-    
-    func saveChanges(for carnival: Carnival?) {
-        guard let carnival = carnival, let fileURL = carnival.fileURL else {
-            print("No carnival to save or missing file URL.")
-            return
-        }
-
-        do {
-            let encoder = JSONEncoder()
-            encoder.dateEncodingStrategy = .iso8601
-            let data = try encoder.encode(carnival)
-            try data.write(to: fileURL)
-            print("Carnival saved successfully.")
-        } catch {
-            print("Failed to save carnival: \(error)")
         }
     }
 

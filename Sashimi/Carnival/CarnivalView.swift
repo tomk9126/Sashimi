@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct CarnivalView: View {
-    @ObservedObject var carnivalManager = CarnivalManager.shared
+    
+	@ObservedObject var carnivalManager = CarnivalManager.shared
     @Binding var carnival: Carnival
-    private let tabs = ["Scoring", "Athletes"]
-    @State private var selectedTab = 0
+    
+	@State private var selectedTab = "Scoring"
 
     @State var showingPopover = false
     
@@ -20,11 +21,11 @@ struct CarnivalView: View {
             if carnivalManager.carnivals.isEmpty {
                 NoCarnivalSelected()
             } else {
-                if selectedTab == 0 {
+                if selectedTab == "Scoring" {
                     EventsList(carnival: $carnival)
                 }
-                if selectedTab == 1 {
-                    AthletesList(carnival: $carnival, athletes: $carnival.athletes)
+                if selectedTab == "Athletes" {
+                    AthletesList(carnival: $carnival)
                 }
             }
         }
@@ -42,12 +43,15 @@ struct CarnivalView: View {
                             .frame(width: 300, height: 200)
                     }
                 }
+				
+				//MARK: Scoring/Athletes tab selection
                 ToolbarItemGroup(placement: .principal) {
                     VStack {
                         Picker("", selection: $selectedTab) {
-                            ForEach(tabs.indices) { i in
-                                Text(self.tabs[i]).tag(i)
-                            }
+							Text("Scoring")
+								.tag("Scoring")
+							Text("Athletes")
+								.tag("Athletes")
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         .padding(.top, 8)

@@ -10,13 +10,11 @@ import SwiftUI
 struct EditAthlete: View {
     @Environment(\.dismiss) var dismiss
 
-    @State var reopenSheet = false
-    
+	@State var carnival: Carnival
     @State var athlete: Athlete
     
     @State private var isCreateButtonDisabled = true // Initially disabled
     
-    @State var carnival: Carnival
     
     var body: some View {
         VStack {
@@ -79,5 +77,7 @@ struct EditAthlete: View {
 
 #Preview {
     let athlete = Athlete(athleteFirstName: "John", athleteLastName: "Smith", athleteDOB: Date.now, athleteGender: .male)
-    return EditAthlete(athlete: athlete, carnival: Carnival(name: "", date: Date.now))
+	return EditAthlete(carnival: Carnival(name: "", date: Date.now), athlete: athlete)
+		.frame(width: 300, height: 200)
+		.padding()
 }

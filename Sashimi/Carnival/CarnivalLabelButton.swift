@@ -76,8 +76,10 @@ struct CarnivalDetailView: View {
     }
 }
 
-//#Preview {
-//    CarnivalManager.shared.exampleUsage()
-//    @State var currentCarnival: Carnival? = nil
-//    return ContentView(currentCarnival: $currentCarnival)
-//}
+#Preview {
+    CarnivalManager.shared.exampleUsage()
+	@State var carnival = CarnivalManager.shared.carnivals[0]
+	return CarnivalLabelButton(carnival: $carnival)
+		.frame(width: 300)
+		.padding()
+}

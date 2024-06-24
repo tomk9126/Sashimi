@@ -83,7 +83,7 @@ struct TimePickerView: View {
     }
     
     private func updateEventScores() {
-        var time = Time(minutes: minutes, seconds: seconds, milliseconds: milliseconds)
+		let time = Time(minutes: minutes, seconds: seconds, milliseconds: milliseconds)
         eventScores[athlete] = time
     }
 }
