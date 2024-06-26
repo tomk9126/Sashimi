@@ -89,7 +89,7 @@ struct EventsList: View {
                 ToolbarItemGroup() {
                     Spacer()
                     HStack {
-                        Button("View Ranks", systemImage: "eye") {
+                        Button("View Ranks", systemImage: "trophy") {
                             showingRanksSheet.toggle()
                         }
                         .disabled(selection.isEmpty)

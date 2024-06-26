@@ -15,8 +15,8 @@ struct WelcomeScreen: View {
     @Environment(\.openWindow) private var openWindow
     @Environment(\.dismiss) private var dismissWindow
     
-    //@Binding var showingNewCarnivalSheet: Bool
-    //let carnivalList: CarnivalList
+    @Environment(\.openURL) var openURL
+
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
     
     var body: some View {
@@ -58,9 +58,9 @@ struct WelcomeScreen: View {
                     }.help("Open an already existing Sashimi carnival")
                     
                     Button(action: {
-                        openDocumentation()
+                        openURL(URL(string: "https://github.com/tomk9126/Sashimi/releases")!)
                     }) {
-                        Label("See Documentation", systemImage: "book")
+                        Label("Download User Documentation on GitHub", systemImage: "book")
                             .frame(maxWidth: .infinity)
                     }.help("View the Sashimi user guide")
                     
@@ -71,13 +71,7 @@ struct WelcomeScreen: View {
         }.frame(width: 360, height: 330)
     }
 
-    private func openDocumentation() {
-        if let url = Bundle.main.url(forResource: "User Guide", withExtension: "html") {
-            NSWorkspace.shared.open(url)
-        } else {
-            print("Index.html file not found in Documentation folder")
-        }
-    }
+    
 }
 #Preview {
     WelcomeScreen()
