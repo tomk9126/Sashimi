@@ -28,7 +28,7 @@ struct WelcomeScreen: View {
                         .resizable()
                         .frame(width: 100, height: 100)
                         .scaledToFit()
-                    Text("Sashimi Beta")
+                    Text("Sashimi")
                         .font(.largeTitle)
                         .bold()
                     Text("Version " + (appVersion ?? ""))

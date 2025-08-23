@@ -83,9 +83,7 @@ struct AthletesList: View {
                     }
                 }
                 .help("Export all athletes. (.csv)")
-                HStack {
-                    Divider()
-                }
+                
                 .frame(height: 28)
                 Button("Edit Athlete", systemImage: "pencil") {
                     showingEditAthleteSheet.toggle()
@@ -97,10 +95,7 @@ struct AthletesList: View {
                 }
                 .disabled(selection.isEmpty)
                 .help("Delete athlete.")
-                HStack {
-                    Divider()
-                }
-                .frame(height: 28)
+                
                 Button("New Athlete", systemImage: "plus") {
                     showingNewAthleteSheet.toggle()
                 }
@@ -205,7 +200,7 @@ struct AthletesList: View {
         let openPanel = NSOpenPanel()
         openPanel.allowsMultipleSelection = false
         openPanel.canChooseDirectories = false
-        openPanel.allowedFileTypes = [UTType.commaSeparatedText.identifier]
+        openPanel.allowedContentTypes = [.commaSeparatedText]
         
         if openPanel.runModal() == .OK, let url = openPanel.url {
             importCSV(from: url)
@@ -217,4 +212,5 @@ struct AthletesList: View {
     CarnivalManager.shared.exampleUsage()
     return ContentView()
         .environmentObject(CarnivalManager.shared)
+        .frame(width: 850)
 }

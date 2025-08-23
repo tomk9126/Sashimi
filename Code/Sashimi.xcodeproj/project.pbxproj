@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		F31187832BFA082B004E3647 /* ExportCSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31187822BFA082B004E3647 /* ExportCSV.swift */; };
 		F31EF2ED2C040A5F00E65830 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EF2EC2C040A5F00E65830 /* WelcomeScreen.swift */; };
-		F33B42972C22D6EC0008318C /* styles.css in Resources */ = {isa = PBXBuildFile; fileRef = F33B42942C22D6EC0008318C /* styles.css */; };
-		F33B42982C22D6EC0008318C /* User Guide.html in Resources */ = {isa = PBXBuildFile; fileRef = F33B42952C22D6EC0008318C /* User Guide.html */; };
 		F33F453E2C0DC2720085ED61 /* ScoreEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453A2C0DC2720085ED61 /* ScoreEvent.swift */; };
 		F33F453F2C0DC2720085ED61 /* AthleteTiming.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453B2C0DC2720085ED61 /* AthleteTiming.swift */; };
 		F33F45402C0DC2720085ED61 /* Ranks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453C2C0DC2720085ED61 /* Ranks.swift */; };
@@ -49,8 +47,6 @@
 /* Begin PBXFileReference section */
 		F31187822BFA082B004E3647 /* ExportCSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportCSV.swift; sourceTree = "<group>"; };
 		F31EF2EC2C040A5F00E65830 /* WelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreen.swift; sourceTree = "<group>"; };
-		F33B42942C22D6EC0008318C /* styles.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = styles.css; sourceTree = "<group>"; };
-		F33B42952C22D6EC0008318C /* User Guide.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html.documentation; path = "User Guide.html"; sourceTree = "<group>"; };
 		F33F453A2C0DC2720085ED61 /* ScoreEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScoreEvent.swift; path = Scoring/ScoreEvent.swift; sourceTree = SOURCE_ROOT; };
 		F33F453B2C0DC2720085ED61 /* AthleteTiming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AthleteTiming.swift; path = Scoring/AthleteTiming.swift; sourceTree = SOURCE_ROOT; };
 		F33F453C2C0DC2720085ED61 /* Ranks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Ranks.swift; path = Scoring/Ranks.swift; sourceTree = SOURCE_ROOT; };
@@ -97,15 +93,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		F33B42962C22D6EC0008318C /* Documentation */ = {
-			isa = PBXGroup;
-			children = (
-				F33B42942C22D6EC0008318C /* styles.css */,
-				F33B42952C22D6EC0008318C /* User Guide.html */,
-			);
-			path = Documentation;
-			sourceTree = "<group>";
-		};
 		F33F452C2C0DC2250085ED61 /* Scoring */ = {
 			isa = PBXGroup;
 			children = (
@@ -124,7 +111,6 @@
 				F3B9CCEF2BFC169E0047B162 /* Info.plist */,
 				F39AAA962BAC171C0054C0C2 /* Sashimi.entitlements */,
 				F3900E622BABF57100C37122 /* Assets.xcassets */,
-				F33B42962C22D6EC0008318C /* Documentation */,
 				F3900E7E2BABF58000C37122 /* Tests.swift */,
 				F3900E652BABF57100C37122 /* SashimiApp.swift */,
 				F3900E572BABF57100C37122 /* CarnivalModel.swift */,
@@ -276,8 +262,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F39AAA972BAC18350054C0C2 /* Assets.xcassets in Resources */,
-				F33B42972C22D6EC0008318C /* styles.css in Resources */,
-				F33B42982C22D6EC0008318C /* User Guide.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,14 +465,14 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Sashimi Beta";
+				INFOPLIST_KEY_CFBundleDisplayName = Sashimi;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright ©️ 2024 Tom Keir";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tomkeir.Sashimi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -516,14 +500,14 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Sashimi Beta";
+				INFOPLIST_KEY_CFBundleDisplayName = Sashimi;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright ©️ 2024 Tom Keir";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tomkeir.Sashimi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

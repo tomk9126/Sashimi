@@ -42,20 +42,21 @@ struct CarnivalView: View {
                             .padding()
                             .frame(width: 300, height: 200)
                     }
+                    
                 }
 				
 				//MARK: Scoring/Athletes tab selection
                 ToolbarItemGroup(placement: .principal) {
                     VStack {
                         Picker("", selection: $selectedTab) {
-							Text("Scoring")
-								.tag("Scoring")
-							Text("Athletes")
-								.tag("Athletes")
+                            Text("Scoring")
+                                .tag("Scoring")
+                            Text("Athletes")
+                                .tag("Athletes")
                         }
                         .pickerStyle(SegmentedPickerStyle())
-                        .padding(.top, 8)
-                        Spacer()
+                        
+                        
                     }
                 }
             }

@@ -284,7 +284,7 @@ class CarnivalManager: ObservableObject {
 				let data = try Data(contentsOf: url)
 				let decoder = JSONDecoder()
 				decoder.dateDecodingStrategy = .iso8601
-				var importedCarnival = try decoder.decode(Carnival.self, from: data)
+				let importedCarnival = try decoder.decode(Carnival.self, from: data)
 				importedCarnival.fileURL = url
 				
 				if self.carnivals.contains(where: { $0.id == importedCarnival.id }) {
