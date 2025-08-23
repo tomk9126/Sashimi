@@ -46,3 +46,36 @@ body {
   margin-left: 250px;
   padding: 20px;
 }
+
+copyright {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	display: flex;
+	margin: 0;
+	color: lightgray;
+}
+
+div.gallery {
+	margin: 5px;
+	border: 1px solid #ccc;
+	float: left;
+	width: 400px;
+}
+
+div.gallery:hover {
+	border: 1px solid #777;
+}
+
+div.gallery img {
+	width: 100%;
+	height: auto;
+}
+
+div.desc {
+	padding: 15px;
+	text-align: center;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
