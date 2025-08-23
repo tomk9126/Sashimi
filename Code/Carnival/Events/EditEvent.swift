@@ -33,8 +33,8 @@ struct EditEvent: View {
                     Stepper("Value", value: $ageGroupValue, in: 0...100)
                         .labelsHidden()
                         .disabled(!mixedAges)
-                        .onChange(of: ageGroupValue) { newValue in
-                            event.eventAgeGroup = newValue
+                        .onChange(of: ageGroupValue) { oldOrder, newOrder in
+                            event.eventAgeGroup = newOrder
                         }
                     Spacer()
                     

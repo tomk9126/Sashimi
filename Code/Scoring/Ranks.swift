@@ -75,7 +75,7 @@ struct Ranks: View {
     private func exportText() {
         // Save text to file
         let savePanel = NSSavePanel()
-        savePanel.allowedFileTypes = ["txt"]
+        savePanel.allowedContentTypes = [.text]
         savePanel.begin { result in
             if result == .OK {
                 guard let url = savePanel.url else { return }

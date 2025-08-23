@@ -78,8 +78,15 @@ struct CarnivalDetailView: View {
 
 #Preview {
     CarnivalManager.shared.exampleUsage()
-	@State var carnival = CarnivalManager.shared.carnivals[0]
-	return CarnivalLabelButton(carnival: $carnival)
-		.frame(width: 300)
-		.padding()
+    
+    struct PreviewWrapper: View {
+        var body: some View {
+            @State var carnival = CarnivalManager.shared.carnivals[0]
+            CarnivalLabelButton(carnival: $carnival)
+                .frame(width: 300)
+                .padding()
+        }
+    }
+    return PreviewWrapper()
+    
 }

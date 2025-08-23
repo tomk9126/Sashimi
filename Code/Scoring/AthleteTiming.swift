@@ -71,13 +71,13 @@ struct TimePickerView: View {
         }
         //.frame(width: 200)
         .padding(4.0)
-        .onChange(of: minutes) { newValue in
+        .onChange(of: minutes) { oldOrder, newOrder in
             updateEventScores()
         }
-        .onChange(of: seconds) { newValue in
+        .onChange(of: seconds) { oldOrder, newOrder in
             updateEventScores()
         }
-        .onChange(of: milliseconds) { newValue in
+        .onChange(of: milliseconds) { oldOrder, newOrder in
             updateEventScores()
         }
     }
@@ -89,10 +89,16 @@ struct TimePickerView: View {
 }
 
 #Preview {
-    @State var event = Event(eventName: "100m Freestyle", eventGender: .mixed)
-    @State var athlete1 = Athlete(athleteFirstName: "Mark", athleteLastName: "Smith", athleteDOB: Date.now, athleteGender: .male)
-    @State var athlete2 = Athlete(athleteFirstName: "Sarah", athleteLastName: "Jones", athleteDOB: Date.now, athleteGender: .female)
-    @State var athletes = [athlete1, athlete2]
-    return AthleteScoring(eventScores: $event.results, athletes: athletes)
-        .padding()
+    struct PreviewWrapper: View {
+        var body: some View {
+            @State var event = Event(eventName: "100m Freestyle", eventGender: .mixed)
+            @State var athlete1 = Athlete(athleteFirstName: "Mark", athleteLastName: "Smith", athleteDOB: Date.now, athleteGender: .male)
+            @State var athlete2 = Athlete(athleteFirstName: "Sarah", athleteLastName: "Jones", athleteDOB: Date.now, athleteGender: .female)
+            @State var athletes = [athlete1, athlete2]
+            AthleteScoring(eventScores: $event.results, athletes: athletes)
+                .padding()
+        }
+    }
+    return PreviewWrapper()
+    
 }

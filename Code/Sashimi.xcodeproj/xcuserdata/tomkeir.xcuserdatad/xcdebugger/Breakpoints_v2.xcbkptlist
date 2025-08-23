@@ -18,36 +18,6 @@
             endingLineNumber = "204"
             landmarkName = "selectAndImportCSV()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "EB6BA984-ED45-4FE7-99EF-87A46FFD1704 - 32ff3148a2e5f92b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Sashimi.AthletesList.selectAndImportCSV() -&gt; ()"
-                  moduleName = "Sashimi.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tomkeir/Developer/Sashimi/Code/Carnival/Athletes/AthletesList.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "205"
-                  endingLineNumber = "205">
-               </Location>
-               <Location
-                  uuid = "EB6BA984-ED45-4FE7-99EF-87A46FFD1704 - 32ff3148a2e5f92b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Sashimi.AthletesList.selectAndImportCSV() -&gt; ()"
-                  moduleName = "Sashimi.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tomkeir/Developer/Sashimi/Code/Carnival/Athletes/AthletesList.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "205"
-                  endingLineNumber = "205">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -50,7 +50,7 @@ struct EventsList: View {
                         .font(event.ranks != [:] ? .headline : .body)
                 }
             }
-            .onChange(of: sortOrder) { newOrder in
+            .onChange(of: sortOrder) { oldOrder, newOrder in
                 carnival.events.sort(using: newOrder)
             }
             .contextMenu(forSelectionType: Event.ID.self) { RightClickedEvent in

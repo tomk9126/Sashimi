@@ -94,8 +94,14 @@ struct NewAthlete: View {
 }
 
 #Preview {
-    @State var reopenSheet = true
-    return NewAthlete(reopenAthleteSheet: $reopenSheet, carnival: Carnival(name: "", date: Date.now))
-		.frame(width: 300, height: 200)
-		.padding()
+    struct PreviewWrapper: View {
+        var body: some View {
+            @State var reopenSheet = true
+            return NewAthlete(reopenAthleteSheet: $reopenSheet, carnival: Carnival(name: "", date: Date.now))
+                .frame(width: 300, height: 200)
+                .padding()
+        }
+    }
+    return PreviewWrapper()
+    
 }

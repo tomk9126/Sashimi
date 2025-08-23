@@ -122,11 +122,16 @@ struct NewEvent: View {
 
 
 #Preview {
-    @State var showingNewEventSheet = true
-    @State var carnival = Carnival(name: "", date: Date.now)
-    
-    return NewEvent(reopenEventSheet: $showingNewEventSheet, carnival: carnival)
-		.frame(width: 300, height: 230)
-		.padding()
+    struct PreviewWrapper: View {
+        var body: some View{
+            @State var showingNewEventSheet = true
+            @State var carnival = Carnival(name: "", date: Date.now)
+            NewEvent(reopenEventSheet: $showingNewEventSheet, carnival: carnival)
+                .frame(width: 300, height: 230)
+                .padding()
+        }
+        
+    }
+    return PreviewWrapper()
 
 }

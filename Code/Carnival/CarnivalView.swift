@@ -9,10 +9,10 @@ import SwiftUI
 
 struct CarnivalView: View {
     
-	@ObservedObject var carnivalManager = CarnivalManager.shared
+    @ObservedObject var carnivalManager = CarnivalManager.shared
     @Binding var carnival: Carnival
     
-	@State private var selectedTab = "Scoring"
+    @State private var selectedTab = "Scoring"
 
     @State var showingPopover = false
     
@@ -55,8 +55,6 @@ struct CarnivalView: View {
                                 .tag("Athletes")
                         }
                         .pickerStyle(SegmentedPickerStyle())
-                        
-                        
                     }
                 }
             }
@@ -68,6 +66,11 @@ struct CarnivalView: View {
 
 #Preview {
     CarnivalManager.shared.exampleUsage()
-    @State var carnival = CarnivalManager.shared.carnivals[0]
-    return CarnivalView(carnival: $carnival)
+    struct PreviewWrapper: View {
+        @State private var carnival: Carnival = CarnivalManager.shared.carnivals.first!
+        var body: some View {
+            CarnivalView(carnival: $carnival)
+        }
+    }
+    return PreviewWrapper()
 }

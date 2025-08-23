@@ -135,8 +135,14 @@ struct PotentialAthleteDropDelegate: DropDelegate {
 
 
 #Preview {
-    @State var carnival = Carnival(name: "Carnival", date: Date.now)
-    @State var event = Event(eventName: "Event Name", eventGender: .mixed, eventAgeGroup: 21)
-    return ScoreEvent(event: $event, carnival: $carnival)
-        .padding()
+    struct PreviewWrapper: View {
+        var body: some View {
+            @State var carnival = Carnival(name: "Carnival", date: Date.now)
+            @State var event = Event(eventName: "Event Name", eventGender: .mixed, eventAgeGroup: 21)
+            ScoreEvent(event: $event, carnival: $carnival)
+                .padding()
+        }
+    }
+    return PreviewWrapper()
+    
 }

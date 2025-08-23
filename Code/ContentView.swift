@@ -56,7 +56,9 @@ struct CarnivalFile: FileDocument {
     }
     
     init(configuration: ReadConfiguration) throws {
-        let data = try configuration.file.regularFileContents ?? Data()
+        guard let data = configuration.file.regularFileContents else {
+            throw CocoaError(.fileReadCorruptFile)
+        }
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         self.carnival = try decoder.decode(Carnival.self, from: data)

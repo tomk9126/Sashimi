@@ -71,8 +71,16 @@ struct CarnivalSettings: View {
 }
 
 #Preview {
-    @State var newCarnival = Carnival(name: "", date: Date.now)
-    return CarnivalSettings(carnival: $newCarnival)
-		.frame(width: 325, height: 175)
-		.padding()
+    struct PreviewWrapper: View {
+        @State var newCarnival = Carnival(name: "", date: Date.now)
+        var body: some View {
+            CarnivalSettings(carnival: $newCarnival)
+                .frame(width: 325, height: 175)
+                .padding()
+        }
+        
+    }
+    return PreviewWrapper()
+    
+    
 }
