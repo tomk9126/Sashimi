@@ -24,7 +24,7 @@ struct WelcomeScreen: View {
         HStack {
             VStack {
                 VStack {
-                    Image("Icon")
+                    Image("SashimiIconLight")
                         .resizable()
                         .frame(width: 100, height: 100)
                         .scaledToFit()

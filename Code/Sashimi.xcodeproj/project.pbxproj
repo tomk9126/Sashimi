@@ -13,6 +13,7 @@
 		F33F453F2C0DC2720085ED61 /* AthleteTiming.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453B2C0DC2720085ED61 /* AthleteTiming.swift */; };
 		F33F45402C0DC2720085ED61 /* Ranks.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453C2C0DC2720085ED61 /* Ranks.swift */; };
 		F33F45412C0DC2720085ED61 /* AthleteSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453D2C0DC2720085ED61 /* AthleteSelection.swift */; };
+		F340DECB2E5AB938001E58A7 /* AppIcon.icon in Resources */ = {isa = PBXBuildFile; fileRef = F340DECA2E5AB938001E58A7 /* AppIcon.icon */; };
 		F3900E832BAC115200C37122 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E7E2BABF58000C37122 /* Tests.swift */; };
 		F3900E852BAC116D00C37122 /* AthletesList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E4A2BABF57100C37122 /* AthletesList.swift */; };
 		F3900E862BAC116D00C37122 /* EditEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3900E5D2BABF57100C37122 /* EditEvent.swift */; };
@@ -51,6 +52,7 @@
 		F33F453B2C0DC2720085ED61 /* AthleteTiming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AthleteTiming.swift; path = Scoring/AthleteTiming.swift; sourceTree = SOURCE_ROOT; };
 		F33F453C2C0DC2720085ED61 /* Ranks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Ranks.swift; path = Scoring/Ranks.swift; sourceTree = SOURCE_ROOT; };
 		F33F453D2C0DC2720085ED61 /* AthleteSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AthleteSelection.swift; path = Scoring/AthleteSelection.swift; sourceTree = SOURCE_ROOT; };
+		F340DECA2E5AB938001E58A7 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
 		F34310982B953A010062A6D4 /* Sashimi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sashimi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F34310A92B953A040062A6D4 /* SashimiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SashimiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3900E4A2BABF57100C37122 /* AthletesList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AthletesList.swift; sourceTree = "<group>"; };
@@ -111,6 +113,7 @@
 				F3B9CCEF2BFC169E0047B162 /* Info.plist */,
 				F39AAA962BAC171C0054C0C2 /* Sashimi.entitlements */,
 				F3900E622BABF57100C37122 /* Assets.xcassets */,
+				F340DECA2E5AB938001E58A7 /* AppIcon.icon */,
 				F3900E7E2BABF58000C37122 /* Tests.swift */,
 				F3900E652BABF57100C37122 /* SashimiApp.swift */,
 				F3900E572BABF57100C37122 /* CarnivalModel.swift */,
@@ -261,6 +264,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F340DECB2E5AB938001E58A7 /* AppIcon.icon in Resources */,
 				F39AAA972BAC18350054C0C2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
