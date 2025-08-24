@@ -19,69 +19,88 @@ struct WelcomeScreen: View {
 	@State private var openError: String?
 	
     let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+    let year = Calendar.current.component(.year, from: Date())
     
     var body: some View {
-        HStack {
+        HStack{
             VStack {
+                Image("SashimiIconLight")
+                    .resizable()
+                    .frame(width: 100, height: 100)
+                    .scaledToFit()
                 VStack {
-                    Image("SashimiIconLight")
-                        .resizable()
-                        .frame(width: 100, height: 100)
-                        .scaledToFit()
                     Text("Sashimi")
                         .font(.largeTitle)
                         .bold()
                     Text("Version " + (appVersion ?? ""))
                         .opacity(0.6)
+                    Text("Copyright ©️ 2023 - " + String(year) + " Tom Keir")
+                        .opacity(0.6)
+                        .font(.footnote)
                 }
-				.padding()
                 
-                VStack {
-                    Button(action: {
-                        openWindow(id: "main")
-                        dismissWindow()
-                    }) {
-                        Label("Open Sashimi", systemImage: "arrow.right")
-                            .frame(maxWidth: .infinity)
-                    }
-					.help("Open the Sashimi Interface")
-                    
-                    Button(action: {
-                        openWindow(id: "main")
-                        CarnivalManager.shared.loadCarnival { error in
-                            if let error = error {
-								openError = error.localizedDescription
-								didError = true
-                            }
-                        }
-                        dismissWindow()
-                        
-                    }) {
-                        Label("Open Previous Carnival", systemImage: "folder")
-                            .frame(maxWidth: .infinity)
-                    }
-					.help("Open an already existing Sashimi carnival")
-					.alert(isPresented: $didError) {
-						Alert(title: Text("Failed to open Carnival"), message: Text(openError ?? "An unknown error occured"))
-					}
-                    
-                    Button(action: {
-                        openDocumentation()
-                    }) {
-                        Label("See Documentation", systemImage: "book")
-                            .frame(maxWidth: .infinity)
-                    }
-					.help("View the Sashimi user guide")
-                    
-                    
-                }
-				.controlSize(.large)
             }
-			.padding()
-            .frame(maxWidth: .infinity, maxHeight: .infinity) // Allows sheet size to be altered by child views.
+            .padding()
+            .frame(width: 225)
+            
+            Spacer()
+            
+            
+            VStack {
+                
+                Spacer()
+                
+                Button(action: {
+                    openWindow(id: "main")
+                    dismissWindow()
+                }) {
+                    Label("Open Sashimi", systemImage: "arrow.right")
+                        .frame(maxWidth: .infinity)
+                }
+                .help("Begin with a blank interface.")
+                
+                Button(action: {
+                    openWindow(id: "main")
+                    CarnivalManager.shared.loadCarnival { error in
+                        if let error = error {
+                            openError = error.localizedDescription
+                            didError = true
+                        }
+                    }
+                    dismissWindow()
+                    
+                }) {
+                    Label("Open Previous Carnival", systemImage: "folder")
+                        .frame(maxWidth: .infinity)
+                }
+                .help("Open an already existing Sashimi carnival")
+                .alert(isPresented: $didError) {
+                    Alert(title: Text("Failed to open Carnival"), message: Text(openError ?? "An unknown error occured"))
+                }
+                
+                Button(action: {
+                    openDocumentation()
+                }) {
+                    Label("See Documentation", systemImage: "book")
+                        .frame(maxWidth: .infinity)
+                }
+                .help("View the Sashimi user guide")
+                
+                Text("To view example carnivals, you can add in Sample Data from the '+' menu. Open Sashimi to get started, or open an already existing carnival file.")
+                    .font(.caption)
+                
+                Spacer()
+                
+            }
+            .padding()
+            .controlSize(.large)
+            .background(.regularMaterial)
         }
-		.frame(width: 360, height: 330)
+        
+        
+        
     }
+    
 
     private func openDocumentation() {
         if let url = Bundle.main.url(forResource: "User Guide", withExtension: "html") {
@@ -94,4 +113,5 @@ struct WelcomeScreen: View {
 #Preview {
     WelcomeScreen()
         .environmentObject(CarnivalManager.shared)
+        .frame(width: 500)
 }
