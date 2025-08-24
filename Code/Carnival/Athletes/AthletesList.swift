@@ -26,7 +26,7 @@ struct AthletesList: View {
     
 	// Search function data
 	@State private var searchText: String = ""
-    @State var tokens: [Gender] = []
+    @State var tokens: [Sex] = []
     
 	// Import error alert
 	@State private var importErrors: [String] = []
@@ -38,8 +38,8 @@ struct AthletesList: View {
     ) -> [Athlete] {
         guard !searchText.isEmpty else { return athletes }
         return athletes.filter { athlete in
-            let athleteGenderString = athlete.athleteGender == .male ? "Male" : "Female"
-            return athlete.athleteFirstName.lowercased().contains(searchText.lowercased()) || athlete.athleteLastName.lowercased().contains(searchText.lowercased()) || athleteGenderString.lowercased() == searchText.lowercased()
+            let athleteSexString = athlete.athleteSex == .male ? "Male" : "Female"
+            return athlete.athleteFirstName.lowercased().contains(searchText.lowercased()) || athlete.athleteLastName.lowercased().contains(searchText.lowercased()) || athleteSexString.lowercased() == searchText.lowercased()
         }
     }
 
@@ -48,8 +48,8 @@ struct AthletesList: View {
 			Table(filteredAthletes(athletes: carnival.athletes, searchText: searchText), selection: $selection) {
                 TableColumn("First Name", value: \.athleteFirstName)
                 TableColumn("Last Name", value: \.athleteLastName)
-                TableColumn("Gender") { athlete in
-                    Text(athlete.athleteGender == .male ? "Male" : "Female")
+                TableColumn("Sex") { athlete in
+                    Text(athlete.athleteSex == .male ? "Male" : "Female")
                 }
                 TableColumn("DOB") { athlete in
                     Text(athlete.athleteDOB, format: .dateTime.day().month().year())
@@ -164,17 +164,17 @@ struct AthletesList: View {
                 let columns = row.components(separatedBy: ",")
                 if columns.count == 4 {
                     let dob = dateFormatter.date(from: columns[2])
-                    var gender: Gender
+                    var sex: Sex
                     if columns[3].lowercased() == "male" {
-                        gender = .male
+                        sex = .male
                     } else if columns[3].lowercased() == "female" {
-                        gender = .female
+                        sex = .female
                     } else {
-                        gender = .mixed
+                        sex = .mixed
                     }
                     
                     if let dob = dob {
-                        let newAthlete = Athlete(athleteFirstName: columns[0], athleteLastName: columns[1], athleteDOB: dob, athleteGender: gender)
+                        let newAthlete = Athlete(athleteFirstName: columns[0], athleteLastName: columns[1], athleteDOB: dob, athleteSex: sex)
                         carnival.athletes.append(newAthlete)
                     } else {
                         importErrors.append("Invalid date format for athlete: \(columns)")

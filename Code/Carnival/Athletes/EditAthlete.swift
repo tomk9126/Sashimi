@@ -37,9 +37,9 @@ struct EditAthlete: View {
                 
                 Divider()
                 
-                Picker(selection: $athlete.athleteGender, label: Text("Gender:")) {
-                    Text("Male").tag(Gender.male)
-                    Text("Female").tag(Gender.female)
+                Picker(selection: $athlete.athleteSex, label: Text("Sex:")) {
+                    Text("Male").tag(Sex.male)
+                    Text("Female").tag(Sex.female)
                     
                 }
                 .pickerStyle(.inline)
@@ -59,7 +59,7 @@ struct EditAthlete: View {
                 .keyboardShortcut(.cancelAction)
                 
                 Button("Edit") {
-                    CarnivalManager.shared.updateAthlete(athlete: athlete, newFirstName: athlete.athleteFirstName, newLastName: athlete.athleteLastName, newGender: athlete.athleteGender, newDOB: athlete.athleteDOB)
+                    CarnivalManager.shared.updateAthlete(athlete: athlete, newFirstName: athlete.athleteFirstName, newLastName: athlete.athleteLastName, newSex: athlete.athleteSex, newDOB: athlete.athleteDOB)
                     dismiss()
                 }
                 .keyboardShortcut(.defaultAction)
@@ -76,7 +76,7 @@ struct EditAthlete: View {
 }
 
 #Preview {
-    let athlete = Athlete(athleteFirstName: "John", athleteLastName: "Smith", athleteDOB: Date.now, athleteGender: .male)
+    let athlete = Athlete(athleteFirstName: "John", athleteLastName: "Smith", athleteDOB: Date.now, athleteSex: .male)
 	return EditAthlete(carnival: Carnival(name: "", date: Date.now), athlete: athlete)
 		.frame(width: 300, height: 200)
 		.padding()

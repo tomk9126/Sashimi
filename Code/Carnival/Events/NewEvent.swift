@@ -47,7 +47,7 @@ struct NewEvent: View {
                 
                 Divider()
                 
-                LabeledContent("Gender:") {
+                LabeledContent("Sex:") {
                     VStack(alignment: .leading) {
                         Toggle(isOn: $male) {
                             Text("Male")
@@ -100,16 +100,16 @@ struct NewEvent: View {
     }
     
     private func createEvent() {
-        var genders: [Gender] = []
+        var sexs: [Sex] = []
         
-        if male { genders.append(.male) }
-        if female { genders.append(.female) }
-        if mixed { genders.append(.mixed) }
+        if male { sexs.append(.male) }
+        if female { sexs.append(.female) }
+        if mixed { sexs.append(.mixed) }
         
         let ageGroup: Int? = singleAge ? ageGroupSlider : nil
         
-        for gender in genders {
-            let newEvent = Event(eventName: eventName, eventGender: gender, eventAgeGroup: ageGroup)
+        for sex in sexs {
+            let newEvent = Event(eventName: eventName, eventSex: sex, eventAgeGroup: ageGroup)
             carnival.addEvent(newEvent)
         }
     }

@@ -40,10 +40,10 @@ struct EditEvent: View {
                     
                 }
                 Divider()
-                Picker(selection: $event.eventGender, label: Text("Gender:")) {
-                    Text("Male").tag(Gender.male)
-                    Text("Female").tag(Gender.female)
-                    Text("Mixed").tag(Gender.mixed)
+                Picker(selection: $event.eventSex, label: Text("Sex:")) {
+                    Text("Male").tag(Sex.male)
+                    Text("Female").tag(Sex.female)
+                    Text("Mixed").tag(Sex.mixed)
                 }
                 .pickerStyle(.inline)
 
@@ -54,7 +54,7 @@ struct EditEvent: View {
                     dismiss()
                 }.keyboardShortcut(.cancelAction)
                 Button("Edit Event") {
-                    CarnivalManager.shared.updateEvent(event: event, newName: event.eventName, newGender: event.eventGender, newAge: event.eventAgeGroup)
+                    CarnivalManager.shared.updateEvent(event: event, newName: event.eventName, newSex: event.eventSex, newAge: event.eventAgeGroup)
                     dismiss()
                 }.keyboardShortcut(.defaultAction)
             }
@@ -68,6 +68,6 @@ struct EditEvent: View {
 
 
 #Preview {
-    EditEvent(event: Event(eventName: "Name", eventGender: .male, eventAgeGroup: 21))
+    EditEvent(event: Event(eventName: "Name", eventSex: .male, eventAgeGroup: 21))
     
 }

@@ -17,13 +17,13 @@ struct AthleteSelection: View {
     var potentialAthletes: [Athlete] {
         return carnival.athletes
             .filter { athlete in
-                switch event.eventGender {
+                switch event.eventSex {
                 case .male:
-                    return athlete.athleteGender == .male
+                    return athlete.athleteSex == .male
                 case .female:
-                    return athlete.athleteGender == .female
+                    return athlete.athleteSex == .female
                 case .mixed:
-                    return true // Allow all genders
+                    return true // Allow all sexs
                 }
             }
             .filter { athlete in
@@ -138,7 +138,7 @@ struct PotentialAthleteDropDelegate: DropDelegate {
     struct PreviewWrapper: View {
         var body: some View {
             @State var carnival = Carnival(name: "Carnival", date: Date.now)
-            @State var event = Event(eventName: "Event Name", eventGender: .mixed, eventAgeGroup: 21)
+            @State var event = Event(eventName: "Event Name", eventSex: .mixed, eventAgeGroup: 21)
             ScoreEvent(event: $event, carnival: $carnival)
                 .padding()
         }

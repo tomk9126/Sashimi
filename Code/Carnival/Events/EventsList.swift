@@ -29,8 +29,8 @@ struct EventsList: View {
         NavigationStack {
             Table(carnival.events, selection: $selection, sortOrder: $sortOrder) {
                 TableColumn("Event Name", value: \.eventName)
-                TableColumn("Gender") { event in
-                    switch event.eventGender {
+                TableColumn("Sex") { event in
+                    switch event.eventSex {
                     case .male:
                         Text("Male")
                     case .female:

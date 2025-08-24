@@ -33,7 +33,7 @@ class CarnivalTests: XCTestCase {
     func testCreateEvent() {
         let carnivalManager = CarnivalManager.shared
         let carnival = carnivalManager.createCarnival(name: "Test Carnival", date: Date(), fileAddress: nil)
-        let event = carnivalManager.createEvent(carnival: carnival, name: "Test Event", gender: .male, age: 18)
+        let event = carnivalManager.createEvent(carnival: carnival, name: "Test Event", sex: .male, age: 18)
         XCTAssertNotNil(event)
         XCTAssertEqual(event.eventName, "Test Event")
     }
@@ -44,7 +44,7 @@ class CarnivalTests: XCTestCase {
     func testCreateAthlete() {
         let carnivalManager = CarnivalManager.shared
         let carnival = carnivalManager.createCarnival(name: "Test Carnival", date: Date(), fileAddress: nil)
-        let athlete = carnivalManager.createAthlete(carnival: carnival, firstName: "John", lastName: "Doe", DOB: Date(), gender: .male)
+        let athlete = carnivalManager.createAthlete(carnival: carnival, firstName: "John", lastName: "Doe", DOB: Date(), sex: .male)
         XCTAssertNotNil(athlete)
         XCTAssertEqual(athlete.athleteFirstName, "John")
         XCTAssertEqual(athlete.athleteLastName, "Doe")
@@ -57,10 +57,10 @@ class ScoringTests: XCTestCase {
     // MARK: Test Event Scoring Functions
     
     func testRankAthletes() {
-        var event = Event(eventName: "Test Event", eventGender: .male, eventAgeGroup: 18)
-        let athlete1 = Athlete(athleteFirstName: "John", athleteLastName: "Doe", athleteDOB: Date(), athleteGender: .male)
-        let athlete2 = Athlete(athleteFirstName: "Jane", athleteLastName: "Smith", athleteDOB: Date(), athleteGender: .female)
-        let athlete3 = Athlete(athleteFirstName: "Michael", athleteLastName: "Johnson", athleteDOB: Date(), athleteGender: .male)
+        var event = Event(eventName: "Test Event", eventSex: .male, eventAgeGroup: 18)
+        let athlete1 = Athlete(athleteFirstName: "John", athleteLastName: "Doe", athleteDOB: Date(), athleteSex: .male)
+        let athlete2 = Athlete(athleteFirstName: "Jane", athleteLastName: "Smith", athleteDOB: Date(), athleteSex: .female)
+        let athlete3 = Athlete(athleteFirstName: "Michael", athleteLastName: "Johnson", athleteDOB: Date(), athleteSex: .male)
         
         let time1 = Time(minutes: 1, seconds: 10, milliseconds: 500)
         let time2 = Time(minutes: 1, seconds: 12, milliseconds: 200)
@@ -78,10 +78,10 @@ class ScoringTests: XCTestCase {
     }
     
     func testCalculateEventRanks() {
-        var event = Event(eventName: "Test Event", eventGender: .male, eventAgeGroup: 18)
-        let athlete1 = Athlete(athleteFirstName: "John", athleteLastName: "Doe", athleteDOB: Date(), athleteGender: .male)
-        let athlete2 = Athlete(athleteFirstName: "Jane", athleteLastName: "Smith", athleteDOB: Date(), athleteGender: .female)
-        let athlete3 = Athlete(athleteFirstName: "Michael", athleteLastName: "Johnson", athleteDOB: Date(), athleteGender: .male)
+        var event = Event(eventName: "Test Event", eventSex: .male, eventAgeGroup: 18)
+        let athlete1 = Athlete(athleteFirstName: "John", athleteLastName: "Doe", athleteDOB: Date(), athleteSex: .male)
+        let athlete2 = Athlete(athleteFirstName: "Jane", athleteLastName: "Smith", athleteDOB: Date(), athleteSex: .female)
+        let athlete3 = Athlete(athleteFirstName: "Michael", athleteLastName: "Johnson", athleteDOB: Date(), athleteSex: .male)
         
         let time1 = Time(minutes: 1, seconds: 10, milliseconds: 500)
         let time2 = Time(minutes: 1, seconds: 12, milliseconds: 200)

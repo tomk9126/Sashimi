@@ -129,17 +129,17 @@ struct Ranks: View {
     // Set up preview data
     let carnival = Carnival(name: "Preview Carnival", date: Date())
     
-    let athlete1 = Athlete(athleteFirstName: "Mark", athleteLastName: "Smith", athleteDOB: Date(), athleteGender: .male)
-    let athlete2 = Athlete(athleteFirstName: "Sarah", athleteLastName: "Jones", athleteDOB: Date(), athleteGender: .female)
-    let athlete3 = Athlete(athleteFirstName: "Alex", athleteLastName: "Brown", athleteDOB: Date(), athleteGender: .male)
-    let athlete4 = Athlete(athleteFirstName: "John", athleteLastName: "Appleseed", athleteDOB: Date(), athleteGender: .male)
+    let athlete1 = Athlete(athleteFirstName: "Mark", athleteLastName: "Smith", athleteDOB: Date(), athleteSex: .male)
+    let athlete2 = Athlete(athleteFirstName: "Sarah", athleteLastName: "Jones", athleteDOB: Date(), athleteSex: .female)
+    let athlete3 = Athlete(athleteFirstName: "Alex", athleteLastName: "Brown", athleteDOB: Date(), athleteSex: .male)
+    let athlete4 = Athlete(athleteFirstName: "John", athleteLastName: "Appleseed", athleteDOB: Date(), athleteSex: .male)
     
     carnival.addAthlete(athlete1)
     carnival.addAthlete(athlete2)
     carnival.addAthlete(athlete3)
     carnival.addAthlete(athlete4)
     
-    var previewEvent = Event(eventName: "100m Freestyle", eventGender: .mixed)
+    var previewEvent = Event(eventName: "100m Freestyle", eventSex: .mixed)
     previewEvent.results[athlete1] = Time(minutes: 1, seconds: 10, milliseconds: 20)
     previewEvent.results[athlete2] = Time(minutes: 1, seconds: 9, milliseconds: 80)
     previewEvent.results[athlete3] = Time(minutes: 1, seconds: 14, milliseconds: 15)

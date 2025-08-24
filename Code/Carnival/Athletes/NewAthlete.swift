@@ -14,7 +14,7 @@ struct NewAthlete: View {
     
     @State private var athleteFirstName = ""
     @State private var athleteLastName = ""
-    @State private var athleteGender: Gender = .male
+    @State private var athleteSex: Sex = .male
     @State private var athleteDOB = Date.now
     
     @State private var isCreateButtonDisabled = true // Initially disabled
@@ -42,9 +42,9 @@ struct NewAthlete: View {
                 
                 Divider()
                 
-                Picker(selection: $athleteGender, label: Text("Gender:")) {
-                    Text("Male").tag(Gender.male)
-                    Text("Female").tag(Gender.female)
+                Picker(selection: $athleteSex, label: Text("Sex:")) {
+                    Text("Male").tag(Sex.male)
+                    Text("Female").tag(Sex.female)
                     
                 }
                 .pickerStyle(.inline)
@@ -83,7 +83,7 @@ struct NewAthlete: View {
     }
     
     private func createAthlete() {
-        let newAthlete = Athlete(athleteFirstName: athleteFirstName, athleteLastName: athleteLastName, athleteDOB: athleteDOB, athleteGender: athleteGender)
+        let newAthlete = Athlete(athleteFirstName: athleteFirstName, athleteLastName: athleteLastName, athleteDOB: athleteDOB, athleteSex: athleteSex)
         carnival.addAthlete(newAthlete)
     }
     

@@ -91,9 +91,9 @@ struct TimePickerView: View {
 #Preview {
     struct PreviewWrapper: View {
         var body: some View {
-            @State var event = Event(eventName: "100m Freestyle", eventGender: .mixed)
-            @State var athlete1 = Athlete(athleteFirstName: "Mark", athleteLastName: "Smith", athleteDOB: Date.now, athleteGender: .male)
-            @State var athlete2 = Athlete(athleteFirstName: "Sarah", athleteLastName: "Jones", athleteDOB: Date.now, athleteGender: .female)
+            @State var event = Event(eventName: "100m Freestyle", eventSex: .mixed)
+            @State var athlete1 = Athlete(athleteFirstName: "Mark", athleteLastName: "Smith", athleteDOB: Date.now, athleteSex: .male)
+            @State var athlete2 = Athlete(athleteFirstName: "Sarah", athleteLastName: "Jones", athleteDOB: Date.now, athleteSex: .female)
             @State var athletes = [athlete1, athlete2]
             AthleteScoring(eventScores: $event.results, athletes: athletes)
                 .padding()

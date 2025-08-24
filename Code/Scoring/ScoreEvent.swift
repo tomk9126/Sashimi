@@ -23,7 +23,7 @@ struct ScoreEvent: View {
         VStack {
             HStack (spacing: 2) {
                 Text("\(event.eventName), ")
-                Text("\(event.eventGender == .mixed ? "Mixed, " : event.eventGender == .male ? "Male, " : "Female, ")")
+                Text("\(event.eventSex == .mixed ? "Mixed, " : event.eventSex == .male ? "Male, " : "Female, ")")
                 if let eventAgeGroup = event.eventAgeGroup {
                     Text("\(eventAgeGroup), ")
                 } else {
@@ -88,7 +88,7 @@ struct ScoreEvent: View {
     struct PreviewWrapper: View {
         var body: some View {
             @State var carnival = Carnival(name: "Carnival", date: Date.now)
-            @State var event = Event(eventName: "100m Freestyle", eventGender: .male, eventAgeGroup: 14)
+            @State var event = Event(eventName: "100m Freestyle", eventSex: .male, eventAgeGroup: 14)
             ScoreEvent(event: $event , carnival: $carnival)
                 .padding()
         }
