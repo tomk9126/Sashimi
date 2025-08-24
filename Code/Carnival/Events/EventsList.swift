@@ -63,7 +63,7 @@ struct EventsList: View {
                     showingRanksSheet.toggle()
                     
                 } label: {
-                    Label("View Ranks...", systemImage: "eye")
+                    Label("View Ranks...", systemImage: "trophy")
                 }
                 Button {
                     print("Selection Changed:", RightClickedEvent)
@@ -88,7 +88,7 @@ struct EventsList: View {
                 ToolbarItemGroup() {
                     Spacer()
                     HStack {
-                        Button("View Ranks", systemImage: "eye") {
+                        Button("View Ranks", systemImage: "trophy") {
                             showingRanksSheet.toggle()
                         }
                         .disabled(selection.isEmpty)
@@ -188,5 +188,6 @@ struct EventsList: View {
     CarnivalManager.shared.exampleUsage()
     return ContentView()
         .environmentObject(CarnivalManager.shared)
+        .frame(width: 1000)
 }
 
