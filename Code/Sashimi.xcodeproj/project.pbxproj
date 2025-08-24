@@ -476,7 +476,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Sashimi;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright ©️ 2024 Tom Keir";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright ©️ 2024 - 2025 Tom Keir";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -512,7 +512,7 @@
 				INFOPLIST_FILE = Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Sashimi;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright ©️ 2024 Tom Keir";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright ©️ 2024 - 2025 Tom Keir";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",

@@ -21,54 +21,51 @@
 			<string>NSDocument</string>
 		</dict>
 	</array>
-	
-    <key>UTExportedTypeDeclarations</key>
-    <array>
-        <dict>
-            <key>UTTypeIdentifier</key>
-            <string>com.tomkeir.carnival</string>
-            <key>UTTypeDescription</key>
-            <string>Sashimi Carnival</string>
-            <key>UTTypeConformsTo</key>
-            <array>
-                <string>public.data</string>
-                <string>public.content</string>
-            </array>
-            <key>UTTypeTagSpecification</key>
-            <dict>
-                <key>public.filename-extension</key>
-                <array>
-                    <string>carnival</string>
-                </array>
-                <key>public.mime-type</key>
-                <string>application/carnival</string>
-            </dict>
-        </dict>
-    </array>
-    
-    <key>UTImportedTypeDeclarations</key>
-    <array>
-        <dict>
-            <key>UTTypeIdentifier</key>
-            <string>com.tomkeir.carnival</string>
-            <key>UTTypeDescription</key>
-            <string>Sashimi Carnival</string>
-            <key>UTTypeConformsTo</key>
-            <array>
-                <string>public.data</string>
-                <string>public.content</string>
-            </array>
-            <key>UTTypeTagSpecification</key>
-            <dict>
-                <key>public.filename-extension</key>
-                <array>
-                    <string>carnival</string>
-                </array>
-                <key>public.mime-type</key>
-                <string>application/carnival</string>
-            </dict>
-        </dict>
-    </array>
-	
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Sashimi Carnival</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.tomkeir.carnival</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>carnival</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>application/carnival</string>
+			</dict>
+		</dict>
+	</array>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.content</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>Sashimi Carnival</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.tomkeir.carnival</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>carnival</string>
+				</array>
+				<key>public.mime-type</key>
+				<string>application/carnival</string>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>

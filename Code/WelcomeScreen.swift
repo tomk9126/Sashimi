@@ -34,7 +34,7 @@ struct WelcomeScreen: View {
                         .bold()
                     Text("Version " + (appVersion ?? ""))
                         .opacity(0.6)
-                    Text("Copyright ©️ 2023 - " + String(year) + " Tom Keir")
+                    Text("Copyright ©️ 2024 - " + String(year) + " Tom Keir")
                         .opacity(0.6)
                         .font(.footnote)
                 }
