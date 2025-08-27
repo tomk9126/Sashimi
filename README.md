@@ -1,6 +1,6 @@
 <h1>Sashimi: Race Timekeeping App</h1>
 
-Sashimi is a lightweight and easy to use tool for tracking Athletics or Aquatic events, such as school sports carnivals. This is a project I made for school, but have since updated with mild improvements
+Sashimi is a lightweight and easy to use tool for tracking Athletics or Aquatic events, such as school sports carnivals. This is a project I made for school, but have since updated with improvements. Now that 1.0 is out, I'm working on new features for the next release.
 <img src="Code/Documentation/Images/MainInterface.png" alt="Sashimi main screen in macOS">
 Sashimi is currently only for macOS 14+, but I may work on a Windows port in future.
 <h2>Carnivals</h2>
