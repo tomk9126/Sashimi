@@ -18,16 +18,21 @@ struct CarnivalView: View {
     
     var body: some View {
         NavigationStack {
-            if carnivalManager.carnivals.isEmpty {
-                NoCarnivalSelected()
-            } else {
-                if selectedTab == "Scoring" {
-                    EventsList(carnival: $carnival)
+            HSplitView {
+                if carnivalManager.carnivals.isEmpty {
+                    NoCarnivalSelected()
+                } else {
+                    if selectedTab == "Scoring" {
+                        EventsList(carnival: $carnival)
+                    }
+                    if selectedTab == "Athletes" {
+                        AthletesList(carnival: $carnival)
+                    }
                 }
-                if selectedTab == "Athletes" {
-                    AthletesList(carnival: $carnival)
-                }
+                
+                
             }
+            
         }
         
         .navigationTitle(carnivalManager.carnivals.isEmpty ? "Sashimi" : carnival.name)
@@ -46,7 +51,7 @@ struct CarnivalView: View {
                 }
 				
 				//MARK: Scoring/Athletes tab selection
-                ToolbarItemGroup(placement: .principal) {
+                ToolbarItemGroup(placement: .status) {
                     VStack {
                         Picker("", selection: $selectedTab) {
                             Text("Scoring")
@@ -68,6 +73,7 @@ struct CarnivalView: View {
     CarnivalManager.shared.exampleUsage()
     struct PreviewWrapper: View {
         @State private var carnival: Carnival = CarnivalManager.shared.carnivals.first!
+        @State private var showingInspector = false
         var body: some View {
             CarnivalView(carnival: $carnival)
         }

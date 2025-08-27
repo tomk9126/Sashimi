@@ -14,6 +14,8 @@ struct CarnivalList: View {
     @EnvironmentObject var carnivalManager: CarnivalManager
     @Binding var showingNewCarnivalSheet: Bool
     
+    
+    
     var body: some View {
         if carnivalManager.carnivals.isEmpty {
             VStack {
@@ -33,7 +35,7 @@ struct CarnivalList: View {
                 }
             }
             .toolbar {
-                ToolbarItemGroup() {
+                ToolbarItemGroup(placement: .secondaryAction) {
                     CarnivalToolbar(showingNewCarnivalSheet: $showingNewCarnivalSheet)
                 }
             }
@@ -48,6 +50,15 @@ struct CarnivalList: View {
 
 #Preview {
     CarnivalManager.shared.exampleUsage()
-    return ContentView()
-		.environmentObject(CarnivalManager.shared)
+    struct PreviewWrapper: View {
+        @State var showingInspector = false
+        
+        var body: some View {
+            ContentView(showingInspector: $showingInspector)
+                .environmentObject(CarnivalManager.shared)
+                .frame(width: 1000)
+        }
+        
+    }
+    return PreviewWrapper()
 }

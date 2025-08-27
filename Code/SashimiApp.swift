@@ -14,36 +14,24 @@ struct Swim_CarnivalApp: App {
     @Environment(\.openWindow) private var openWindow
     @Environment(\.dismiss) private var dismissWindow
     
+    @State var showingInspector = false
+    
     var body: some Scene {
         Window("Welcome", id: "welcome") {
             WelcomeScreen()
                 .environmentObject(carnivalManager)
-                .onAppear {
-                    disableWindowControls(for: "Welcome")
-                }
         }
         .windowStyle(HiddenTitleBarWindowStyle())
         
         Window("Sashimi", id: "main") {
-            ContentView()
+            ContentView(showingInspector: $showingInspector)
                 .environmentObject(carnivalManager)
         }
-   
-    }
-    
-    
-    private func disableWindowControls(for windowTitle: String) {
-        // Delay execution to ensure the window is created
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-			// Identify Welcome Screen Window
-            if let window = NSApplication.shared.windows.first(where: { $0.title == windowTitle }) {
-				// Disable minimize/zoom button
-                window.standardWindowButton(.miniaturizeButton)?.isEnabled = false
-                window.standardWindowButton(.zoomButton)?.isEnabled = false
+        .commands {
+            CommandMenu("View") {
+                Toggle("Show Inspector", isOn: $showingInspector)
+                    .keyboardShortcut("i", modifiers: [.command, .option])
             }
         }
     }
 }
-
-
-

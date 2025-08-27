@@ -186,8 +186,16 @@ struct EventsList: View {
 
 #Preview {
     CarnivalManager.shared.exampleUsage()
-    return ContentView()
-        .environmentObject(CarnivalManager.shared)
-        .frame(width: 1000)
+    struct PreviewWrapper: View {
+        @State var showingInspector = false
+        
+        var body: some View {
+            ContentView(showingInspector: $showingInspector)
+                .environmentObject(CarnivalManager.shared)
+                .frame(width: 1000)
+        }
+        
+    }
+    return PreviewWrapper()
 }
 

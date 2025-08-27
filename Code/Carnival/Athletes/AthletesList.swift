@@ -72,7 +72,7 @@ struct AthletesList: View {
             }
         }
         .toolbar {
-            ToolbarItemGroup(placement: .primaryAction) {
+            ToolbarItemGroup(placement: .secondaryAction) {
                 Spacer()
                 Menu("Export Athletes", systemImage: "square.and.arrow.up") {
                     Button("Import Athletes (.csv)") {
@@ -210,7 +210,16 @@ struct AthletesList: View {
 
 #Preview {
     CarnivalManager.shared.exampleUsage()
-    return ContentView()
-        .environmentObject(CarnivalManager.shared)
-        .frame(width: 850)
+    struct PreviewWrapper: View {
+        @State var showingInspector = false
+        
+        var body: some View {
+            ContentView(showingInspector: $showingInspector)
+                .environmentObject(CarnivalManager.shared)
+                .frame(width: 1000)
+        }
+        
+    }
+    return PreviewWrapper()
 }
+

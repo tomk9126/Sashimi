@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F31187832BFA082B004E3647 /* ExportCSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31187822BFA082B004E3647 /* ExportCSV.swift */; };
+		F31A994C2E5F00590044909B /* InspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31A994B2E5F00590044909B /* InspectorView.swift */; };
 		F31EF2ED2C040A5F00E65830 /* WelcomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EF2EC2C040A5F00E65830 /* WelcomeScreen.swift */; };
 		F33F453E2C0DC2720085ED61 /* ScoreEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453A2C0DC2720085ED61 /* ScoreEvent.swift */; };
 		F33F453F2C0DC2720085ED61 /* AthleteTiming.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33F453B2C0DC2720085ED61 /* AthleteTiming.swift */; };
@@ -47,14 +48,15 @@
 
 /* Begin PBXFileReference section */
 		F31187822BFA082B004E3647 /* ExportCSV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportCSV.swift; sourceTree = "<group>"; };
+		F31A994B2E5F00590044909B /* InspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorView.swift; sourceTree = "<group>"; };
+		F31A994F2E5F03060044909B /* Sashimi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Sashimi.app; path = /Users/tomkeir/Developer/Sashimi/Code/build/Debug/Sashimi.app; sourceTree = "<absolute>"; };
 		F31EF2EC2C040A5F00E65830 /* WelcomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeScreen.swift; sourceTree = "<group>"; };
 		F33F453A2C0DC2720085ED61 /* ScoreEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScoreEvent.swift; path = Scoring/ScoreEvent.swift; sourceTree = SOURCE_ROOT; };
 		F33F453B2C0DC2720085ED61 /* AthleteTiming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AthleteTiming.swift; path = Scoring/AthleteTiming.swift; sourceTree = SOURCE_ROOT; };
 		F33F453C2C0DC2720085ED61 /* Ranks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Ranks.swift; path = Scoring/Ranks.swift; sourceTree = SOURCE_ROOT; };
 		F33F453D2C0DC2720085ED61 /* AthleteSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AthleteSelection.swift; path = Scoring/AthleteSelection.swift; sourceTree = SOURCE_ROOT; };
 		F340DECA2E5AB938001E58A7 /* AppIcon.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = AppIcon.icon; sourceTree = "<group>"; };
-		F34310982B953A010062A6D4 /* Sashimi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sashimi.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F34310A92B953A040062A6D4 /* SashimiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SashimiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F34310A92B953A040062A6D4 /* SashimiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = SashimiTests.xctest; path = /Users/tomkeir/Developer/Sashimi/Code/build/Debug/Sashimi.app/Contents/PlugIns/SashimiTests.xctest; sourceTree = "<absolute>"; };
 		F3900E4A2BABF57100C37122 /* AthletesList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AthletesList.swift; sourceTree = "<group>"; };
 		F3900E4B2BABF57100C37122 /* EditAthlete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditAthlete.swift; sourceTree = "<group>"; };
 		F3900E4C2BABF57100C37122 /* NewAthlete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAthlete.swift; sourceTree = "<group>"; };
@@ -118,19 +120,10 @@
 				F3900E652BABF57100C37122 /* SashimiApp.swift */,
 				F3900E572BABF57100C37122 /* CarnivalModel.swift */,
 				F3900E632BABF57100C37122 /* ContentView.swift */,
+				F31A994B2E5F00590044909B /* InspectorView.swift */,
 				F31EF2EC2C040A5F00E65830 /* WelcomeScreen.swift */,
 				F3900E5A2BABF57100C37122 /* Carnival */,
-				F34310992B953A010062A6D4 /* Products */,
 			);
-			sourceTree = "<group>";
-		};
-		F34310992B953A010062A6D4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F34310982B953A010062A6D4 /* Sashimi.app */,
-				F34310A92B953A040062A6D4 /* SashimiTests.xctest */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		F3900E4E2BABF57100C37122 /* Athletes */ = {
@@ -198,7 +191,7 @@
 			packageProductDependencies = (
 			);
 			productName = "Swim Carnival";
-			productReference = F34310982B953A010062A6D4 /* Sashimi.app */;
+			productReference = F31A994F2E5F03060044909B /* Sashimi.app */;
 			productType = "com.apple.product-type.application";
 		};
 		F34310A82B953A040062A6D4 /* SashimiTests */ = {
@@ -249,7 +242,7 @@
 			mainGroup = F343108F2B953A010062A6D4;
 			packageReferences = (
 			);
-			productRefGroup = F34310992B953A010062A6D4 /* Products */;
+			productRefGroup = F343108F2B953A010062A6D4;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -296,6 +289,7 @@
 				F3900E8A2BAC116D00C37122 /* NoCarnivalSelected.swift in Sources */,
 				F33F453E2C0DC2720085ED61 /* ScoreEvent.swift in Sources */,
 				F33F453F2C0DC2720085ED61 /* AthleteTiming.swift in Sources */,
+				F31A994C2E5F00590044909B /* InspectorView.swift in Sources */,
 				F39AAA8F2BAC15980054C0C2 /* ContentView.swift in Sources */,
 				F33F45412C0DC2720085ED61 /* AthleteSelection.swift in Sources */,
 				F3900E8B2BAC116D00C37122 /* NewCarnival.swift in Sources */,
@@ -481,6 +475,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tomkeir.Sashimi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -517,6 +512,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tomkeir.Sashimi;
 				PRODUCT_NAME = "$(TARGET_NAME)";

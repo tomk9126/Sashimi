@@ -9,7 +9,6 @@ import SwiftUI
 
 struct CarnivalLabelButton: View {
     @State private var showingDeletionAlert = false
-    @State private var document: CarnivalFile?
     @State private var isExporting = false
     @State private var closeAfterSaving = false
     @State private var showingPopover = false
@@ -44,9 +43,7 @@ struct CarnivalLabelButton: View {
                 showingDeletionAlert.toggle()
             }
             Button("Save Carnival", systemImage: "file") {
-                document = CarnivalFile(carnival: carnival)
                 CarnivalManager.shared.saveCarnival(carnival)
-                
             }
         }
         .popover(isPresented: $showingPopover) {
@@ -55,7 +52,6 @@ struct CarnivalLabelButton: View {
         .alert("Unsaved Changes", isPresented: $showingDeletionAlert) {
             Button("Save and Close") {
                 closeAfterSaving = true
-                document = CarnivalFile(carnival: carnival)
                 CarnivalManager.shared.saveCarnival(carnival)
             }
             Button("Close Carnival", role: .destructive) {
